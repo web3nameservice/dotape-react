@@ -42,9 +42,9 @@ const Home = ({ walletConnected, setWalletConnected }) => {
                                 <div className="py-10">
                                     <p className="text-6xl md:text-8xl font-bold">.APE for BAYC</p>
                                     <p className="text-6xl md:text-8xl font-bold pt-2">.APE for MAYC</p>
-                                    <p className="text-6xl md:text-8xl font-bold pt-2">.APE for BAKC</p>
+                                    {/* <p className="text-6xl md:text-8xl font-bold pt-2">.APE for BAKC</p> */}
                                     <p className="text-6xl md:text-8xl font-bold pt-2">.APE for PUNKS</p>
-                                    <p className="text-6xl md:text-8xl font-bold pt-2">.APE for MEEBITS</p>
+                                    {/* <p className="text-6xl md:text-8xl font-bold pt-2">.APE for MEEBITS</p> */}
                                     <p className="text-6xl md:text-8xl font-bold pt-2">.APE for all apes</p>
                                     <p className="text-6xl md:text-8xl font-bold pt-2">.APE for everyone</p>
 
