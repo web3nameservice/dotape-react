@@ -12,8 +12,8 @@ const Header = ({ }) => {
     return (
         <div style={{}} className="flex justify-center py-4">
             <div className="w-full lg:w-[1280px] mx-10">
-                <div className="block md:flex justify-between items-center md:px-0 " style={{ zIndex: 1000000 }}>
-                    <div className="md:flex items-center gap-x-8">
+                <div className="flex justify-between items-center md:px-0 " style={{ zIndex: 1000000 }}>
+                    <div className="flex justify-start items-center gap-x-8">
                         <a href="/" className="flex justify-center md:justify-start items-center gap-x-4">
                             <img src={Logo} className="w-12 h-12 md:w-10 md:h-10" />
                             {/* <p className="text-2xl text-white">.APE</p> */}
@@ -22,10 +22,10 @@ const Header = ({ }) => {
                             {/* <a href={window.location.pathname == "/" ? "#about" : "/#about"} className="flex items-center gap-x-2">
                             <p className="text-lg text-white">About</p>
                         </a> */}
-                            <a href="/about" className="flex items-center gap-x-2">
+                            {/* <a href="/about" className="flex items-center gap-x-2">
                                 <p className="text-lg text-white">About</p>
-                            </a>
-                            <a href="/presale" className="flex items-center gap-x-2">
+                            </a> */}
+                            <a href="/presale" className="flex items-center gap-x-2 hidden md:block">
                                 <p className="text-lg text-white">Presale</p>
                             </a>
                             {/* <a href="/delegates" className="flex items-center gap-x-2">
