@@ -37,7 +37,7 @@ class Hero extends React.Component {
                         <div className="flex flex-col justify-center items-center mt-0 ">
 
                             <div className="w-full lg:w-[1280px] md:px-10 lg:px-0 py-10 pb-20" >
-                                <div className="text text-white text-5xl md:text-9xl font-bold text-center" style={{ fontSize: "900%" }}>
+                                <div className="text text-white text-5xl md:text-9xl font-bold text-center" >
                                     <Scramble />
                                 </div>
                                 {/* <p className="text-white text-8xl font-bold pt-2 text-center">.Ape is your identity</p> */}
