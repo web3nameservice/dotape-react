@@ -28,7 +28,7 @@ class Hero extends React.Component {
     render() {
         return (
             <div className="">
-                <div className="min-w-screen min-h-screen flex flex-col overflow-x-hidden basic" >
+                <div className="min-w-screen min-h-screen flex flex-col overflow-x-hidden" >
                     <div className="flex-none ">
                         <Header />
                     </div>
@@ -36,12 +36,13 @@ class Hero extends React.Component {
 
                         <div className="flex flex-col justify-center items-center mt-0 ">
 
-                            <div className="w-full lg:w-[1280px] md:px-10 lg:px-0 py-10 pb-20" >
+                            <div className="w-full lg:w-[1280px] md:px-10 lg:px-0 py-10 pb-20 " >
                                 <div className="text text-white text-5xl md:text-9xl font-bold text-center" >
                                     <Scramble />
                                 </div>
+
                                 {/* <p className="text-white text-8xl font-bold pt-2 text-center">.Ape is your identity</p> */}
-                                <p className="text-white text-center pt-8 md:pt-16 text-xl text-3xl md:text-4xl">Hey, what's your .ape?</p>
+                                <p className="text-white text-center pt-8 md:pt-16 text-xl text-3xl md:text-4xl ">Hey, what's your .ape?</p>
 
                                 {/* <div className="flex justify-start items-start pt-8">
                                 <div className="bg-main px-4 py-2 w-fit rounded-full flex items-center gap-x-2 z-0">

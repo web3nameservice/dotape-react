@@ -48,7 +48,7 @@ const Presale = ({ walletConnected, setWalletConnected }) => {
     }, [])
 
     return (
-        <div className="bg-black/90 backdrop-blur-3xl min-h-screen flex flex-col justify-between">
+        <div className="bg-black min-h-screen flex flex-col justify-between">
             <div className="">
                 <div>
                     <Header />

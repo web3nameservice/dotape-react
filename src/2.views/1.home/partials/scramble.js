@@ -40,7 +40,7 @@ class Scramble extends React.Component {
                             char = this.randomChar()
                             this.queue[i].char = char
                         }
-                        output += `<span class="dud">${char}</span>`
+                        output += `<span class="dud ">${char}</span>`
                     } else {
                         output += from
                     }

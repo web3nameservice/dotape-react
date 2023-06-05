@@ -26,12 +26,12 @@ const Home = ({ walletConnected, setWalletConnected }) => {
     return (
         <div >
 
-            <div className="sticky top-0 z-0">
+            <div className="">
                 <Hero />
             </div>
             {/* <About />
             <Twitter /> */}
-            <div className="bg-black/80 backdrop-blur-3xl">
+            <div className="bg-black">
                 <div className="w-screen flex items-center justify-center py-10 pt-20  relative  z-10 ">
                     <div>
                         <div className="w-screen flex items-center justify-center ">
