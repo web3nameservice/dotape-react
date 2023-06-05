@@ -1,0 +1,79 @@
+
+.translate-up {
+    animation: translateUpAnimation ease 0.5s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+  }
+  
+  .translate-down {
+    animation: translateDownAnimation ease 0.5s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+  }
+  
+  @keyframes translateUpAnimation {
+    0% {
+        transform: translate(0, 100px);
+    }
+    100% {
+      transform: translate(0, 0%);
+     }
+  }
+  
+  
+  @keyframes translateDownAnimation {
+    0% {
+        transform: translate(0, 0);
+    }
+    100% {
+      transform: translate(0, 100px);
+     }
+  }
+
+
+  .hero-heading {
+    /* font-size: 800% !important; */
+    /* transition: 0.3s !important; */
+    white-space: nowrap;
+    text-align: center;
+    overflow: clip;
+    animation: fadeInAnimation ease 2s;
+      animation-iteration-count: 1;
+      animation-fill-mode: forwards;
+  }
+  
+  @media only screen and (max-width: 1024px) {
+    .hero-heading {
+      white-space: normal;
+      line-height: 1;
+      text-align: left;
+      animation: fadeInAnimationMobile ease 2s;
+      animation-iteration-count: 1;
+      animation-fill-mode: forwards;
+
+    }
+  
+  }
+  
+  
+  @keyframes fadeInAnimation {
+    0% {
+        font-size: 1200%;
+    }
+    100% {
+        font-size: 600%;
+
+     }
+     
+  }
+
+  @keyframes fadeInAnimationMobile {
+    0% {
+        font-size: 2400%;
+    }
+    100% {
+        font-size: 600%;
+        
+     }
+     
+  }

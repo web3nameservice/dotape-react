@@ -1,0 +1,26 @@
+.tabs {
+    font-size: 90%;
+    border-radius: 6px;
+    padding: 10px;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.tabsSelected {
+    background-color: #F3F4F6 !important;
+    color: black !important;
+}
+
+.tabsUnselected {
+    background-color: transparent !important;
+    color: black !important;
+}
+
+.tabsSelected:hover {
+    background-color: #F3F4F6 !important;
+}
+
+.tabsUnselected:hover {
+    border: 2px solid #F3F4F6 !important;
+}
