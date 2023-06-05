@@ -11,7 +11,7 @@ const Header = ({ }) => {
     }, [])
     return (
         <div style={{}} className="flex justify-center py-4">
-            <div className="w-full lg:w-[1280px] mx-10">
+            <div className="w-full lg:w-[1280px] px-5 md:px-10 lg:px-28 2xl:px-0">
                 <div className="flex justify-between items-center md:px-0 " style={{ zIndex: 1000000 }}>
                     <div className="flex justify-start items-center gap-x-8">
                         <a href="/" className="flex justify-center md:justify-start items-center gap-x-4">

@@ -55,7 +55,7 @@ const Presale = ({ walletConnected, setWalletConnected }) => {
                 </div>
                 <div id="about" className="min-w-screen flex justify-center items-start pb-20 pt-10 ">
 
-                    <div className="w-full lg:w-[1280px] px-10 lg:px-0 lg:rounded-xl text-white">
+                    <div className="w-full lg:w-[1280px] px-5 md:px-10 lg:px-28 2xl:px-0 lg:rounded-xl text-white">
                         <p className="text-3xl font-bold">PRESALE</p>
                         <p className="pt-4 text-lg text-main font-bold">The .APE presale is open for everyone to participate in.</p>
                         <p className="text-lg pt-4">A presale will be held for everyone before launch which gives participants a unique chance to register .APE domains before they become available to the public. Anyone can participate in the presale and put in ETH to secure their position. </p>

@@ -7,7 +7,7 @@ const Footer = () => {
 
     return (
         <div className='flex justify-center items-center pb-2 pt-6 '>
-            <div className='w-full lg:w-[1280px] mx-10  lg:px-28' style={{ zIndex: 1000000 }}>
+            <div className='w-full lg:w-[1280px] mx-10  lg:px-28 2xl:px-0' style={{ zIndex: 1000000 }}>
 
                 <div className='md:flex justify-between items-center md:items-start'>
                     <div className='hidden md:block flex-col items-center md:items-start '>
@@ -19,9 +19,9 @@ const Footer = () => {
 
                     </div>
 
-                    <div className='text-center md:text-right mt-8 md:mt-0'>
+                    <div className='text-center md:text-right mt-2 md:mt-0'>
                         <Links />
-                        <p className='text-white text-sm mt-4' >Email: contact@dotape.io</p>
+                        <p className='text-white text-sm mt-6 md:mt-4' >Email: contact@dotape.io</p>
 
                     </div>
                 </div>

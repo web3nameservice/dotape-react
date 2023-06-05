@@ -13,7 +13,7 @@ class Main extends React.Component {
 
   render() {
     return (
-      <div style={{}} className="min-h-screen bg-black text-white" style={{ backgroundImage: `url(${BgImg})`, backgroundPosition: "center center", backgroundSize: "cover", backgroundAttachment: "fixed" }}>
+      <div style={{}} className="min-h-screen w-screen bg-black text-white" style={{}}>
         {/* <div className="flex justify-center items-start">
           <video autoPlay muted loop id="myVideo" className="fixed z-0 h-screen">
             <source src={BgVid} type="video/mp4" className="" />

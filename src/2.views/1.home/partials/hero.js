@@ -3,14 +3,28 @@ import BgImage from "../../../1.resources/3.files/images/4.png";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Header from "../../0.global/header/header";
-import Img1 from "../../../1.resources/3.files/images/1.png";
-import Img2 from "../../../1.resources/3.files/images/2.png";
-import Img3 from "../../../1.resources/3.files/images/3.png";
-import Img4 from "../../../1.resources/3.files/images/4.png";
-import Img5 from "../../../1.resources/3.files/images/5.png";
-import Img6 from "../../../1.resources/3.files/images/6.png";
-import Img7 from "../../../1.resources/3.files/images/7.png";
-import BgImg from "../../../1.resources/3.files/images/bg.gif";
+import Img0 from "../../../1.resources/3.files/images/nft/0.png";
+import Img1 from "../../../1.resources/3.files/images/nft/1.png";
+import Img2 from "../../../1.resources/3.files/images/nft/2.png";
+import Img3 from "../../../1.resources/3.files/images/nft/3.png";
+import Img4 from "../../../1.resources/3.files/images/nft/4.png";
+import Img5 from "../../../1.resources/3.files/images/nft/5.png";
+import Img6 from "../../../1.resources/3.files/images/nft/6.png";
+import Img7 from "../../../1.resources/3.files/images/nft/7.png";
+import Img8 from "../../../1.resources/3.files/images/nft/8.png";
+import Img9 from "../../../1.resources/3.files/images/nft/9.png";
+import Img10 from "../../../1.resources/3.files/images/nft/10.png";
+import Img11 from "../../../1.resources/3.files/images/nft/11.png";
+import Img12 from "../../../1.resources/3.files/images/nft/12.png";
+import Img13 from "../../../1.resources/3.files/images/nft/13.png";
+import Img14 from "../../../1.resources/3.files/images/nft/14.png";
+import Img15 from "../../../1.resources/3.files/images/nft/15.png";
+import Img16 from "../../../1.resources/3.files/images/nft/16.png";
+import Img17 from "../../../1.resources/3.files/images/nft/17.png";
+import Img18 from "../../../1.resources/3.files/images/nft/18.png";
+import Img19 from "../../../1.resources/3.files/images/nft/19.png";
+import Img20 from "../../../1.resources/3.files/images/nft/20.png";
+import BgImg from "../../../1.resources/3.files/images/stars7.webp";
 
 import Ticker from "react-ticker";
 import { useEffect } from "react";
@@ -27,8 +41,8 @@ class Hero extends React.Component {
 
     render() {
         return (
-            <div className="">
-                <div className="min-w-screen min-h-screen flex flex-col overflow-x-hidden" >
+            <div className="" >
+                <div className="w-screen h-screen flex flex-col overflow-x-hidden" style={{ backgroundImage: `url(${BgImg})`, backgroundPosition: "center center", backgroundSize: "cover" }}>
                     <div className="flex-none ">
                         <Header />
                     </div>
@@ -78,6 +92,7 @@ export default Hero;
 
 export const ImageBanner = ({ }) => {
     let carouselItems = [
+        { "index": "0", "image": Img0 },
         { "index": "1", "image": Img1 },
         { "index": "2", "image": Img2 },
         { "index": "3", "image": Img3 },
@@ -85,6 +100,19 @@ export const ImageBanner = ({ }) => {
         { "index": "5", "image": Img5 },
         { "index": "6", "image": Img6 },
         { "index": "7", "image": Img7 },
+        { "index": "8", "image": Img8 },
+        { "index": "9", "image": Img9 },
+        { "index": "10", "image": Img10 },
+        { "index": "11", "image": Img11 },
+        { "index": "12", "image": Img12 },
+        { "index": "13", "image": Img13 },
+        { "index": "14", "image": Img14 },
+        { "index": "15", "image": Img15 },
+        { "index": "16", "image": Img16 },
+        { "index": "17", "image": Img17 },
+        { "index": "18", "image": Img18 },
+        { "index": "19", "image": Img19 },
+        { "index": "20", "image": Img20 }
     ]
 
     const phrases = [
@@ -114,14 +142,15 @@ export const ImageBanner = ({ }) => {
         'mia.ape'
     ]
 
-    const [array, setArray] = useState(phrases)
+    const [array, setArray] = useState(carouselItems)
     const [refresh, setRefresh] = useState(0)
 
 
     useEffect(() => {
-        setArray(phrases);
+        setArray(carouselItems);
         setRefresh(refresh + 1)
         //random array of 4
+
     }, [])
 
     return (
@@ -134,30 +163,6 @@ export const ImageBanner = ({ }) => {
                                 <GetMapping array={array} />
 
                             </div>
-                            {/* <div className="flex mt-10">
-                                <GetMapping2 array={array} />
-                            </div> */}
-                            {/* <div className="flex mt-10 ml-40">
-                                <GetMapping array={array} />
-
-                            </div> */}
-                            {/* <div className="flex mt-10">
-                                <GetMapping2 array={array} />
-                            </div>
-                            <div className="flex mt-10">
-                                <GetMapping2 array={array} />
-                            </div>
-                            <div className="flex mt-10">
-                                <GetMapping2 array={array} />
-                            </div> */}
-                            {/* <div className="flex mt-10">
-                                <GetMapping array={array} />
-
-                            </div>
-                            <div className="flex mt-10 ml-40">
-                                <GetMapping array={array} />
-
-                            </div> */}
                         </div>
                     )}
                 </Ticker>
@@ -171,9 +176,11 @@ export const ImageBanner = ({ }) => {
 const GetMapping = ({ array }) => {
     console.log(array)
 
+
+
     const mapping = array.map((item, index) =>
         <div key={index} className="w-80 h-80 mx-6">
-            <img src={process.env.REACT_APP_API_URL + "/metadata/generateimage=" + item} className='w-80 h-80' style={{ borderRadius: "10px" }} />
+            <img src={item.image} className='w-80 h-80' style={{ borderRadius: "10px" }} />
         </div >
     );
     return mapping;

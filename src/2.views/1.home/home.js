@@ -35,7 +35,7 @@ const Home = ({ walletConnected, setWalletConnected }) => {
                 <div className="w-screen flex items-center justify-center py-10 pt-20  relative  z-10 ">
                     <div>
                         <div className="w-screen flex items-center justify-center ">
-                            <div className="w-full lg:w-[1280px] text-white lg:rounded-xl px-5 md:px-10 lg:px-20">
+                            <div className="w-full lg:w-[1280px] text-white lg:rounded-xl px-5 md:px-10 lg:px-28 2xl:px-0">
                                 <div className="py-10">
                                     <p className="text-7xl md:text-8xl lg:text-9xl font-bold" style={{ lineHeight: window.innerWidth < 786 ? "100px" : "160px" }}>Welcome to .APE Domains</p>
                                     <p className="text-4xl pt-16">A digital frontier specifically designed for the innovative, exclusive, and groundbreaking community of all degens ape members and supporters.</p>
@@ -48,7 +48,7 @@ const Home = ({ walletConnected, setWalletConnected }) => {
                         </div>
                         <div className="w-screen flex items-center justify-center ">
 
-                            <div className="w-full lg:w-[1280px] text-white lg:rounded-xl px-5 md:px-10 lg:px-28">
+                            <div className="w-full lg:w-[1280px] text-white lg:rounded-xl px-5 md:px-10 lg:px-28 2xl:px-0">
                                 <div className="py-10">
                                     {/* <p className="text-6xl md:text-8xl font-bold">.APE for BAYC</p> */}
                                     {/* <p className="text-6xl md:text-8xl font-bold pt-2">.APE for MAYC</p> */}
@@ -211,9 +211,9 @@ export default Home;
 const Points = ({ text, linkText, link }) => {
 
     return (
-        <div className="flex mt-2">
+        <div className="flex mt-2 justify-start gap-x-3 items-center">
             <div>
-                <FontAwesomeIcon icon={['fas', 'circle']} style={{ width: "30%" }} />
+                <FontAwesomeIcon icon={['fas', 'fa-circle']} className="" size="2xs" />
             </div>
             <div className="flex items-center gap-x-2">
                 <p className="text-lg">{text}</p>
