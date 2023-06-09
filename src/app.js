@@ -1,4 +1,4 @@
-import "./polyfills.ts";
+import "./polyfills.js";
 import React, { useState, useEffect, useContext } from "react";
 import "./1.resources/2.js/0.global/0.smallfunctions/imports_css";
 import Main from "./main";
