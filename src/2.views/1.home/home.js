@@ -130,6 +130,17 @@ const Home = ({ walletConnected, setWalletConnected }) => {
                                         <div className="pt-4">
                                             <p className="text-lg pt-0">This presale gives participants a unique chance to register .APE domains before they become available to the public. Anyone can participate in the presale and put in ETH to secure their position. </p>
                                             <p className="text-lg pt-4">The participants will receive credits equivalent to the amount of ETH that they put in during the presale and these credits can be used to purchase .APE domains during the claim period. This pre-sale will take place right here on our website, ensuring a seamless, secure, and user-friendly experience. After the presale claim period is over, the registration for the public will start. </p>
+
+                                            <p className="text-2xl pt-12 font-bold">How to participate in presale?</p>
+                                            <p className="text-lg pt-4">You can participate in the presale in two ways:</p>
+                                            <div className="block md:flex items-center gap-x-2 pt-4">
+                                                <p className="text-lg">1. You can purchase credits on our website.  </p>
+                                                <div className="bg-main rounded-full px-4 py-2 flex items-center gap-x-2 w-fit mt-2 md:mt-0">
+                                                    <a href="/presale" className="text-white">Participate</a>
+                                                    <FontAwesomeIcon icon={['fas', 'chevron-right']} className="text-md text-white" />
+                                                </div>
+                                            </div>
+                                            <p className="text-lg pt-4 break-words">2. You can send ETH or Apecoin directly to the presale address - dotapelabs.eth (0xaC8A1B5F9a3dc19C4Ef46ECA61E5FA58507b42d1)</p>
                                         </div>
                                     </div>
 

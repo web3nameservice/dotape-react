@@ -63,10 +63,21 @@ const Presale = ({ walletConnected, setWalletConnected }) => {
                             {address == null ? (
                                 <div>
                                     <p className="text-2xl font-bold">Presale</p>
-                                    <p className="text-md mt-4">Connect your wallet to participate in the presale.</p>
+                                    <div className="pt-8">
+                                        <p className="text-sm">Before you participate, please keep in mind:</p>
+                                        <div className="pt-4">
+                                            <Points text="You can participate using ETH or Apecoin." />
+                                            <Points text="You can buy credits for any amount above 0.01 ETH or equivalent in Apecoin." />
+                                            <Points text="After the presale ends, you will be able to register any number of domains equivalent to the amount of tokens you put in presale." />
+                                            <Points text="You can buy credits as many times as you want." />
+                                        </div>
+                                    </div>
+                                    <p className="text-sm mt-4 text-amber-400">Connect your wallet to participate in the presale.</p>
                                     <div className="mt-8">
                                         <ConnectWallet />
                                     </div>
+                                    <p className="text-sm pt-8 text-gray-400 break-words">Alternatively, you can also send ETH or Apecoin directly to dotapelabs.eth (0xaC8A1B5F9a3dc19C4Ef46ECA61E5FA58507b42d1)</p>
+
                                 </div>
                             ) : (
                                 <div>
@@ -99,6 +110,7 @@ const Presale = ({ walletConnected, setWalletConnected }) => {
                                             <FontAwesomeIcon icon={['fas', 'arrow-right']} className="text-xs text-white" />
                                         </div>
                                     </div>
+
                                 </div>
                             )}
                             {/* {Date.now() < endTime * 1000 ? (
@@ -113,7 +125,6 @@ const Presale = ({ walletConnected, setWalletConnected }) => {
                         {/* <p className="pt-8 text-lg text-white font-bold">What is the .APE presale?</p> */}
                         <p className="text-lg pt-8">This presale gives participants a unique chance to register .APE domains before they become available to the public. Anyone can participate in the presale and put in ETH to secure their position. </p>
                         <p className="text-lg pt-4">The participants will receive credits equivalent to the amount of ETH that they put in during the presale and these credits can be used to purchase .APE domains during the claim period. </p>
-
 
                     </div>
 
