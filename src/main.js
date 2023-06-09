@@ -27,7 +27,7 @@ class Main extends React.Component {
             {window.location.pathname == "/" ? <Home /> : null}
             {window.location.pathname == "/presale" ? <Presale /> : null}
             {window.location.pathname == "/sample" ? <Sample /> : null}
-            {window.location.pathname == "/generator" ? <Generator /> : null}
+            {window.location.pathname == "/avatars" ? <Generator /> : null}
 
           </div>
         </div>

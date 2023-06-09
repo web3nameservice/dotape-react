@@ -31,7 +31,7 @@ const Generator = ({ walletConnected, setWalletConnected }) => {
     const [refresh, setRefresh] = useState(0);
 
     useEffect(() => {
-        document.title = "Generator - DOT APE";
+        document.title = "Avatars - DOT APE";
     }, [])
 
     function changeTokenId(e) {
@@ -98,7 +98,7 @@ const Generator = ({ walletConnected, setWalletConnected }) => {
                         </div> */}
 
                         <div className="pt-0">
-                            <p className="text-6xl font-bold text-center">.APE GENERATOR</p>
+                            <p className="text-6xl font-bold text-center">.APE AVATARS</p>
                             <p className="text-2xl text-center pt-4">Generate your own .ape avatar for Twitter</p>
                         </div>
 

@@ -29,8 +29,8 @@ const Header = ({ }) => {
                             <a href="/presale" className="flex items-center gap-x-2 hidden md:block">
                                 <p className="text-lg text-white">Presale</p>
                             </a>
-                            <a href="/generator" className="flex items-center gap-x-2">
-                                <p className="text-lg text-white">Generator</p>
+                            <a href="/avatars" className="flex items-center gap-x-2">
+                                <p className="text-lg text-white">Avatars</p>
                             </a>
                         </div>
                     </div>
