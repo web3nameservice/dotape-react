@@ -7,6 +7,7 @@ import BgVid from "./1.resources/3.files/images/bg0.mp4";
 import Presale from "./2.views/2.presale/presale";
 import Links from "./2.views/5.links/links";
 import Sample from "./2.views/sample";
+import Generator from "./2.views/3.generator/generator";
 
 class Main extends React.Component {
 
@@ -26,6 +27,7 @@ class Main extends React.Component {
             {window.location.pathname == "/" ? <Home /> : null}
             {window.location.pathname == "/presale" ? <Presale /> : null}
             {window.location.pathname == "/sample" ? <Sample /> : null}
+            {window.location.pathname == "/generator" ? <Generator /> : null}
 
           </div>
         </div>

@@ -44,7 +44,7 @@ const Presale = ({ walletConnected, setWalletConnected }) => {
     }, [address, presaleActive])
 
     useEffect(() => {
-        document.title = "Presale - $WEWE";
+        document.title = "Presale - DOT APE";
     }, [])
 
     return (

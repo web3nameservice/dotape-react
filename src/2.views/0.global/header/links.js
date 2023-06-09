@@ -11,13 +11,13 @@ import Cmc from "../../../1.resources/3.files/images/cmc.png";
 import Opensea from "../../../1.resources/3.files/images/opensea.png";
 
 export const LinksJSON = {
-    twitter: "https://twitter.com/WEWEmemecoin",
-    telegram: "https://t.me/WEWEmemecoin",
+    twitter: "https://twitter.com/DotApeLabs",
+    telegram: "https://t.me/",
     discord: "https://discord.gg/Kedp5xQxDN",
-    etherscan: "https://etherscan.io/token/0x1e917e764BC34d3BC313fe8159a6bD9d9FFD450d",
-    cmc: "https://coinmarketcap.com/currencies/wewe/",
-    uniswap: "https://app.uniswap.org/#/tokens/ethereum/0x1e917e764bc34d3bc313fe8159a6bd9d9ffd450d",
-    opensea: "https://opensea.io/collection/wewe-meme-coin"
+    etherscan: "https://etherscan.io/address/0x3679f68709dda61c8cbd5fef301c7c92b90c423d",
+    cmc: "",
+    uniswap: "",
+    opensea: "https://opensea.io/collection/dot-ape-domains"
 }
 
 const Links = ({ }) => {
