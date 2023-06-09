@@ -12,35 +12,34 @@ import { calculateZeroes } from "../../1.resources/2.js/0.global/0.smallfunction
 import { getCloudProvider } from "../../1.resources/2.js/0.global/2.contracts/cloudProvider";
 import { timeToString } from "../../1.resources/2.js/0.global/0.smallfunctions/time";
 import Header from "../0.global/header/header";
+import Invest from "./partials/invest";
 
 const Presale = ({ walletConnected, setWalletConnected }) => {
     let { address } = useAccount();
     const [domain, setDomain] = useState("");
     const [investModalOpen, setInvestModalOpen] = useState(false);
     const [investedAmount, setInvestedAmount] = useState(0);
-    const [presaleActive, setPresaleActive] = useState(true);
-    const [presaleStarted, setPresaleStarted] = useState(false);
 
-    // async function init() {
-    //     let result = await getDomain(address);
-    //     console.log(result);
-    //     if (result != "null") {
-    //         setDomain(result);
-    //     }
-    // }
+    async function init() {
+        let result = await getDomain(address);
+        console.log(result);
+        if (result != "null") {
+            setDomain(result);
+        }
+    }
 
-    // async function checkInvestment() {
-    //     let amount = await callW3Api("/presale/credits/get", { address: address });
-    //     console.log(amount);
-    //     setInvestedAmount(parseFloat(amount.toString()));
-    // }
+    async function checkInvestment() {
+        let amount = await callW3Api("/presale/credits/get", { address: address });
+        console.log(amount);
+        setInvestedAmount(parseFloat(amount.toString()));
+    }
 
-    // useEffect(() => {
-    //     if (address != null && address != "" && address != undefined && presaleActive) {
-    //         init();
-    //         checkInvestment();
-    //     }
-    // }, [address, presaleActive])
+    useEffect(() => {
+        if (address != null && address != "" && address != undefined) {
+            init();
+            checkInvestment();
+        }
+    }, [address])
 
     useEffect(() => {
         document.title = "Presale - DOT APE";
@@ -63,97 +62,61 @@ const Presale = ({ walletConnected, setWalletConnected }) => {
 
                         <div className="mt-8 bg-white/10 px-10 py-10 rounded-xl border-2 border-white/10">
 
-                            {/* {presaleStarted ? (
-                                presaleActive ? (
-                                    address == null ? (
-                                        <div>
-                                            <p className="text-lg">Connect your wallet to participate in the presale.</p>
-                                            <div className="mt-4">
-                                                <ConnectWallet />
-                                            </div>
-                                        </div>
-                                    ) : (
-                                        <div>
-                                            <div className="block md:flex justify-between items-center border-b-2 border-white/10 pb-6">
-                                                <div>
-                                                    <p className="text-2xl font-semibold">Welcome {address != null ? domain == "" ? shortenaddress(address) : domain : ""}!</p>
-                                                    <p className="text-gray-400 text-sm pt-1">Use this portal to participate in .APE presale</p>
-                                                </div>
-                                                <div className="mt-4 md:mt-0">
-                                                    <ConnectWallet />
-                                                </div>
-                                            </div>
-
-                                            <div className="pt-8">
-                                                <p className="text-md text-main font-bold">Your current credits: {investedAmount > 0 ? calculateZeroes(investedAmount / 1e18) : "0.00"} ETH</p>
-                                            </div>
-                                            <div className="pt-8">
-                                                <p className="text-sm">Before you participate, please keep in mind:</p>
-                                                <div className="pt-4">
-                                                    <Points text="You can buy credits for any amount above 0.01 ETH." />
-                                                    <Points text="After the presale ends, presale participants will be able to register any number of domains equivalent to the amount of ETH they put in presale." />
-                                                    <Points text="This allows presale participants to benefit from the early contribution and support of the .APE domains." />
-                                                </div>
-                                            </div>
-
-                                            <div className="pt-8">
-                                                <div className="bg-main px-4 py-2 rounded-full w-fit flex items-center gap-x-2" onClick={() => setInvestModalOpen(true)}>
-                                                    <p className="text-white">{investedAmount > 0 ? "Buy credits" : "Buy credits"}</p>
-                                                    <FontAwesomeIcon icon={['fas', 'arrow-right']} className="text-sm text-white" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    )
-                                ) : (
-                                    <div>
-                                        <p className="text-lg">The presale has ended.</p>
+                            {address == null ? (
+                                <div>
+                                    <p className="text-2xl font-bold">Presale</p>
+                                    <p className="text-md mt-4">Connect your wallet to participate in the presale.</p>
+                                    <div className="mt-8">
+                                        <ConnectWallet />
                                     </div>
-                                )
+                                </div>
                             ) : (
                                 <div>
-                                    <p className="text-lg">The presale has not started yet.</p>
+                                    <div className="block md:flex justify-between items-center border-b-2 border-white/10 pb-6">
+                                        <div>
+                                            <p className="text-2xl font-semibold">Welcome {address != null ? domain == "" ? shortenaddress(address) : domain : ""}!</p>
+                                            <p className="text-gray-400 text-sm pt-1">Use this portal to participate in .APE presale</p>
+                                        </div>
+                                        <div className="mt-4 md:mt-0">
+                                            <ConnectWallet />
+                                        </div>
+                                    </div>
+
+                                    <div className="pt-8">
+                                        <p className="text-md text-main font-bold">Your current credits: {investedAmount > 0 ? calculateZeroes(investedAmount / 1e18) : "0.00"} ETH</p>
+                                    </div>
+                                    <div className="pt-8">
+                                        <p className="text-sm">Before you participate, please keep in mind:</p>
+                                        <div className="pt-4">
+                                            <Points text="You can participate using ETH or Apecoin." />
+                                            <Points text="You can buy credits for any amount above 0.01 ETH or equivalent in Apecoin." />
+                                            <Points text="After the presale ends, you will be able to register any number of domains equivalent to the amount of tokens you put in presale." />
+                                            <Points text="You can buy credits as many times as you want." />
+                                        </div>
+                                    </div>
+
+                                    <div className="pt-8">
+                                        <div className="bg-main px-4 py-2 rounded-full w-fit flex items-center gap-x-2" onClick={() => setInvestModalOpen(true)}>
+                                            <p className="text-white text-sm">{investedAmount > 0 ? "Buy credits" : "Buy credits"}</p>
+                                            <FontAwesomeIcon icon={['fas', 'arrow-right']} className="text-xs text-white" />
+                                        </div>
+                                    </div>
                                 </div>
-                            )
-                            } */}
+                            )}
                             {/* {Date.now() < endTime * 1000 ? (
                         <p className="text-main font-bold pt-8">Presale ends in : <span>{timeToString(endTime * 1000)}</span></p>
                     ) : (
                         <p className="text-main font-bold pt-8">Presale concluded</p>
                     )} */}
-                            <div>
+                            {/* <div>
                                 <p className="text-lg">The presale has not started yet.</p>
-                            </div>
+                            </div> */}
                         </div>
 
-                        {/* <div className="mt-8">
-                    <p className="text-2xl font-bold">Stats</p>
-                    <div className="pt-4">
-
-                        <div className="flex justify-between items-center">
-                            <p className="text-lg font-bold">{"Total ETH contributed"}</p>
-                            {poolLoaded ? (
-                                <p className="text-lg font-bold">{"101.76" + " ETH"}</p>
-
-                            ) : (
-                                <FontAwesomeIcon icon={['fas', 'fa-circle-notch']} className="text-main animate-spin" />
-                            )}
-                        </div>
-                        <div className="mt-2">
-                            <div className="flex justify-between items-center mt-1">
-                                <p className="text-md">{"Status"}</p>
-                                <p className="text-md text-main font-bold">{presaleActiveLoaded ? presaleActive ? "LIVE" : "ENDED" : "LOADING..."}</p>
-                            </div>
-                            <Stats text="Total supply" value={"420,690,000,000"} />
-                            <Stats text="Presale allocation" value={"40%"} />
-                            <Stats text="Soft Cap" value={"25 ETH"} />
-                            <Stats text="Hard Cap" value={"100 ETH"} />
-                        </div>
 
                     </div>
-                </div> */}
-                    </div>
 
-                    {/* <Invest modalOpen={investModalOpen} setModalOpen={setInvestModalOpen} /> */}
+                    <Invest modalOpen={investModalOpen} setModalOpen={setInvestModalOpen} />
                 </div>
 
             </div >

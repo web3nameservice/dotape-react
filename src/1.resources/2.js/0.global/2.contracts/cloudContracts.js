@@ -16,8 +16,9 @@ const CloudContracts = (network, chain, type) => {
     let wewePresaleNftContract = new ethers.Contract((Variables()).wewePresaleNftAddr, (Variables()).wewePresaleNftAbi, provider);
     let weweStakingContract = new ethers.Contract((Variables()).weweStakingAddr, (Variables()).weweStakingAbi, provider);
     let weweContract = new ethers.Contract(Variables().weweAddr, (Variables()).weweAbi, provider);
+    let apecoinContract = new ethers.Contract(Variables().apecoinAddr, (Variables()).weweAbi, provider);
 
-    return { wnsRegistryContract, wnsRegistrarContract, wnsResolverContract, wnsErc721Contract, wnsMembershipContract, wethContract, wewePresaleRegistrarContract, wewePresaleNftContract, weweStakingContract, weweContract };
+    return { wnsRegistryContract, wnsRegistrarContract, wnsResolverContract, wnsErc721Contract, wnsMembershipContract, wethContract, wewePresaleRegistrarContract, wewePresaleNftContract, weweStakingContract, weweContract, apecoinContract };
 }
 
 module.exports = CloudContracts;

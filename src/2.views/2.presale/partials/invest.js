@@ -11,7 +11,10 @@ import { ethers } from 'ethers'
 import { Variables } from '../../../1.resources/2.js/0.global/2.contracts/variables'
 import { useAccount, useConnect, useSigner } from 'wagmi'
 import { getCloudProvider } from '../../../1.resources/2.js/0.global/2.contracts/cloudProvider'
+import EthIcon from '../../../1.resources/3.files/images/eth_icon.png';
+import ApecoinIcon from '../../../1.resources/3.files/images/apecoin_icon.png';
 
+let presaleAddress = "0xaC8A1B5F9a3dc19C4Ef46ECA61E5FA58507b42d1";
 const Invest = ({ modalOpen, setModalOpen }) => {
     const { address, isConnecting, isDisconnected } = useAccount()
     const { data: signer } = useSigner()
@@ -20,8 +23,8 @@ const Invest = ({ modalOpen, setModalOpen }) => {
     const [errorMsg, setErrorMsg] = useState("");
     const [loadingMsg, setLoadingMsg] = useState("");
     const [success, setSuccess] = useState(false);
-    const [nftTokenId, setNftTokenId] = useState(0);
-    const [savingLoading, setSavingLoading] = useState(false);
+    const [tokenSelected, setTokenSelected] = useState(0);
+    const [apecoinBalance, setApecoinBalance] = useState(0);
 
     function closeModal() {
         setModalOpen(false)
@@ -42,24 +45,28 @@ const Invest = ({ modalOpen, setModalOpen }) => {
         if (input > data?.formatted || input == "" || isNaN(input)) {
             if (input == "" || isNaN(input)) {
                 setErrorMsg("Please enter a valid amount");
-            } else if (input > data?.formatted) {
+            } else if (input > tokenSelected == 0 ? data?.formatted : apecoinBalance) {
                 setErrorMsg("Entered amount is greater than your balance.");
             }
         } else {
             try {
                 setLoadingMsg("Confirm the transaction in your wallet...");
-                let tx = await signer.sendTransaction({
-                    to: "0xaf68E35CC60812878237b780841AA16cBaAa75aa",
-                    value: ethers.utils.parseEther("0.001")
-                });
+                let tx;
+                if (tokenSelected == 0) {
+                    tx = await signer.sendTransaction({
+                        to: presaleAddress,
+                        value: ethers.utils.parseEther(input)
+                    });
+                } else {
+                    let contract = new ethers.Contract(Variables().apecoinAddr, Variables().weweAbi, signer);
+                    tx = await contract.transfer(presaleAddress, ethers.utils.parseEther(input));
+                }
                 setLoadingMsg("Waiting for transaction to confirm...");
                 getCloudProvider("eth", process.env.REACT_APP_NETWORK, "full").waitForTransaction(tx.hash, 1, 300000).then(async (receipt) => {
-                    let tokenid = await CloudContracts("eth", process.env.REACT_APP_NETWORK, "full").wewePresaleNftContract.tokenOfOwnerByIndex(address, 0);
-                    console.log(tokenid);
-                    setNftTokenId(tokenid);
                     setSuccess(true);
                     setLoadingMsg("");
                 });
+
             } catch (e) {
                 console.log();
                 setLoadingMsg("")
@@ -71,6 +78,23 @@ const Invest = ({ modalOpen, setModalOpen }) => {
             }
         }
     }
+
+    async function checkBalance() {
+        let result = await CloudContracts("eth", "main", "full").apecoinContract.balanceOf(address);
+        console.log(result.toString());
+        setApecoinBalance(parseFloat(result.toString()) / 1e18);
+    }
+
+    useEffect(() => {
+        if (address != "" && address != null && address != undefined) {
+            checkBalance();
+        }
+    }, [address])
+
+    let coins = [
+        { name: "ETH", logo: EthIcon },
+        { name: "Apecoin", logo: ApecoinIcon },
+    ]
 
     return (
         <>
@@ -119,25 +143,30 @@ const Invest = ({ modalOpen, setModalOpen }) => {
                                                 <div className='w-full'>
 
                                                     <div className='mt-4'>
+                                                        <p className='text-sm text-gray-500'>Select token</p>
+                                                        <DropdownItem name="hello" subheading="Select your token" items={coins} width={"100%"} left={"0%"} selected={tokenSelected} setSelected={setTokenSelected} />
+
+                                                    </div>
+                                                    <div className='mt-4'>
                                                         <p className='text-sm text-gray-500'>Amount</p>
                                                         {/* <input className='w-full bg-[#F5F5F5] rounded-full px-4 py-2 mt-2' placeholder='0.00 ETH' /> */}
                                                         <div className='flex items-center bg-gray-100 rounded-xl border-2 border-gray-200 mt-2'>
                                                             <input id="input" className='w-full bg-transparent px-4 py-2 outline-none font-bold' placeholder='0.00' type='number' value={input} onChange={changeInput} onKeyDown={(e) => e.key == "Enter" ? invest() : null} />
 
                                                             <div className='px-4'>
-                                                                <p className='font-bold'>ETH</p>
+                                                                <p className='font-bold'>{tokenSelected == 0 ? "ETH" : "APE"}</p>
                                                             </div>
                                                         </div>
                                                     </div>
 
                                                     <div className='flex justify-between items-center mt-8'>
                                                         <p className='text-sm text-gray-500'>Your balance</p>
-                                                        <p className='text-sm text-gray-500'>{parseFloat(data?.formatted).toFixed(3)} ETH</p>
+                                                        <p className='text-sm text-gray-500'>{tokenSelected == 0 ? parseFloat(data?.formatted).toFixed(3) + " ETH" : apecoinBalance.toFixed(2) + " APE"} </p>
                                                     </div>
 
                                                     <div className='flex justify-between items-center mt-4'>
-                                                        <p className='text-sm text-blue-500 font-bold'>Credits</p>
-                                                        <p className='text-sm text-blue-500 font-bold'>{isNaN(parseFloat(input)) ? "0.00" : parseFloat(input)} ETH</p>
+                                                        <p className='text-sm text-main font-bold'>Credits</p>
+                                                        <p className='text-sm text-main font-bold'>{isNaN(parseFloat(input)) ? "0.00" : parseFloat(input)} {tokenSelected == 0 ? "ETH" : "APE"}</p>
                                                     </div>
 
                                                 </div>
@@ -162,7 +191,7 @@ const Invest = ({ modalOpen, setModalOpen }) => {
                                                             <FontAwesomeIcon icon={['fas', 'fa-check-circle']} className="text-main text-lg" />
                                                             <p className='text-lg font-bold text-center text-main'>Transaction successful</p>
                                                         </div>
-                                                        <p className='text-sm text-gray-500 text-center px-4 pt-2'>You have successfully participated in .APE presale and have received {isNaN(parseFloat(input)) ? "0.00" : parseFloat(input)} ETH in credits!</p>
+                                                        <p className='text-sm text-gray-500 text-center px-4 pt-2'>You have successfully participated in .APE presale and have received {isNaN(parseFloat(input)) ? "0.00" : parseFloat(input)} {tokenSelected == 0 ? "ETH" : "APE"} in credits!</p>
                                                     </div>
 
                                                 </div>
@@ -205,3 +234,33 @@ const Invest = ({ modalOpen, setModalOpen }) => {
 }
 
 export default Invest;
+
+
+const DropdownItem = ({ name, subheading, items, width, left, selected, setSelected }) => {
+
+    return (
+        <div className="dropdown w-full px-4 py-2 rounded-xl bg-white border-2 border-gray-200 mt-2" >
+            <div className="flex items-center justify-between gap-x-3">
+                <div className='flex items-center gap-x-3 cursor-pointer' >
+                    <img src={items[selected].logo} className='w-6 h-6' />
+                    <p className="font-semibold">{items[selected].name}</p>
+                </div>
+                <FontAwesomeIcon icon={['fas', "fa-angle-down"]} style={{ fontSize: "80%" }} />
+            </div>
+            <div id="" className="dropdown-content shadowDiv" style={{ width: width, left: left }}>
+                <p className="text-gray-500 px-4 py-2 text-sm font-semibold border-b border-b-gray-200">{subheading}</p>
+                {items.map((item, index) => (
+                    <div key={index} onClick={() => setSelected(index)}>
+                        <div className="px-4 py-3 flex items-center gap-x-3 cursor-pointer border-b border-b-gray-200 hover:bg-gray-100">
+                            <img src={item.logo} className='w-6 h-6' />
+                            <div >
+                                <p className="font-semibold">{item.name}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                ))}
+            </div>
+        </div>
+    )
+}
