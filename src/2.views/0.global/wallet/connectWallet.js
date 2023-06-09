@@ -12,7 +12,7 @@ import { getDomain, getWnsDomain } from '../../../1.resources/2.js/0.global/3.ap
 import { colors } from '../../../1.resources/1.css/colors';
 import LoginModal from './loginSignature';
 
-export const ConnectWallet = ({ }) => {
+export const ConnectWallet = ({ type }) => {
     const [accountModalOpen, setAccountModalOpen] = useState(false);
     const { address, isConnecting, isDisconnected, isReconnecting } = useAccount()
     const [domain, setDomain] = useState("");
@@ -80,20 +80,32 @@ export const ConnectWallet = ({ }) => {
                             {(() => {
                                 if (!connected) {
                                     return (
-                                        <button onClick={openConnectModal} type="button" className='bg-main text-white rounded-full p-3 px-4 text-sm whitespace-nowrap z-0'>
-                                            Connect Wallet
-                                        </button>
+                                        type == "mobile" ? (
+                                            <div>
+                                                <button onClick={openConnectModal} type="button" className='bg-main text-white rounded-full p-3 px-4 text-sm whitespace-nowrap z-0 block md:hidden'>
+                                                    <FontAwesomeIcon icon={['fas', 'fa-right-to-bracket']} style={{ fontSize: "100%" }} className="text-white" />
+                                                </button>
+
+                                                <button onClick={openConnectModal} type="button" className='bg-main text-white rounded-full p-3 px-4 text-sm whitespace-nowrap z-0 hidden md:block'>
+                                                    Connect Wallet
+                                                </button>
+                                            </div>
+                                        ) : (
+                                            <button onClick={openConnectModal} type="button" className='bg-main text-white rounded-full p-3 px-4 text-sm whitespace-nowrap z-0'>
+                                                Connect Wallet
+                                            </button>
+                                        )
                                     );
                                 } else {
                                     return (
                                         <div style={{ display: 'flex', gap: 0 }}>
 
-                                            <button onClick={() => setAccountModalOpen(true)} type="button" className='flex items-center gap-2 font-bold text-sm bg-white/10 rounded-xl px-4 py-2 border-2 border-white/10'>
+                                            <button onClick={() => setAccountModalOpen(true)} type="button" className='flex items-center gap-2 font-bold text-sm bg-white/10 rounded-xl px-0 md:px-4 py-0 md:py-2 md:border-2 border-white/10'>
                                                 <div className='flex items-center gap-x-2'>
                                                     <div className="bg-gray-400 w-10 h-10 flex justify-center items-center" style={{ borderRadius: "12px" }}>
                                                         <FontAwesomeIcon icon="user-alt" className="text-md text-white" />
                                                     </div>
-                                                    <div className='text-left'>
+                                                    <div className='text-left hidden md:block'>
                                                         <p className='text-md'>{address != null ? domain == "" ? shortenaddress(address) : domain : ""}</p>
                                                         <p className='text-xs text-main'>Manage</p>
                                                     </div>

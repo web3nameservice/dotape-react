@@ -26,7 +26,7 @@ const Header = ({ }) => {
                             {/* <a href="/about" className="flex items-center gap-x-2">
                                 <p className="text-lg text-white">About</p>
                             </a> */}
-                            <a href="/presale" className="flex items-center gap-x-2 hidden md:block">
+                            <a href="/presale" className="flex items-center gap-x-2">
                                 <p className="text-lg text-white">Presale</p>
                             </a>
                             <a href="/avatars" className="flex items-center gap-x-2">
@@ -40,9 +40,17 @@ const Header = ({ }) => {
                             <p className="text-white">Buy now</p>
                             <FontAwesomeIcon icon={['fas', 'arrow-right']} className="text-white text-sm" />
                         </a> */}
-                        <ConnectWallet />
+                        <ConnectWallet type={"mobile"} />
                     </div>
                 </div >
+                {/* <div className="flex md:hidden justify-center items-center mt-4 md:mt-0 gap-x-6">
+                    <a href="/presale" className="flex items-center gap-x-2">
+                        <p className="text-lg text-white">Presale</p>
+                    </a>
+                    <a href="/avatars" className="flex items-center gap-x-2">
+                        <p className="text-lg text-white">Avatars</p>
+                    </a>
+                </div> */}
             </div>
         </div >
     );

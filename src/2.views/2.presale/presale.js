@@ -46,7 +46,7 @@ const Presale = ({ walletConnected, setWalletConnected }) => {
     }, [])
 
     return (
-        <div className="bg-black min-h-screen flex flex-col justify-between">
+        <div className="min-h-screen flex flex-col justify-between">
             <div className="">
                 <div>
                     <Header />
@@ -55,12 +55,10 @@ const Presale = ({ walletConnected, setWalletConnected }) => {
 
                     <div className="w-full lg:w-[1280px] px-5 md:px-10 lg:px-28 2xl:px-0 lg:rounded-xl text-white">
                         <p className="text-3xl font-bold">PRESALE</p>
+
                         <p className="pt-4 text-lg text-main font-bold">The .APE presale is open for everyone to participate in.</p>
-                        <p className="text-lg pt-4">A presale will be held for everyone before launch which gives participants a unique chance to register .APE domains before they become available to the public. Anyone can participate in the presale and put in ETH to secure their position. </p>
-                        <p className="text-lg pt-4">The participants will receive credits equivalent to the amount of ETH that they put in during the presale and these credits can be used to purchase .APE domains during the claim period. </p>
 
-
-                        <div className="mt-8 bg-white/10 px-10 py-10 rounded-xl border-2 border-white/10">
+                        <div className="mt-4 bg-white/10 px-10 py-10 rounded-xl border-2 border-white/10">
 
                             {address == null ? (
                                 <div>
@@ -112,6 +110,9 @@ const Presale = ({ walletConnected, setWalletConnected }) => {
                                 <p className="text-lg">The presale has not started yet.</p>
                             </div> */}
                         </div>
+                        {/* <p className="pt-8 text-lg text-white font-bold">What is the .APE presale?</p> */}
+                        <p className="text-lg pt-8">This presale gives participants a unique chance to register .APE domains before they become available to the public. Anyone can participate in the presale and put in ETH to secure their position. </p>
+                        <p className="text-lg pt-4">The participants will receive credits equivalent to the amount of ETH that they put in during the presale and these credits can be used to purchase .APE domains during the claim period. </p>
 
 
                     </div>
