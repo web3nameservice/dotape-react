@@ -1,3 +1,4 @@
+import "./polyfills.ts";
 import React, { useState, useEffect, useContext } from "react";
 import "./1.resources/2.js/0.global/0.smallfunctions/imports_css";
 import Main from "./main";
@@ -19,7 +20,7 @@ const App = ({ }) => {
   );
 
   const { connectors } = getDefaultWallets({
-    appName: 'WNS (Web3 Name Service)',
+    appName: 'Dot Ape',
     chains
   });
 

@@ -7,7 +7,6 @@ import { useAccount } from "wagmi";
 import { ConnectWallet } from "../0.global/wallet/connectWallet";
 import { callW3Api, getDomain, getWnsDomain } from "../../1.resources/2.js/0.global/3.api/callW3Api";
 import { shortenaddress } from "../../1.resources/2.js/0.global/0.smallfunctions/global";
-import Invest from "./partials/invest";
 import CloudContracts from "../../1.resources/2.js/0.global/2.contracts/cloudContracts";
 import { calculateZeroes } from "../../1.resources/2.js/0.global/0.smallfunctions/currencyConversion";
 import { getCloudProvider } from "../../1.resources/2.js/0.global/2.contracts/cloudProvider";
@@ -22,26 +21,26 @@ const Presale = ({ walletConnected, setWalletConnected }) => {
     const [presaleActive, setPresaleActive] = useState(true);
     const [presaleStarted, setPresaleStarted] = useState(false);
 
-    async function init() {
-        let result = await getDomain(address);
-        console.log(result);
-        if (result != "null") {
-            setDomain(result);
-        }
-    }
+    // async function init() {
+    //     let result = await getDomain(address);
+    //     console.log(result);
+    //     if (result != "null") {
+    //         setDomain(result);
+    //     }
+    // }
 
-    async function checkInvestment() {
-        let amount = await callW3Api("/presale/credits/get", { address: address });
-        console.log(amount);
-        setInvestedAmount(parseFloat(amount.toString()));
-    }
+    // async function checkInvestment() {
+    //     let amount = await callW3Api("/presale/credits/get", { address: address });
+    //     console.log(amount);
+    //     setInvestedAmount(parseFloat(amount.toString()));
+    // }
 
-    useEffect(() => {
-        if (address != null && address != "" && address != undefined && presaleActive) {
-            init();
-            checkInvestment();
-        }
-    }, [address, presaleActive])
+    // useEffect(() => {
+    //     if (address != null && address != "" && address != undefined && presaleActive) {
+    //         init();
+    //         checkInvestment();
+    //     }
+    // }, [address, presaleActive])
 
     useEffect(() => {
         document.title = "Presale - DOT APE";
@@ -64,7 +63,7 @@ const Presale = ({ walletConnected, setWalletConnected }) => {
 
                         <div className="mt-8 bg-white/10 px-10 py-10 rounded-xl border-2 border-white/10">
 
-                            {presaleStarted ? (
+                            {/* {presaleStarted ? (
                                 presaleActive ? (
                                     address == null ? (
                                         <div>
@@ -115,12 +114,15 @@ const Presale = ({ walletConnected, setWalletConnected }) => {
                                     <p className="text-lg">The presale has not started yet.</p>
                                 </div>
                             )
-                            }
+                            } */}
                             {/* {Date.now() < endTime * 1000 ? (
                         <p className="text-main font-bold pt-8">Presale ends in : <span>{timeToString(endTime * 1000)}</span></p>
                     ) : (
                         <p className="text-main font-bold pt-8">Presale concluded</p>
                     )} */}
+                            <div>
+                                <p className="text-lg">The presale has not started yet.</p>
+                            </div>
                         </div>
 
                         {/* <div className="mt-8">
@@ -151,7 +153,7 @@ const Presale = ({ walletConnected, setWalletConnected }) => {
                 </div> */}
                     </div>
 
-                    <Invest modalOpen={investModalOpen} setModalOpen={setInvestModalOpen} />
+                    {/* <Invest modalOpen={investModalOpen} setModalOpen={setInvestModalOpen} /> */}
                 </div>
 
             </div >
