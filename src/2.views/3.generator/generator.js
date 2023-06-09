@@ -29,6 +29,7 @@ const Generator = ({ walletConnected, setWalletConnected }) => {
     const [imgError, setImgError] = useState(false);
     const [versionSelected, setVersionSelected] = useState(1);
     const [refresh, setRefresh] = useState(0);
+    const [collection, setCollection] = useState("bayc");
 
     useEffect(() => {
         document.title = "Avatars - DOT APE";
@@ -36,7 +37,7 @@ const Generator = ({ walletConnected, setWalletConnected }) => {
 
     function changeTokenId(e) {
         console.log(e.target.value);
-        if (e.target.value == "" || e.target.value == null || e.target.value == undefined || e.target.value < 0 || e.target.value > 10000) {
+        if (e.target.value == "" || e.target.value == null || e.target.value == undefined || e.target.value < 0) {
             setTokenId("");
         } else {
             setTokenId(e.target.value);
@@ -57,7 +58,6 @@ const Generator = ({ walletConnected, setWalletConnected }) => {
             setImgLoading(true);
             setImgError(false);
             let signature = localStorage.getItem("accountSignature");
-            let collection = "bayc";
             let link;
             if (versionSelected == 1) {
                 link = process.env.REACT_APP_API_URL + `/generator/bg-name-color?collection=${collection}&tokenid=${tokenId}&name=${name}&signature=${signature}`
@@ -79,8 +79,16 @@ const Generator = ({ walletConnected, setWalletConnected }) => {
         setImgError(true);
     }
 
-    const changeOption = (e) => {
+    const changeVersion = (e) => {
         setVersionSelected(e.target.value);
+    }
+
+    const changeCollection = (e) => {
+        if (e.target.value == 1) {
+            setCollection("bayc");
+        } else {
+            setCollection("mayc");
+        }
     }
 
     return (
@@ -120,16 +128,19 @@ const Generator = ({ walletConnected, setWalletConnected }) => {
                                 <p className="text-lg">Select version:</p>
 
                                 <div className="flex items-center pt-2">
-                                    <select className="bg-neutral-800 border-2 border-neutral-700 text-white text-lg w-full text-center rounded-xl py-2" onChange={changeOption}>
+                                    <select className="bg-neutral-800 border-2 border-neutral-700 text-white text-lg w-full text-center rounded-xl py-2" onChange={changeVersion}>
                                         <option value="1">Matching Background</option>
                                         <option value="2">.Ape Background</option>
                                     </select>
                                 </div>
 
-                                {/* <p className="text-lg mt-10">Select:</p>
+                                <p className="text-lg mt-10">Select collection:</p>
                                 <div className="flex items-center pt-2">
-                                    <input type="number" className="bg-neutral-800 border-2 border-neutral-700 text-white text-lg w-full text-center rounded-xl py-2" value={tokenId} onChange={changeTokenId} />
-                                </div> */}
+                                    <select className="bg-neutral-800 border-2 border-neutral-700 text-white text-lg w-full text-center rounded-xl py-2" onChange={changeCollection}>
+                                        <option value="1">BAYC</option>
+                                        <option value="2">MAYC</option>
+                                    </select>
+                                </div>
 
                                 <p className="text-lg mt-10">Enter your token id:</p>
                                 <div className="flex items-center pt-2">
