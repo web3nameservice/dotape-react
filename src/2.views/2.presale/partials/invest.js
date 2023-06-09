@@ -42,10 +42,11 @@ const Invest = ({ modalOpen, setModalOpen }) => {
     }
 
     async function invest() {
-        if (input > data?.formatted || input == "" || isNaN(input)) {
+        let balance = tokenSelected == 0 ? data?.formatted : apecoinBalance;
+        if (input > balance || input == "" || isNaN(input)) {
             if (input == "" || isNaN(input)) {
                 setErrorMsg("Please enter a valid amount");
-            } else if (input > tokenSelected == 0 ? data?.formatted : apecoinBalance) {
+            } else if (input > balance) {
                 setErrorMsg("Entered amount is greater than your balance.");
             }
         } else {
