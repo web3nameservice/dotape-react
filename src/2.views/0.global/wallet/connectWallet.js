@@ -40,7 +40,7 @@ export const ConnectWallet = ({ type }) => {
     useEffect(() => {
         if (address != null && address != "" && address != undefined) {
             init();
-            checkSignature();
+            // checkSignature();
         }
     }, [address])
 

@@ -17,6 +17,7 @@ import PranApe from "../../1.resources/3.files/images/nft/pran.webp";
 import AdamdyorApe from "../../1.resources/3.files/images/nft/adamdyor.webp";
 import VincentApe from "../../1.resources/3.files/images/nft/vincent.webp";
 import EmptyImg from "../../1.resources/3.files/images/empty_nft.png";
+import LoginModal from "../0.global/wallet/loginSignature";
 
 const Generator = ({ walletConnected, setWalletConnected }) => {
     let { address } = useAccount();
@@ -30,6 +31,7 @@ const Generator = ({ walletConnected, setWalletConnected }) => {
     const [versionSelected, setVersionSelected] = useState(1);
     const [refresh, setRefresh] = useState(0);
     const [collection, setCollection] = useState("bayc");
+    const [loginModalOpen, setLoginModalOpen] = useState(false);
 
     useEffect(() => {
         document.title = "Avatars - DOT APE";
@@ -53,19 +55,33 @@ const Generator = ({ walletConnected, setWalletConnected }) => {
         }
     }
 
+    // async function checkSignature() {
+    //     let signature = localStorage.getItem("accountSignature");
+    //     console.log("signature", signature);
+    //     if (signature == null || signature == "" || signature == undefined || signature == "null") {
+    //         setLoginModalOpen(true);
+    //     }
+
+    // }
+
     async function generate() {
         if (name != "" && tokenId != "" && name.length >= 3) {
-            setImgLoading(true);
-            setImgError(false);
             let signature = localStorage.getItem("accountSignature");
-            let link;
-            if (versionSelected == 1) {
-                link = process.env.REACT_APP_API_URL + `/generator/bg-name-color?collection=${collection}&tokenid=${tokenId}&name=${name}&signature=${signature}`
+            if (signature == null || signature == "" || signature == undefined || signature == "null") {
+                setLoginModalOpen(true);
             } else {
-                link = process.env.REACT_APP_API_URL + `/generator/bg-name?collection=${collection}&tokenid=${tokenId}&name=${name}&signature=${signature}`
+                setImgLoading(true);
+                setImgError(false);
+                let signature = localStorage.getItem("accountSignature");
+                let link;
+                if (versionSelected == 1) {
+                    link = process.env.REACT_APP_API_URL + `/generator/bg-name-color?collection=${collection}&tokenid=${tokenId}&name=${name}&signature=${signature}`
+                } else {
+                    link = process.env.REACT_APP_API_URL + `/generator/bg-name?collection=${collection}&tokenid=${tokenId}&name=${name}&signature=${signature}`
+                }
+                setImage(link);
+                setRefresh(refresh + 1);
             }
-            setImage(link);
-            setRefresh(refresh + 1);
         }
     }
 
@@ -173,7 +189,7 @@ const Generator = ({ walletConnected, setWalletConnected }) => {
                             </div>
                         </div>
                     </div>
-
+                    <LoginModal isOpen={loginModalOpen} setIsOpen={setLoginModalOpen} />
                 </div>
 
             </div>
