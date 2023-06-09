@@ -10,6 +10,7 @@ import { watchAccount } from '@wagmi/core'
 import CloudContracts from '../../../1.resources/2.js/0.global/2.contracts/cloudContracts';
 import { getDomain, getWnsDomain } from '../../../1.resources/2.js/0.global/3.api/callW3Api';
 import { colors } from '../../../1.resources/1.css/colors';
+import LoginModal from './loginSignature';
 
 export const ConnectWallet = ({ }) => {
     const [accountModalOpen, setAccountModalOpen] = useState(false);
@@ -17,6 +18,7 @@ export const ConnectWallet = ({ }) => {
     const [domain, setDomain] = useState("");
     const [currentAddress, setCurrentAddress] = useState("");
     const { disconnect } = useDisconnect()
+    const [loginModalOpen, setLoginModalOpen] = useState(false);
 
     async function init() {
         let result = await getDomain(address);
@@ -26,9 +28,19 @@ export const ConnectWallet = ({ }) => {
         }
     }
 
+    async function checkSignature() {
+        let signature = localStorage.getItem("accountSignature");
+        console.log("signature", signature);
+        if (signature == null || signature == "" || signature == undefined || signature == "null") {
+            setLoginModalOpen(true);
+        }
+
+    }
+
     useEffect(() => {
         if (address != null && address != "" && address != undefined) {
             init();
+            checkSignature();
         }
     }, [address])
 
@@ -68,7 +80,7 @@ export const ConnectWallet = ({ }) => {
                             {(() => {
                                 if (!connected) {
                                     return (
-                                        <button onClick={openConnectModal} type="button" className='bg-main text-white rounded-full p-3 px-4 text-md whitespace-nowrap z-0'>
+                                        <button onClick={openConnectModal} type="button" className='bg-main text-white rounded-full p-3 px-4 text-sm whitespace-nowrap z-0'>
                                             Connect Wallet
                                         </button>
                                     );
@@ -107,6 +119,7 @@ export const ConnectWallet = ({ }) => {
 
             </ConnectButton.Custom>
             <AccountModal accountModalOpen={accountModalOpen} setAccountModalOpen={setAccountModalOpen} domain={domain} />
+            <LoginModal isOpen={loginModalOpen} setIsOpen={setLoginModalOpen} />
         </div>
     );
 };

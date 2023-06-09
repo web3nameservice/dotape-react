@@ -16,6 +16,7 @@ import AdamApe from "../../1.resources/3.files/images/nft/adam.webp";
 import PranApe from "../../1.resources/3.files/images/nft/pran.webp";
 import AdamdyorApe from "../../1.resources/3.files/images/nft/adamdyor.webp";
 import VincentApe from "../../1.resources/3.files/images/nft/vincent.webp";
+import EmptyImg from "../../1.resources/3.files/images/empty_nft.png";
 
 const Generator = ({ walletConnected, setWalletConnected }) => {
     let { address } = useAccount();
@@ -24,8 +25,11 @@ const Generator = ({ walletConnected, setWalletConnected }) => {
     const [tokenId, setTokenId] = useState(defaultTokenId);
     const [name, setName] = useState(defaultName);
     const [image, setImage] = useState(AdamApe);
-    const [imgLoading, setImgLoading] = useState(true);
+    const [imgLoading, setImgLoading] = useState(false);
+    const [imgError, setImgError] = useState(false);
     const [versionSelected, setVersionSelected] = useState(1);
+    const [refresh, setRefresh] = useState(0);
+
     useEffect(() => {
         document.title = "Generator - DOT APE";
     }, [])
@@ -48,22 +52,32 @@ const Generator = ({ walletConnected, setWalletConnected }) => {
         }
     }
 
-    function generate() {
+    async function generate() {
         if (name != "" && tokenId != "" && name.length >= 3) {
+            setImgLoading(true);
+            setImgError(false);
+            let signature = localStorage.getItem("accountSignature");
+            let collection = "bayc";
             let link;
             if (versionSelected == 1) {
-                link = process.env.REACT_APP_API_URL + `/generator/bg-name-color?tokenid=${tokenId}&name=${name}`
+                link = process.env.REACT_APP_API_URL + `/generator/bg-name-color?collection=${collection}&tokenid=${tokenId}&name=${name}&signature=${signature}`
             } else {
-                link = process.env.REACT_APP_API_URL + `/generator/bg-name?tokenid=${tokenId}&name=${name}`
+                link = process.env.REACT_APP_API_URL + `/generator/bg-name?collection=${collection}&tokenid=${tokenId}&name=${name}&signature=${signature}`
             }
             setImage(link);
-            setImgLoading(true);
+            setRefresh(refresh + 1);
         }
     }
 
-    const handleLoad = () => {
+    const handleOnload = () => {
         setImgLoading(false);
-    };
+    }
+
+    const handleOnError = () => {
+        setImgLoading(false);
+        setImage(EmptyImg);
+        setImgError(true);
+    }
 
     const changeOption = (e) => {
         setVersionSelected(e.target.value);
@@ -84,7 +98,7 @@ const Generator = ({ walletConnected, setWalletConnected }) => {
                         </div> */}
 
                         <div className="pt-0">
-                            <p className="text-6xl font-bold text-center">APE GENERATOR</p>
+                            <p className="text-6xl font-bold text-center">.APE GENERATOR</p>
                             <p className="text-2xl text-center pt-4">Generate your own .ape avatar for Twitter</p>
                         </div>
 
@@ -93,7 +107,11 @@ const Generator = ({ walletConnected, setWalletConnected }) => {
                                 {imgLoading ? <div className="flex justify-center items-center w-full aspect-square bg-neutral-800">
                                     <FontAwesomeIcon icon={['fas', 'circle-notch']} className="text-white text-2xl animate-spin" />
                                 </div> : (null)}
-                                <img src={image} className="w-full rounded-2xl" onLoad={handleLoad} style={{ display: imgLoading ? 'none' : 'block' }} />
+
+                                {/* {!imgLoading ? ( */}
+                                <img src={image} onLoad={handleOnload} onError={handleOnError} className="w-full rounded-2xl" style={{ display: imgLoading ? "none" : "block" }} key={refresh} />
+                                {/* ) : (null)} */}
+
                                 {imgLoading ? (null) : (
                                     <p className="text-xs text-start pt-4 text-gray-400">Right click and save image to download</p>
                                 )}
@@ -118,17 +136,32 @@ const Generator = ({ walletConnected, setWalletConnected }) => {
                                 <div className="flex items-center pt-2">
                                     <input type="text" className="bg-neutral-800 border-2 border-neutral-700 text-white text-lg w-full text-center rounded-xl py-2" value={name} onChange={changeName} />
                                 </div>
-                                <button type="button" onClick={() => generate()} className='bg-main text-white rounded-full p-3 px-4 text-sm whitespace-nowrap z-0 flex items-center gap-x-2 mt-8'>
-                                    <p>Generate</p>
-                                    <FontAwesomeIcon icon={['fas', 'arrow-right']} className="text-white text-sm" />
-                                </button>
+                                {imgError ? (
+                                    <div className="mt-8">
+                                        <p className="text-sm">We could not verify your ownership of this token.</p>
+                                    </div>
+                                ) : (null)}
+                                {address ? (
+                                    <button type="button" onClick={() => generate()} className='bg-main text-white rounded-full p-3 px-4 text-sm whitespace-nowrap z-0 flex items-center gap-x-2 mt-8'>
+                                        <p>Generate</p>
+                                        <FontAwesomeIcon icon={['fas', 'arrow-right']} className="text-white text-sm" />
+                                    </button>
+                                ) : (
+                                    <div className="mt-8">
+                                        <p className="text-sm">In order to protect the IP rights of holders, connect your wallet to verify that you own the NFT.</p>
+                                        <div className="mt-4">
+                                            <ConnectWallet />
+                                        </div>
+                                    </div>
+                                )}
+
                             </div>
                         </div>
                     </div>
 
                 </div>
 
-            </div >
+            </div>
             <div className="">
                 <Footer />
             </div>

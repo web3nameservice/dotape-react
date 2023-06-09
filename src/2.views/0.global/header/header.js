@@ -3,6 +3,7 @@ import { useContext } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Logo from "../../../1.resources/3.files/logo/logo_white2.png"
 import Links from "./links";
+import { ConnectWallet } from "../wallet/connectWallet";
 
 
 const Header = ({ }) => {
@@ -28,17 +29,18 @@ const Header = ({ }) => {
                             <a href="/presale" className="flex items-center gap-x-2 hidden md:block">
                                 <p className="text-lg text-white">Presale</p>
                             </a>
-                            {/* <a href="/delegates" className="flex items-center gap-x-2">
-                            <p className="text-lg text-white">Delegates</p>
-                        </a> */}
+                            <a href="/generator" className="flex items-center gap-x-2">
+                                <p className="text-lg text-white">Generator</p>
+                            </a>
                         </div>
                     </div>
                     <div className="flex justify-center items-center gap-x-8 sm:mt-0">
 
-                        <a href="/presale" className="bg-main px-4 py-2 w-fit rounded-full flex items-center gap-x-2 whitespace-nowrap">
+                        {/* <a href="/presale" className="bg-main px-4 py-2 w-fit rounded-full flex items-center gap-x-2 whitespace-nowrap">
                             <p className="text-white">Buy now</p>
                             <FontAwesomeIcon icon={['fas', 'arrow-right']} className="text-white text-sm" />
-                        </a>
+                        </a> */}
+                        <ConnectWallet />
                     </div>
                 </div >
             </div>

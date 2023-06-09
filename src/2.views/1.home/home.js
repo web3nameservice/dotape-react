@@ -136,43 +136,43 @@ const Home = ({ walletConnected, setWalletConnected }) => {
                                     <div className="pt-20">
                                         <p className="text-3xl font-bold">TEAM</p>
                                         <div className="pt-4">
-                                            <p className="text-lg">The .APE team is a group of passionate and dedicated apes who are committed to the success of the .APE project. We are a team of developers, designers, and marketers who are all passionate about the ape community and the NFT space. The team behind WNS (Web3 Name Service) have been onboarded for technical development of .APE domains and we are excited to be a part of this innovative project and look forward to working with the community to make .APE domains a success.</p>
+                                            <p className="text-lg">The .APE team is a group of passionate and dedicated apes who are committed to the success of the .APE project. We are a team of developers, designers, and marketers who are all passionate about the ape community and the NFT space. The DotAPE team is a group of passionate and dedicated apes who are committed to the success of DotApe. DotApe's inception is the brainchild of the seasoned W3 Team behind <a href="https://domains.w3.one" target="_blank" className="text-main" >Web3 Name Service (WNS)</a>. </p>
                                         </div>
-                                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-16 gap-x-8 md:gap-x-0 gap-y-6">
+                                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-16 gap-x-8 md:gap-x-0 gap-y-8">
                                             <div>
                                                 <img src={Pran} className="rounded-2xl w-40" />
-                                                <p className="text-lg font-semibold pt-2">pran.ape</p>
+                                                <p className="text-lg font-semibold pt-3">pran.ape</p>
                                                 <p className="text-md pt-1">Product Team</p>
                                             </div>
                                             <div>
                                                 <img src={Adam} className="rounded-2xl w-40" />
-                                                <p className="text-lg font-semibold pt-2">adam.ape</p>
+                                                <p className="text-lg font-semibold pt-3">adam.ape</p>
                                                 <p className="text-md pt-1">Development Team</p>
                                             </div>
                                             <div>
                                                 <img src={Patrick} className="rounded-2xl w-40" />
-                                                <p className="text-lg font-semibold pt-2">patrick.ape</p>
+                                                <p className="text-lg font-semibold pt-3">patrick.ape</p>
                                                 <p className="text-md pt-1">Business Team</p>
                                             </div>
                                             <div>
                                                 <img src={Vincent} className="rounded-2xl w-40" />
-                                                <p className="text-lg font-semibold pt-2">vincent.ape</p>
+                                                <p className="text-lg font-semibold pt-3">vincent.ape</p>
                                                 <p className="text-md pt-1">Business Team</p>
                                             </div>
 
                                             <div>
                                                 <img src={Andre} className="rounded-2xl w-40" />
-                                                <p className="text-lg font-semibold pt-2">andre.ape</p>
+                                                <p className="text-lg font-semibold pt-3">andre.ape</p>
                                                 <p className="text-md pt-1">Communications Team</p>
                                             </div>
                                             <div>
                                                 <img src={KongKong} className="rounded-2xl w-40" />
-                                                <p className="text-lg font-semibold pt-2">kongkong.ape</p>
+                                                <p className="text-lg font-semibold pt-3">konkong.ape</p>
                                                 <p className="text-md pt-1">Communications Team</p>
                                             </div>
                                             <div>
                                                 <img src={Manuel} className="rounded-2xl w-40" />
-                                                <p className="text-lg font-semibold pt-2">manuel.ape</p>
+                                                <p className="text-lg font-semibold pt-3">manuel.ape</p>
                                                 <p className="text-md pt-1">Development Team</p>
                                             </div>
 
