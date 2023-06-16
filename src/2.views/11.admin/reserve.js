@@ -13,7 +13,7 @@ import { collection, onSnapshot, orderBy, query, where, limit, startAfter, getDo
 import { db } from "../../1.resources/2.js/0.global/1.firebase/firebase";
 import { timeToString } from "../../1.resources/2.js/0.global/0.smallfunctions/time";
 import { shortenaddress } from "../../1.resources/2.js/0.global/0.smallfunctions/global";
-import { getDomain } from "../../1.resources/2.js/0.global/3.api/callW3Api";
+import { callW3Api, getDomain } from "../../1.resources/2.js/0.global/3.api/callW3Api";
 import makeBlockie from "ethereum-blockies-base64";
 
 
@@ -94,23 +94,17 @@ const Lower = ({ type, setAirdropsTotal, setReservedTotal, setTeamTotal }) => {
 
     useEffect(() => {
         console.log("type", type);
-        let find = onSnapshot(query(collection(db, "reserved-names", "names", type), orderBy("timestamp", "desc")), (snapshot) => {
-            let arr = [];
-            snapshot.forEach((doc) => {
-                arr.push(doc.data());
-            })
-            setNames(arr);
+        callW3Api("/admin/get/reserve", { type: type }).then((res) => {
+            setNames(res);
 
             if (type == "airdrops") {
-                setAirdropsTotal(arr.length);
+                setAirdropsTotal(res.length);
             } else if (type == "reserved") {
-                setReservedTotal(arr.length);
+                setReservedTotal(res.length);
             } else if (type == "team") {
-                setTeamTotal(arr.length);
+                setTeamTotal(res.length);
             }
-        })
-
-        return () => find();
+        });
     }, [])
 
     let headings = ["Name", "Address", "Duration", "Status"]

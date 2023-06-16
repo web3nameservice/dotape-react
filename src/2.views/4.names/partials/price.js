@@ -178,13 +178,13 @@ const Price = ({ name, isReserved, reservedAddress, reservedDomain, reservedLoad
                 ) : (null)}
 
                 <div className="mt-8">
-                    <div className="flex items-center justify-start gap-x-2">
+                    <div className="flex items-center justify-start gap-x-4">
                         <FontAwesomeIcon icon={['fas', 'info-circle']} className="text-main text-sm" />
-                        <p className="text-sm text-main font-semibold">Public registration is not open yet</p>
+                        <p className="text-sm text-main font-semibold">Registration is only active for presale participants</p>
                     </div>
                 </div>
 
-                {/* {address == null ? (
+                {address == null ? (
                     <div className="mt-8">
                         <div className="mt-8">
                             <ConnectWallet />
@@ -251,7 +251,7 @@ const Price = ({ name, isReserved, reservedAddress, reservedDomain, reservedLoad
                                         null
                                     )
                             )
-                        )))} */}
+                        )))}
                 {/* <div className="flex items-center gap-x-2 mt-8">
                     <button className="w-full bg-main rounded-full px-4 py-3 text-white font-semibold w-fit text-sm" onClick={() => setRegisterModal(true)}>Register</button>
                     {isCart ? (null) : (
