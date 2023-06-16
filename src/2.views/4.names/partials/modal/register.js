@@ -274,7 +274,7 @@ const DropdownItem = ({ name, subheading, items, width, left, selected, setSelec
     const [isOpen, setIsOpen] = useState(false);
 
     return (
-        <div className="dropdown w-full  rounded-xl bg-white bg-dark800 border-2 border-gray-200 dark:border-dark700 mt-2 border-2 dark:border-dark700" >
+        <div className="dropdown w-full  rounded-xl bg-white dark:bg-dark800 border-2 border-gray-200 dark:border-dark700 mt-2 border-2 dark:border-dark700" >
             <div className="flex items-center justify-between gap-x-3 px-4 py-3" onClick={() => setIsOpen(!isOpen)}>
                 <div className='flex items-center gap-x-3 cursor-pointer' >
                     <img src={items[selected].logo} className='w-6 h-6' />
