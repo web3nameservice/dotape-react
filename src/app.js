@@ -14,6 +14,8 @@ import { colors } from "./1.resources/1.css/colors.js";
 import merge from 'lodash.merge';
 import { LoginProvider } from "./2.views/0.wrapper/login.js";
 import { injectedWallet, rainbowWallet, metaMaskWallet, coinbaseWallet, walletConnectWallet, trustWallet, ledgerWallet } from '@rainbow-me/rainbowkit/wallets';
+import LoadingGif from "./1.resources/3.files/images/loading.gif";
+
 const App = ({ }) => {
   const { chains, provider } = configureChains(
     [mainnet],
@@ -85,6 +87,7 @@ const myDarkTheme = merge(darkTheme({
 
 const MainApp = ({ chains }) => {
   const { darkMode } = GlobalParams();
+  const [loading, setLoading] = useState(window.location.pathname == "/" ? true : false);
 
   useEffect(() => {
     if (darkMode) {
@@ -93,13 +96,20 @@ const MainApp = ({ chains }) => {
       document.body.style.backgroundColor = "#F9F9F9";
     }
   }, [darkMode])
+
+  useEffect(() => {
+    setLoading(false);
+  }, [])
+
   return (
     <div className={darkMode ? "dark" : "dark"}>
       <RainbowKitProvider chains={chains} theme={darkMode ? myDarkTheme : lightTheme({
         fontStack: "system",
         borderRadius: "large"
       })} >
-        <MainApp2 />
+        <div className={loading ? "loading" : ""}>
+          {/* <Main /> */}
+        </div>
       </RainbowKitProvider>
     </div>
   )
@@ -107,13 +117,11 @@ const MainApp = ({ chains }) => {
 
 class MainApp2 extends React.Component {
 
-  componentDidMount() {
-    document.body.style.backgroundImage = "none";
-  }
-
   render() {
     return (
-      <Main />
+      <div>
+        {/* <Main /> */}
+      </div>
     )
   }
 }
