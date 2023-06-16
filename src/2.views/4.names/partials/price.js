@@ -203,7 +203,7 @@ const Price = ({ name, isReserved, reservedAddress, reservedDomain, reservedLoad
                                         <FontAwesomeIcon icon={['fas', 'info-circle']} className="text-main text-sm" />
                                         <p className="text-sm text-main font-semibold">Registration for this name is reserved for your address.</p>
                                     </div>
-                                    <button className="w-full bg-main rounded-full px-4 py-3 text-white font-semibold w-fit text-sm mt-8 flex items-center gap-x-2" onClick={() => setRegisterModal(true)}>
+                                    <button className=" bg-main rounded-full px-4 py-3 text-white font-semibold w-fit text-sm mt-8 flex items-center gap-x-2" onClick={() => setRegisterModal(true)}>
                                         <p>Register</p>
                                         <FontAwesomeIcon icon={['fas', 'arrow-right']} className="text-white text-sm" />
                                     </button>
@@ -234,14 +234,14 @@ const Price = ({ name, isReserved, reservedAddress, reservedDomain, reservedLoad
                                             <FontAwesomeIcon icon={['fas', 'info-circle']} className="text-main text-sm" />
                                             <p className="text-sm text-main font-semibold">You have credits from the presale to register this name</p>
                                         </div>
-                                        <button className="w-full bg-main rounded-full px-4 py-3 text-white font-semibold w-fit text-sm mt-8 flex items-center gap-x-2" onClick={() => setPresaleModal(true)}>
+                                        <button className=" bg-main rounded-full px-4 py-3 text-white font-semibold w-fit text-sm mt-8 flex items-center gap-x-2" onClick={() => setPresaleModal(true)}>
                                             <p>Register</p>
                                             <FontAwesomeIcon icon={['fas', 'arrow-right']} className="text-white text-sm" />
                                         </button>
                                     </div>
                                 ) : (
                                     <div className="flex items-center gap-x-2 mt-8">
-                                        <div className="flex items-center justify-start gap-x-4">
+                                        <div className="flex items-center justify-start gap-x-4 w-fit">
                                             <FontAwesomeIcon icon={['fas', 'info-circle']} className="text-main text-sm" />
                                             <p className="text-sm text-main font-semibold">You do not have enough credits from the presale</p>
                                         </div>
