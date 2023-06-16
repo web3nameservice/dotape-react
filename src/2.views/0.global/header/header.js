@@ -1,56 +1,70 @@
 import React, { useEffect, useState } from "react";
 import { useContext } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import Logo from "../../../1.resources/3.files/logo/logo_white2.png"
+import Logo from "../../../1.resources/3.files/logo/logobg.png"
+import LogoBlack from "../../../1.resources/3.files/logo/logo_black.png"
+
 import Links from "./links";
 import { ConnectWallet } from "../wallet/connectWallet";
-
+import { GlobalParams } from "../../0.wrapper/darkMode.js";
+import HeaderSearch from "./search";
+import { useAccount } from "wagmi";
+import { callW3Api } from "../../../1.resources/2.js/0.global/3.api/callW3Api";
+import { formatinusd } from "../../../1.resources/2.js/0.global/0.smallfunctions/currencyConversion";
+import Sidebar from "../../../4.sidebar/sidebar";
 
 const Header = ({ }) => {
+    let { address } = useAccount();
+    const { darkMode, toggleDarkMode } = GlobalParams();
+    const [mobileSidebar, setMobileSidebar] = useState(false);
 
-    useEffect(() => {
-    }, [])
     return (
-        <div style={{}} className="flex justify-center py-4">
-            <div className="w-full lg:w-[1280px] px-5 md:px-10 lg:px-28 2xl:px-0">
-                <div className="flex justify-between items-center md:px-0 " style={{ zIndex: 1000000 }}>
-                    <div className="flex justify-start items-center gap-x-8">
-                        <a href="/" className="flex justify-center md:justify-start items-center gap-x-4">
-                            <img src={Logo} className="w-12 h-12 md:w-10 md:h-10" />
-                            {/* <p className="text-2xl text-white">.APE</p> */}
-                        </a>
-                        <div className="flex items-center justify-center md:justify-start gap-x-6 mt-2 md:mt-0">
-                            {/* <a href={window.location.pathname == "/" ? "#about" : "/#about"} className="flex items-center gap-x-2">
-                            <p className="text-lg text-white">About</p>
-                        </a> */}
-                            {/* <a href="/about" className="flex items-center gap-x-2">
-                                <p className="text-lg text-white">About</p>
-                            </a> */}
-                            <a href="/presale" className="flex items-center gap-x-2">
-                                <p className="text-lg text-white">Presale</p>
-                            </a>
-                            <a href="/avatars" className="flex items-center gap-x-2">
-                                <p className="text-lg text-white">Avatars</p>
-                            </a>
+        <div style={{}} className={`flex justify-center py-3 border-b-2 dark:border-b border-zinc-200 dark:border-dark700 bg-white  w-full dark:bg-dark900`}>
+            <div className="w-full lg:max-w-[1280px] px-5 md:px-10 lg:px-20 2xl:px-10 lg:rounded-xl ">
+                <div className="flex justify-between items-center md:px-0 gap-x-4 w-full" style={{ zIndex: 1000000 }}>
+                    <div className="flex-none block md:hidden">
+                        <div className="h-10 flex items-center justify-center" onClick={() => setMobileSidebar(!mobileSidebar)}>
+                            <FontAwesomeIcon icon={['fas', 'bars']} className="text-zinc-500 dark:text-neutral-400 text-lg" />
                         </div>
                     </div>
-                    <div className="flex justify-center items-center gap-x-8 sm:mt-0">
+                    {/* <div className="flex justify-start items-center gap-x-8 flex-none">
+                            <a href="/" className="flex justify-center md:justify-start items-center gap-x-4">
+                                <img src={darkMode ? Logo : Logo} className="w-9 h-9 rounded-lg" />
+                            </a>
+                        </div> */}
 
-                        {/* <a href="/presale" className="bg-main px-4 py-2 w-fit rounded-full flex items-center gap-x-2 whitespace-nowrap">
-                            <p className="text-white">Buy now</p>
-                            <FontAwesomeIcon icon={['fas', 'arrow-right']} className="text-white text-sm" />
-                        </a> */}
-                        <ConnectWallet type={"mobile"} />
+                    {window.location.pathname != "/search" ? (
+                        <div className="w-full">
+                            <HeaderSearch />
+                        </div>
+                    ) : (<div />)}
+                    {/* <div>
+                        <FontAwesomeIcon icon={['fas', 'search']} className="text-zinc-500 dark:text-neutral-400 text-lg" />
+                    </div> */}
+
+
+
+                    <div className="hidden md:flex justify-end items-center gap-x-0 sm:mt-0 ">
+                        {/* <div className="flex-none">
+                            <Credits userAddress={address} />
+                        </div> */}
+                        <div className="flex justify-between gap-x-0">
+                            <a className="bg-zinc-100 dark:bg-dark800 w-10 h-10 border border-zinc-200 dark:border-dark700 rounded-2xl flex justify-center items-center" href="/cart">
+                                <FontAwesomeIcon icon={['fas', 'fa-shopping-bag']} className="text-zinc-500 dark:text-neutral-400 text-lg" />
+                            </a>
+                            {/* <div className="bg-zinc-100 dark:bg-dark800 w-10 h-10 border border-zinc-200 dark:border-dark700 rounded-2xl flex justify-center items-center" onClick={() => toggleDarkMode()}>
+                                <FontAwesomeIcon icon={['fas', darkMode ? 'moon' : 'moon']} className="text-zinc-500 dark:text-neutral-400 text-lg" />
+                            </div> */}
+                        </div>
+
                     </div>
                 </div >
-                {/* <div className="flex md:hidden justify-center items-center mt-4 md:mt-0 gap-x-6">
-                    <a href="/presale" className="flex items-center gap-x-2">
-                        <p className="text-lg text-white">Presale</p>
-                    </a>
-                    <a href="/avatars" className="flex items-center gap-x-2">
-                        <p className="text-lg text-white">Avatars</p>
-                    </a>
-                </div> */}
+            </div>
+            <div className={`w-screen h-screen bg-black/50 backdrop-blur-lg z-0 fixed ${mobileSidebar ? "fade-effect" : ""} `} style={{ display: mobileSidebar ? "block" : "none", opacity: mobileSidebar ? 1 : 0 }} onClick={() => setMobileSidebar(false)}>
+
+            </div>
+            <div style={{ width: "100%", display: mobileSidebar ? "block" : "none" }} className={window.innerWidth < 1000 ? (mobileSidebar ? "slider slide-in block lg:hidden  top-[0px] " : "slider slide-out block lg:hidden  top-[0px]") : ""}>
+                <MobileSidebar setMobileSidebar={setMobileSidebar} />
             </div>
         </div >
     );
@@ -59,3 +73,16 @@ const Header = ({ }) => {
 
 
 export default Header;
+
+const MobileSidebar = ({ setMobileSidebar }) => {
+
+    return (
+        <div className="">
+            <div className="w-[240px] min-h-screen bg-black absolute shadow z-50 fixed">
+                <Sidebar sidebarOpened={true} setSidebarOpened={setMobileSidebar} />
+            </div>
+        </div>
+    )
+}
+
+

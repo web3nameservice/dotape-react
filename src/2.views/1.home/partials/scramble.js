@@ -106,8 +106,10 @@ class Scramble extends React.Component {
     }
     render() {
         return (
-            <div className="text">
+            <div className="w-full overflow-x-hidden">
+                <div className="text">
 
+                </div>
             </div>
         )
     }

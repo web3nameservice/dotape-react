@@ -25,7 +25,7 @@ import Img18 from "../../../1.resources/3.files/images/nft/18.png";
 import Img19 from "../../../1.resources/3.files/images/nft/19.png";
 import Img20 from "../../../1.resources/3.files/images/nft/20.png";
 import BgImg from "../../../1.resources/3.files/images/stars7.webp";
-
+import BgBlank from "../../../1.resources/3.files/images/blank33.png";
 import Ticker from "react-ticker";
 import { useEffect } from "react";
 import Footer from "../../0.global/footer/footer";
@@ -42,43 +42,38 @@ class Hero extends React.Component {
     render() {
         return (
             <div className="" >
-                <div className="w-screen h-screen flex flex-col overflow-x-hidden" style={{ backgroundImage: `url(${BgImg})`, backgroundPosition: "center center", backgroundSize: "cover" }}>
-                    <div className="flex-none ">
-                        <Header />
-                    </div>
-                    <div className="grow flex items-center justify-center ">
+                <div className="w-full flex flex-col overflow-x-hidden" style={{ backgroundImage: `url(${BgBlank})`, backgroundPosition: "center center", backgroundSize: "cover", height: window.innerHeight }}>
+                    <div className="grow flex items-center justify-center w-full h-full" >
 
                         <div className="flex flex-col justify-center items-center mt-0 ">
 
-                            <div className="w-full lg:w-[1280px] md:px-10 lg:px-0 py-10 pb-20 " >
-                                <div className="text text-white text-5xl md:text-9xl font-bold text-center" >
+                            <div className="w-full lg:max-w-[1280px] px-5 md:px-10 lg:px-20 2xl:px-10 lg:rounded-xl pt-10">
+                                <div className="text text-white text-5xl md:text-8xl lg:text-9xl font-bold text-center" >
                                     <Scramble />
                                 </div>
 
                                 {/* <p className="text-white text-8xl font-bold pt-2 text-center">.Ape is your identity</p> */}
-                                <p className="text-white text-center pt-8 md:pt-16 text-xl text-3xl md:text-4xl ">Hey, what's your .ape?</p>
+                                <p className="text-white text-center pt-8 md:pt-12 text-xl text-3xl md:text-4xl ">Hey, what's your .ape?</p>
 
-                                {/* <div className="flex justify-start items-start pt-8">
-                                <div className="bg-main px-4 py-2 w-fit rounded-full flex items-center gap-x-2 z-0">
-                                    <p className="text-white">Buy now</p>
-                                    <FontAwesomeIcon icon={['fas', 'chevron-right']} className="text-white text-sm" />
+                                <div className="flex items-center justify-center">
+                                    <a href="/search" className="bg-white px-4 py-2 rounded-full mt-8 text-main text-md flex items-center gap-x-2 flex-none font-semibold">
+                                        <p>Register</p>
+                                        <FontAwesomeIcon icon={['fas', 'arrow-right']} className="text-main text-md font-bold" />
+                                    </a>
                                 </div>
-                            </div> */}
                             </div>
-                            {/* <div className="pb-20">
-                                <ImageBanner />
-                            </div> */}
+
                         </div>
                     </div>
 
-                    {/* <div className="flex-none flex justify-center pb-10">
-                <div>
-                    <p className="text-white">Scroll down</p>
-                    <div className="flex justify-center items-center">
-                        <FontAwesomeIcon icon={['fas', 'chevron-down']} className="text-white text-lg pt-6 animate-bounce" />
+                    <div className="flex-none flex justify-center pb-10">
+                        <div>
+                            <p className="text-white">Scroll down</p>
+                            <div className="flex justify-center items-center">
+                                <FontAwesomeIcon icon={['fas', 'chevron-down']} className="text-white text-lg pt-6 animate-bounce" />
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div> */}
 
 
                 </div>
@@ -155,7 +150,7 @@ export const ImageBanner = ({ }) => {
 
     return (
         <div className="py-3 flex items-center" style={{}}>
-            <div className="w-screen my-10" style={{}}>
+            <div className="w-full my-10" style={{}}>
                 <Ticker style={{}} key={refresh} >
                     {({ index }) => (
                         <div className="">

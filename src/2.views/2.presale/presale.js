@@ -13,20 +13,11 @@ import { getCloudProvider } from "../../1.resources/2.js/0.global/2.contracts/cl
 import { timeToString } from "../../1.resources/2.js/0.global/0.smallfunctions/time";
 import Header from "../0.global/header/header";
 import Invest from "./partials/invest";
+import ConnectDialog from "../0.global/wallet/connectDialog";
+import makeBlockie from "ethereum-blockies-base64";
 
 const Presale = ({ walletConnected, setWalletConnected }) => {
     let { address } = useAccount();
-    const [domain, setDomain] = useState("");
-    const [investModalOpen, setInvestModalOpen] = useState(false);
-    const [investedAmount, setInvestedAmount] = useState(0);
-
-    async function init() {
-        let result = await getDomain(address);
-        console.log(result);
-        if (result != "null") {
-            setDomain(result);
-        }
-    }
 
 
     useEffect(() => {
@@ -34,38 +25,36 @@ const Presale = ({ walletConnected, setWalletConnected }) => {
     }, [])
 
     return (
-        <div className="min-h-screen flex flex-col justify-between">
-            <div className="">
-                <div>
-                    <Header />
-                </div>
-                <div id="about" className="min-w-screen flex justify-center items-start pb-20 pt-10 ">
+        <div id="about" className="h-full flex justify-center items-start pb-20 pt-10 bg-gray-100 dark:bg-dark900 text-black dark:text-white">
 
-                    <div className="w-full lg:w-[1280px] px-5 md:px-10 lg:px-28 2xl:px-0 lg:rounded-xl text-white">
-                        <p className="text-3xl font-bold">PRESALE</p>
+            {address == null ? (
+                <ConnectDialog />
+            ) : (
+                <div className="w-full lg:max-w-[1280px] px-5 md:px-10 lg:px-20 2xl:px-10 lg:rounded-xl ">
+                    <p className="text-3xl font-bold">PRESALE</p>
 
-                        <p className="pt-4 text-lg text-main font-bold">The .APE presale is open for everyone to participate in.</p>
-
-                        <div className="mt-4 bg-white/10 px-10 py-10 rounded-xl border-2 border-white/10">
-                    
-                             <div>
-                                <p className="text-lg">Presale has ended</p>
-                            </div> 
+                    <div className="mt-4">
+                        <div className="flex items-center gap-x-2 bg-dark800 w-fit px-4 py-3 rounded-full">
+                            <img src={makeBlockie(address)} className="w-5 h-5 rounded-lg" />
+                            <p className="text-sm">{shortenaddress(address)}</p>
                         </div>
-                        {/* <p className="pt-8 text-lg text-white font-bold">What is the .APE presale?</p> */}
-                        <p className="text-lg pt-8">This presale gives participants a unique chance to register .APE domains before they become available to the public. Anyone can participate in the presale and put in ETH to secure their position. </p>
-                        <p className="text-lg pt-4">The participants will receive credits equivalent to the amount of ETH that they put in during the presale and these credits can be used to purchase .APE domains during the claim period. </p>
-
                     </div>
 
-                    <Invest modalOpen={investModalOpen} setModalOpen={setInvestModalOpen} />
-                </div>
-
-            </div >
-            <div className="">
-                <Footer />
-            </div>
-        </div>
+                    <div className="mt-10">
+                        <div className="grid grid-cols-4 gap-x-4 mt-8">
+                            <div>
+                                <p className="text-2xl font-semibold">0.01 ETH</p>
+                                <p className="text-sm font-semibold mt-2 text-gray-500 dark:text-dark500">total credits left</p>
+                            </div>
+                            <div>
+                                <p className="text-2xl font-semibold">2</p>
+                                <p className="text-sm font-semibold mt-2 text-gray-500 dark:text-dark500">total reserved names</p>
+                            </div>
+                        </div>
+                    </div>
+                </div >
+            )}
+        </div >
     );
 
 }

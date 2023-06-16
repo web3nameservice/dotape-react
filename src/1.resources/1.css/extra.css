@@ -154,3 +154,58 @@
     }
   }
   
+
+:root {
+--grid-size: 60px;
+--dash-length: 5px;
+--dash-width: 1px;
+--dash-color: #262626;
+--background: #131313;
+--background-light: #fff;
+--dash-color-light: #e5e5e5;
+--fade-effect: 10%; /* Adjust this to control the extent of the fade */
+}
+
+.gridlines {
+position: relative;
+background-color: var(--background);
+background-size: calc(var(--dash-length) * 2) calc(var(--dash-length) * 2), var(--grid-size) var(--grid-size);
+background-image:
+    linear-gradient(to bottom, transparent var(--dash-length), var(--background) var(--dash-length)),
+    linear-gradient(to right, var(--dash-color) var(--dash-width), transparent var(--dash-width)),
+    linear-gradient(to right, transparent var(--dash-length), var(--background) var(--dash-length)),
+    linear-gradient(to bottom, var(--dash-color) var(--dash-width), transparent var(--dash-width));
+}
+
+.gridlines::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: radial-gradient(ellipse at center, transparent var(--fade-effect), var(--background) 100%);
+    pointer-events: none;
+}
+
+.gridlines-light {
+    position: relative;
+    background-color: var(--background-light);
+    background-size: calc(var(--dash-length) * 2) calc(var(--dash-length) * 2), var(--grid-size) var(--grid-size);
+    background-image:
+        linear-gradient(to bottom, transparent var(--dash-length), var(--background-light) var(--dash-length)),
+        linear-gradient(to right, var(--dash-color-light) var(--dash-width), transparent var(--dash-width)),
+        linear-gradient(to right, transparent var(--dash-length), var(--background-light) var(--dash-length)),
+        linear-gradient(to bottom, var(--dash-color-light) var(--dash-width), transparent var(--dash-width));
+}
+
+.gridlines-light::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: radial-gradient(ellipse at center, transparent var(--fade-effect), var(--background-light) 100%);
+    pointer-events: none;
+}

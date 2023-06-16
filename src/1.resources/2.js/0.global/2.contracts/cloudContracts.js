@@ -3,8 +3,8 @@ const { getCloudProvider } = require("./cloudProvider");
 const { Variables } = require("./variables");
 
 
-const CloudContracts = (network, chain, type) => {
-    let provider = getCloudProvider(network, chain, type);
+const CloudContracts = () => {
+    let provider = getCloudProvider();
 
     let wnsRegistryContract = new ethers.Contract((Variables()).wnsRegistryAddr, (Variables()).wnsRegistryAbi, provider);
     let wnsRegistrarContract = new ethers.Contract((Variables()).wnsRegistrarAddr, (Variables()).wnsRegistrarAbi, provider);
@@ -17,8 +17,15 @@ const CloudContracts = (network, chain, type) => {
     let weweStakingContract = new ethers.Contract((Variables()).weweStakingAddr, (Variables()).weweStakingAbi, provider);
     let weweContract = new ethers.Contract(Variables().weweAddr, (Variables()).weweAbi, provider);
     let apecoinContract = new ethers.Contract(Variables().apecoinAddr, (Variables()).weweAbi, provider);
-
-    return { wnsRegistryContract, wnsRegistrarContract, wnsResolverContract, wnsErc721Contract, wnsMembershipContract, wethContract, wewePresaleRegistrarContract, wewePresaleNftContract, weweStakingContract, weweContract, apecoinContract };
+    let usdtContract = new ethers.Contract(Variables().usdtAddr, (Variables()).weweAbi, provider);
+    let apeRegistrarContract = new ethers.Contract(Variables().apeRegistrarAddr, (Variables()).apeRegistrarAbi, provider);
+    let apeErc721Contract = new ethers.Contract(Variables().apeErc721Addr, (Variables()).apeErc721Abi, provider);
+    let apeRegistryContract = new ethers.Contract(Variables().apeRegistryAddr, (Variables()).apeRegistryAbi, provider);
+    let apeResolverContract = new ethers.Contract(Variables().apeResolverAddr, (Variables()).apeResolverAbi, provider);
+    return {
+        wnsRegistryContract, wnsRegistrarContract, wnsResolverContract, wnsErc721Contract, wnsMembershipContract, wethContract, wewePresaleRegistrarContract, wewePresaleNftContract, weweStakingContract, weweContract, apecoinContract,
+        apeRegistrarContract, apeErc721Contract, apeRegistryContract, apeResolverContract, usdtContract
+    };
 }
 
 module.exports = CloudContracts;

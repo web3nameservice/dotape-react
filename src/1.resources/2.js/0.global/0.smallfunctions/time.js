@@ -9,40 +9,42 @@ export function timeToString(timestamp1) {
     const msPerMonth = msPerDay * 30;
     const msPerYear = msPerDay * 365;
     const msPerDecade = msPerYear * 10;
+    const msPerCentury = msPerDecade * 10;
+    const msPerMillenium = msPerCentury * 10;
 
     const current = Date.now();
     const elapsed = current - timestamp;
     const rtf = new Intl.RelativeTimeFormat('en', { numeric: "auto" });
 
     if (elapsed > 0) {
-        if (elapsed < msPerMinute) {
+        if (elapsed <= msPerMinute) {
             return rtf.format(-Math.floor(elapsed / 1000), 'seconds');
-        } else if (elapsed < msPerHour) {
+        } else if (elapsed <= msPerHour) {
             return rtf.format(-Math.floor(elapsed / msPerMinute), 'minutes');
-        } else if (elapsed < msPerDay) {
+        } else if (elapsed <= msPerDay) {
             return rtf.format(-Math.floor(elapsed / msPerHour), 'hours');
-        } else if (elapsed < msPerMonth) {
+        } else if (elapsed <= msPerMonth) {
             return rtf.format(-Math.floor(elapsed / msPerDay), 'days');
-        } else if (elapsed < msPerYear) {
+        } else if (elapsed <= msPerYear) {
             return rtf.format(-Math.floor(elapsed / msPerMonth), 'months');
-        } else if (elapsed < msPerDecade) {
+        } else if (elapsed <= msPerMillenium) {
             return rtf.format(-Math.floor(elapsed / msPerYear), 'years');
         } else {
             return new Date(timestamp).toLocaleDateString('en');
         }
     } else {
-        if (-msPerMinute < elapsed) {
-            return rtf.format(-Math.floor(elapsed / 1000), 'seconds');
-        } else if (-msPerHour < elapsed) {
-            return rtf.format(-Math.floor(elapsed / msPerMinute), 'minutes');
-        } else if (-msPerDay < elapsed) {
-            return rtf.format(-Math.floor(elapsed / msPerHour), 'hours');
-        } else if (-msPerMonth < elapsed) {
-            return rtf.format(-Math.floor(elapsed / msPerDay), 'days');
-        } else if (-msPerYear < elapsed) {
-            return rtf.format(-Math.floor(elapsed / msPerMonth), 'months');
-        } else if (-msPerDecade < elapsed) {
-            return rtf.format(-Math.floor(elapsed / msPerYear), 'years');
+        if (-msPerMinute <= elapsed) {
+            return rtf.format(-Math.ceil(elapsed / 1000), 'seconds');
+        } else if (-msPerHour <= elapsed) {
+            return rtf.format(-Math.ceil(elapsed / msPerMinute), 'minutes');
+        } else if (-msPerDay <= elapsed) {
+            return rtf.format(-Math.ceil(elapsed / msPerHour), 'hours');
+        } else if (-msPerMonth <= elapsed) {
+            return rtf.format(-Math.ceil(elapsed / msPerDay), 'days');
+        } else if (-msPerYear <= elapsed) {
+            return rtf.format(-Math.ceil(elapsed / msPerMonth), 'months');
+        } else if (-msPerMillenium <= elapsed) {
+            return rtf.format(-Math.ceil(elapsed / msPerYear), 'years');
         } else {
             return new Date(timestamp).toLocaleDateString('en');
         }

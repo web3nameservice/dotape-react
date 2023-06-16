@@ -18,6 +18,7 @@ import AdamdyorApe from "../../1.resources/3.files/images/nft/adamdyor.webp";
 import VincentApe from "../../1.resources/3.files/images/nft/vincent.webp";
 import EmptyImg from "../../1.resources/3.files/images/empty_nft.png";
 import LoginModal from "../0.global/wallet/loginSignature";
+import { LoginParams } from "../0.wrapper/login";
 
 const Generator = ({ walletConnected, setWalletConnected }) => {
     let { address } = useAccount();
@@ -31,7 +32,7 @@ const Generator = ({ walletConnected, setWalletConnected }) => {
     const [versionSelected, setVersionSelected] = useState(1);
     const [refresh, setRefresh] = useState(0);
     const [collection, setCollection] = useState("bayc");
-    const [loginModalOpen, setLoginModalOpen] = useState(false);
+    const { setLoginModalOpen } = LoginParams();
 
     useEffect(() => {
         document.title = "Avatars - DOT APE";
@@ -108,95 +109,88 @@ const Generator = ({ walletConnected, setWalletConnected }) => {
     }
 
     return (
-        <div className="bg-black min-h-screen flex flex-col justify-between">
-            <div className="">
-                <div>
-                    <Header />
-                </div>
-                <div id="about" className="min-w-screen flex justify-center items-start pb-10 pt-4 ">
 
-                    <div className="w-full lg:w-[1280px] px-5 md:px-10 lg:px-28 2xl:px-0 lg:rounded-xl text-white">
+        <div id="about" className="h-full flex justify-center items-start pb-10 pt-10 bg-white dark:bg-dark900 text-black dark:text-white">
 
-                        {/* <div>
+            <div className="w-full lg:max-w-[1280px] px-5 md:px-10 lg:px-20 2xl:px-10 lg:rounded-xl ">
+
+                {/* <div>
                             <Banner />
                         </div> */}
 
-                        <div className="pt-0">
-                            <p className="text-6xl font-bold text-center">.APE AVATARS</p>
-                            <p className="text-2xl text-center pt-4">Generate your own .ape avatar for Twitter</p>
-                        </div>
-
-                        <div className="mt-8 bg-neutral-900 border-2 border-neutral-800 rounded-2xl px-10 py-10 block lg:flex items-center">
-                            <div className="w-full lg:w-6/12">
-                                {imgLoading ? <div className="flex justify-center items-center w-full aspect-square bg-neutral-800">
-                                    <FontAwesomeIcon icon={['fas', 'circle-notch']} className="text-white text-2xl animate-spin" />
-                                </div> : (null)}
-
-                                {/* {!imgLoading ? ( */}
-                                <img src={image} onLoad={handleOnload} onError={handleOnError} className="w-full rounded-2xl" style={{ display: imgLoading ? "none" : "block" }} key={refresh} />
-                                {/* ) : (null)} */}
-
-                                {imgLoading ? (null) : (
-                                    <p className="text-xs text-start pt-4 text-gray-400">Right click and save image to download</p>
-                                )}
-                            </div>
-                            <div className="w-full lg:w-6/12 px-0 lg:px-20 mt-10 lg:mt-0">
-                                <p className="text-lg">Select version:</p>
-
-                                <div className="flex items-center pt-2">
-                                    <select className="bg-neutral-800 border-2 border-neutral-700 text-white text-lg w-full text-center rounded-xl py-2" onChange={changeVersion}>
-                                        <option value="1">Matching Background</option>
-                                        <option value="2">.Ape Background</option>
-                                    </select>
-                                </div>
-
-                                <p className="text-lg mt-10">Select collection:</p>
-                                <div className="flex items-center pt-2">
-                                    <select className="bg-neutral-800 border-2 border-neutral-700 text-white text-lg w-full text-center rounded-xl py-2" onChange={changeCollection}>
-                                        <option value="1">BAYC</option>
-                                        <option value="2">MAYC</option>
-                                    </select>
-                                </div>
-
-                                <p className="text-lg mt-10">Enter your token id:</p>
-                                <div className="flex items-center pt-2">
-                                    <input type="number" className="bg-neutral-800 border-2 border-neutral-700 text-white text-lg w-full text-center rounded-xl py-2" value={tokenId} onChange={changeTokenId} />
-                                </div>
-
-                                <p className="text-lg mt-10">Enter your .ape name:</p>
-                                <div className="flex items-center pt-2">
-                                    <input type="text" className="bg-neutral-800 border-2 border-neutral-700 text-white text-lg w-full text-center rounded-xl py-2" value={name} onChange={changeName} />
-                                </div>
-                                {imgError ? (
-                                    <div className="mt-8">
-                                        <p className="text-sm">We could not verify your ownership of this token.</p>
-                                    </div>
-                                ) : (null)}
-                                {address ? (
-                                    <button type="button" onClick={() => generate()} className='bg-main text-white rounded-full p-3 px-4 text-sm whitespace-nowrap z-0 flex items-center gap-x-2 mt-8'>
-                                        <p>Generate</p>
-                                        <FontAwesomeIcon icon={['fas', 'arrow-right']} className="text-white text-sm" />
-                                    </button>
-                                ) : (
-                                    <div className="mt-8">
-                                        <p className="text-sm">In order to protect the IP rights of holders, connect your wallet to verify that you own the NFT.</p>
-                                        <div className="mt-4">
-                                            <ConnectWallet />
-                                        </div>
-                                    </div>
-                                )}
-
-                            </div>
-                        </div>
-                    </div>
-                    <LoginModal isOpen={loginModalOpen} setIsOpen={setLoginModalOpen} />
+                <div className="pt-0">
+                    <p className="text-4xl font-bold text-start">Generate avatars</p>
+                    <p className="text-md text-start pt-2 text-gray-500 dark:text-neutral-500">Generate avatars for your NFTs to share on social media</p>
                 </div>
 
-            </div>
-            <div className="">
-                <Footer />
+                <div className="mt-8 block lg:flex items-center">
+                    <div className="w-full lg:w-6/12">
+                        {imgLoading ? <div className="flex justify-center items-center w-full aspect-square bg-neutral-800">
+                            <FontAwesomeIcon icon={['fas', 'circle-notch']} className="text-white text-2xl animate-spin" />
+                        </div> : (null)}
+
+                        {/* {!imgLoading ? ( */}
+                        <img src={image} onLoad={handleOnload} onError={handleOnError} className="w-full rounded-2xl" style={{ display: imgLoading ? "none" : "block" }} key={refresh} />
+                        {/* ) : (null)} */}
+
+                        {imgLoading ? (null) : (
+                            <p className="text-xs text-start pt-4 text-gray-500 dark:text-neutral-400">Right click and save image to download</p>
+                        )}
+                    </div>
+                    <div className="w-full lg:w-6/12 px-0 lg:px-20 mt-10 lg:mt-0">
+                        <p className="text-md text-gray-500 dark:text-neutral-400">Select version:</p>
+
+                        <div className="flex items-center pt-2">
+                            <select className="bg-zinc-100 dark:bg-dark800 border-2 border-zinc-200 dark:border-dark700 text-black dark:text-white text-lg w-full text-center rounded-xl py-2 outline-none" onChange={changeVersion}>
+                                <option value="1">Matching Background</option>
+                                <option value="2">.Ape Background</option>
+                            </select>
+                        </div>
+
+                        <p className="text-md text-gray-500 dark:text-neutral-400 mt-10">Select collection:</p>
+                        <div className="flex items-center pt-2">
+                            <select className="bg-zinc-100 dark:bg-dark800 border-2 border-zinc-200 dark:border-dark700 text-black dark:text-white text-lg w-full text-center rounded-xl py-2" onChange={changeCollection}>
+                                <option value="1">BAYC</option>
+                                <option value="2">MAYC</option>
+                            </select>
+                        </div>
+
+                        <p className="text-md text-gray-500 dark:text-neutral-400 mt-10">Enter your token id:</p>
+                        <div className="flex items-center pt-2">
+                            <input type="number" className="bg-zinc-100 dark:bg-dark800 border-2 border-zinc-200 dark:border-dark700 text-black dark:text-white text-lg w-full text-center rounded-xl py-2" value={tokenId} onChange={changeTokenId} />
+                        </div>
+
+                        <p className="text-md text-gray-500 dark:text-neutral-400 mt-10">Enter your .ape name:</p>
+                        <div className="flex items-center pt-2">
+                            <input type="text" className="bg-zinc-100 dark:bg-dark800 border-2 border-zinc-200 dark:border-dark700 text-black dark:text-white text-lg w-full text-center rounded-xl py-2" value={name} onChange={changeName} />
+                        </div>
+                        {imgError ? (
+                            <div className="mt-10">
+                                <p className="text-sm">We could not verify your ownership of this token.</p>
+                            </div>
+                        ) : (null)}
+                        {address ? (
+                            <div className="mt-10">
+                                <p className="text-sm">In order to protect the IP rights of holders, only the NFT owner can generate an avatar for their token.</p>
+                                <button type="button" onClick={() => generate()} className='bg-main text-white rounded-full p-3 px-4 text-sm whitespace-nowrap z-0 flex items-center gap-x-2 mt-6'>
+                                    <p>Generate</p>
+                                    <FontAwesomeIcon icon={['fas', 'arrow-right']} className="text-white text-sm" />
+                                </button>
+                            </div>
+                        ) : (
+                            <div className="mt-10">
+                                <p className="text-sm">In order to protect the IP rights of holders, connect your wallet to verify that you own the NFT.</p>
+                                <div className="mt-8">
+                                    <ConnectWallet />
+                                </div>
+                            </div>
+                        )}
+
+                    </div>
+                </div>
             </div>
         </div>
+
     );
 
 }

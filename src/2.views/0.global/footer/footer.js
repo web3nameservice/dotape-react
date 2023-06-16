@@ -6,8 +6,8 @@ import Links from '../header/links';
 const Footer = () => {
 
     return (
-        <div className='flex justify-center items-center pb-2 pt-6 '>
-            <div className='w-full lg:w-[1280px] mx-10  lg:px-28 2xl:px-0' style={{ zIndex: 1000000 }}>
+        <div className='flex justify-center items-center pb-0 pt-6 bg-black'>
+            <div className="w-full">
 
                 <div className='md:flex justify-between items-center md:items-start'>
                     <div className='hidden md:block flex-col items-center md:items-start '>

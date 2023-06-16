@@ -11,14 +11,18 @@ import CloudContracts from '../../../1.resources/2.js/0.global/2.contracts/cloud
 import { getDomain, getWnsDomain } from '../../../1.resources/2.js/0.global/3.api/callW3Api';
 import { colors } from '../../../1.resources/1.css/colors';
 import LoginModal from './loginSignature';
+import { LoginParams } from '../../0.wrapper/login';
+import makeBlockie from 'ethereum-blockies-base64';
+import { GlobalParams } from '../../0.wrapper/darkMode';
+import { zeroAddress } from '../../../1.resources/2.js/0.global/0.smallfunctions/prepends';
 
-export const ConnectWallet = ({ type }) => {
+export const ConnectWallet = ({ type, format }) => {
     const [accountModalOpen, setAccountModalOpen] = useState(false);
     const { address, isConnecting, isDisconnected, isReconnecting } = useAccount()
     const [domain, setDomain] = useState("");
     const [currentAddress, setCurrentAddress] = useState("");
     const { disconnect } = useDisconnect()
-    const [loginModalOpen, setLoginModalOpen] = useState(false);
+    const { setLoginModalOpen } = LoginParams();
 
     async function init() {
         let result = await getDomain(address);
@@ -29,7 +33,7 @@ export const ConnectWallet = ({ type }) => {
     }
 
     async function checkSignature() {
-        let signature = localStorage.getItem("accountSignature");
+        let signature = localStorage.getItem("accountSignature" + address);
         console.log("signature", signature);
         if (signature == null || signature == "" || signature == undefined || signature == "null") {
             setLoginModalOpen(true);
@@ -40,7 +44,7 @@ export const ConnectWallet = ({ type }) => {
     useEffect(() => {
         if (address != null && address != "" && address != undefined) {
             init();
-            // checkSignature();
+            checkSignature();
         }
     }, [address])
 
@@ -82,36 +86,52 @@ export const ConnectWallet = ({ type }) => {
                                     return (
                                         type == "mobile" ? (
                                             <div>
-                                                <button onClick={openConnectModal} type="button" className='bg-main text-white rounded-full p-3 px-4 text-sm whitespace-nowrap z-0 block md:hidden'>
-                                                    <FontAwesomeIcon icon={['fas', 'fa-right-to-bracket']} style={{ fontSize: "100%" }} className="text-white" />
+                                                <button onClick={openConnectModal} type="button" className='bg-main text-white rounded-xl text-sm whitespace-nowrap z-0 w-9 h-9 flex items-center justify-center'>
+                                                    <FontAwesomeIcon icon={['fas', 'fa-wallet']} style={{ fontSize: "100%" }} className="text-white" />
                                                 </button>
 
-                                                <button onClick={openConnectModal} type="button" className='bg-main text-white rounded-full p-3 px-4 text-sm whitespace-nowrap z-0 hidden md:block'>
+                                                {/* <button onClick={openConnectModal} type="button" className='bg-main text-white rounded-full p-3 px-4 text-sm whitespace-nowrap z-0 hidden md:block'>
                                                     Connect Wallet
-                                                </button>
+                                                </button> */}
                                             </div>
                                         ) : (
-                                            <button onClick={openConnectModal} type="button" className='bg-main text-white rounded-full p-3 px-4 text-sm whitespace-nowrap z-0'>
-                                                Connect Wallet
-                                            </button>
+                                            format == "text" ? (
+                                                <button onClick={openConnectModal} type="button" className='bg-transparent rounded-full p-0 px-0 text-sm whitespace-nowrap z-0 flex items-center gap-x-2 font-semibold text-main'>
+                                                    <p>Connect Wallet</p>
+                                                    <FontAwesomeIcon icon={['fas', 'fa-arrow-right']} style={{ fontSize: "100%" }} className="text-main" />
+                                                </button>
+                                            ) : (
+                                                <button onClick={openConnectModal} type="button" className='bg-main rounded-full p-3 px-4 text-sm whitespace-nowrap z-0 flex items-center gap-x-2 font-semibold text-white'>
+                                                    <p>Connect Wallet</p>
+                                                    <FontAwesomeIcon icon={['fas', 'fa-arrow-right']} style={{ fontSize: "100%" }} className="text-white" />
+                                                </button>
+                                            )
+
                                         )
                                     );
                                 } else {
                                     return (
-                                        <div style={{ display: 'flex', gap: 0 }}>
-
-                                            <button onClick={() => setAccountModalOpen(true)} type="button" className='flex items-center gap-2 font-bold text-sm bg-white/10 rounded-xl px-0 md:px-4 py-0 md:py-2 md:border-2 border-white/10'>
-                                                <div className='flex items-center gap-x-2'>
-                                                    <div className="bg-gray-400 w-10 h-10 flex justify-center items-center" style={{ borderRadius: "12px" }}>
-                                                        <FontAwesomeIcon icon="user-alt" className="text-md text-white" />
-                                                    </div>
-                                                    <div className='text-left hidden md:block'>
-                                                        <p className='text-md'>{address != null ? domain == "" ? shortenaddress(address) : domain : ""}</p>
-                                                        <p className='text-xs text-main'>Manage</p>
-                                                    </div>
+                                        type == "mobile" ? (
+                                            <div>
+                                                <div className="w-9 h-9 flex justify-center items-center rounded-2xl" onClick={() => setAccountModalOpen(true)}>
+                                                    <img src={makeBlockie(address != null ? address : zeroAddress)} className='rounded-xl' />
                                                 </div>
-                                            </button>
-                                        </div>
+                                            </div>
+                                        ) : (
+                                            <div style={{ display: 'flex', gap: 0 }}>
+                                                <button onClick={() => setAccountModalOpen(true)} type="button" className='flex items-center gap-2 font-bold text-sm bg-white dark:bg-dark900 rounded-2xl px-4 md:px-4 py-2 md:py-2 md:border border-gray-200 dark:border-dark800'>
+                                                    <div className='flex items-center gap-x-2'>
+                                                        <div className="w-9 h-9 flex justify-center items-center rounded-2xl">
+                                                            <img src={makeBlockie(address != null ? address : zeroAddress)} className='rounded-xl' />
+                                                        </div>
+                                                        <div className='text-left'>
+                                                            <p className='text-md'>{address != null ? domain == "" ? shortenaddress(address) : domain : ""}</p>
+                                                            <p className='text-xs text-main'>Manage</p>
+                                                        </div>
+                                                    </div>
+                                                </button>
+                                            </div>
+                                        )
                                     );
                                 }
 
@@ -129,10 +149,9 @@ export const ConnectWallet = ({ type }) => {
                     );
                 }}
 
-            </ConnectButton.Custom>
+            </ConnectButton.Custom >
             <AccountModal accountModalOpen={accountModalOpen} setAccountModalOpen={setAccountModalOpen} domain={domain} />
-            <LoginModal isOpen={loginModalOpen} setIsOpen={setLoginModalOpen} />
-        </div>
+        </div >
     );
 };
 
@@ -141,18 +160,18 @@ export function AccountModal({ accountModalOpen, setAccountModalOpen, domain }) 
     const { address, isConnecting, isDisconnected } = useAccount()
     const { data, isError, isLoading } = useBalance({ address: address })
     const { disconnect } = useDisconnect()
-
+    const { darkMode } = GlobalParams();
 
     function closeModal() {
         setAccountModalOpen(false)
     }
 
     async function disconnectWallet() {
-        localStorage.clear();
+        localStorage.removeItem("walletConnected");
         sessionStorage.clear();
         disconnect();
         setAccountModalOpen(false);
-        window.location = "/";
+        window.location = "/search";
     }
 
 
@@ -183,48 +202,52 @@ export function AccountModal({ accountModalOpen, setAccountModalOpen, domain }) 
                                 leaveFrom="opacity-100 scale-100"
                                 leaveTo="opacity-0 scale-95"
                             >
-                                <Dialog.Panel className="w-full max-w-lg transform overflow-hidden rounded-2xl bg-white text-black p-6 text-left align-middle shadow-xl transition-all" style={{ zIndex: 1000000000000000000000 }}>
-                                    <div className='flex justify-end'>
-                                        <div className='w-6 h-6 bg-gray-200 rounded-full flex justify-center items-center cursor-pointer' onClick={() => setAccountModalOpen(false)}>
-                                            <FontAwesomeIcon icon={['fas', 'fa-xmark']} style={{ fontSize: "100%" }} className="text-gray-600" />
-                                        </div>
-                                    </div>
-                                    <div className='px-4'>
-                                        <div className='flex flex-col items-start -mt-4'>
-                                            {/* <img src={UserImg} className='w-[80px] h-[80px] rounded-full' /> */}
-                                            <div className="bg-gray-400 w-20 h-20 flex justify-center items-center" style={{ borderRadius: "24px" }}>
-                                                <FontAwesomeIcon icon="user-alt" className="text-3xl text-white" />
-                                            </div>
-                                            <p className='pt-6 font-bold text-4xl'>{address != null ? domain == "" ? shortenaddress(address) : domain : ""}</p>
-                                            <p className='pt-2 text-md text-gray-500'>{"Balance: " + parseFloat(data?.formatted).toFixed(3)} {data?.symbol}</p>
-
-                                            <div className='mt-8'>
-                                                <div>
-                                                    <p className='font-semibold text-lg'>Address</p>
-                                                </div>
-                                                <div>
-                                                    <p className='text-md text-gray-500 break-all'>{address}</p>
+                                <Dialog.Panel className="w-full max-w-lg transform overflow-hidden text-left align-middle shadow-xl transition-all" style={{ zIndex: 1000000000000000000000 }}>
+                                    <div className={darkMode ? "dark" : ""}>
+                                        <div className='bg-white dark:bg-dark800 rounded-2xl p-6 border border-gray-200 dark:border-dark700 text-black dark:text-white'>
+                                            <div className='flex justify-end'>
+                                                <div className='w-6 h-6 bg-gray-200 rounded-full flex justify-center items-center cursor-pointer' onClick={() => setAccountModalOpen(false)}>
+                                                    <FontAwesomeIcon icon={['fas', 'fa-xmark']} style={{ fontSize: "100%" }} className="text-gray-600" />
                                                 </div>
                                             </div>
+                                            <div className='px-4'>
+                                                <div className='flex flex-col items-start -mt-4'>
+                                                    {/* <img src={UserImg} className='w-[80px] h-[80px] rounded-full' /> */}
+                                                    <div className="w-20 h-20 flex justify-center items-center">
+                                                        <img src={makeBlockie(address != null ? address : zeroAddress)} className='rounded-2xl' />
+                                                    </div>
+                                                    <p className='pt-6 font-bold text-4xl'>{address != null ? domain == "" ? shortenaddress(address) : domain : ""}</p>
+                                                    <p className='pt-2 text-md text-gray-500 dark:text-dark500'>{"Balance: " + parseFloat(data?.formatted).toFixed(3)} {data?.symbol}</p>
 
-                                            <div className='mt-8'>
-                                                <div>
-                                                    <p className='font-semibold text-lg'>Username</p>
-                                                </div>
-                                                <div>
-                                                    <p className='text-md text-gray-500'>{domain != "" ? domain : "Not registered"}</p>
-                                                </div>
-                                            </div>
+                                                    <div className='mt-8'>
+                                                        <div>
+                                                            <p className='font-semibold text-lg'>Address</p>
+                                                        </div>
+                                                        <div>
+                                                            <p className='text-md text-gray-500 dark:text-dark500 break-all'>{address}</p>
+                                                        </div>
+                                                    </div>
 
-                                        </div>
-                                        <div className='w-full pt-10' >
-                                            {/* <a className='w-full flex justify-center items-center bg-main m-1 py-4 rounded-full cursor-pointer gap-x-3' href='https://domains.w3.one/' target='_blank'>
+                                                    <div className='mt-8'>
+                                                        <div>
+                                                            <p className='font-semibold text-lg'>Username</p>
+                                                        </div>
+                                                        <div>
+                                                            <p className='text-md text-gray-500 dark:text-dark500'>{domain != "" ? domain : "Not registered"}</p>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <div className='w-full pt-10' >
+                                                    {/* <a className='w-full flex justify-center items-center bg-main m-1 py-4 rounded-full cursor-pointer gap-x-3' href='https://domains.w3.one/' target='_blank'>
                                                 <FontAwesomeIcon icon={["far", "fa-user"]} style={{ color: '#fff', fontSize: "100%" }} />
                                                 <p className='text-md text-white'>Manage username</p>
                                             </a> */}
-                                            <div className='w-full flex justify-center items-center bg-main  m-1 mt-4 py-4 rounded-full cursor-pointer gap-x-2' onClick={() => disconnectWallet()}>
-                                                <FontAwesomeIcon icon={['fas', 'fa-arrow-right-from-bracket']} style={{ fontSize: "100%" }} className='text-white' />
-                                                <p className='text-md text-white'>Disconnect</p>
+                                                    <div className='w-full flex justify-center items-center bg-main  m-1 mt-4 py-4 rounded-full cursor-pointer gap-x-2' onClick={() => disconnectWallet()}>
+                                                        <FontAwesomeIcon icon={['fas', 'fa-arrow-right-from-bracket']} style={{ fontSize: "100%" }} className='text-white' />
+                                                        <p className='text-md text-white'>Disconnect</p>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

@@ -16,8 +16,8 @@ function AuthProvider({ children }) {
                 window.location.reload();
             } else {
                 if (account.address != address) {
-                    localStorage.clear();
-                    window.location = "/";
+                    localStorage.removeItem('walletConnected');
+                    window.location = "/search";
                 }
             }
         }
