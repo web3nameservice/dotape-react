@@ -178,9 +178,9 @@ const Price = ({ name, isReserved, reservedAddress, reservedDomain, reservedLoad
                 ) : (null)}
 
                 <div className="mt-8">
-                    <div className="flex items-center justify-start gap-x-4">
+                    <div className="flex items-center justify-start gap-x-2">
                         <FontAwesomeIcon icon={['fas', 'info-circle']} className="text-main text-sm" />
-                        <p className="text-sm text-main font-semibold">Registration is only active for presale participants</p>
+                        <p className="text-sm text-main font-semibold">Public registration is not open yet</p>
                     </div>
                 </div>
 
