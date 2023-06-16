@@ -11,6 +11,12 @@ html {
 body {
     background-color: black !important;
     color: white !important;
+    background-image: url('../3.files/images/loading2.gif');
+    background-position: center center !important;
+    background-size: 100px !important;
+    min-width: 100vw !important;
+    min-height: 100vh !important;
+    background-repeat: no-repeat !important;
 }
 .balance-text {
     text-wrap: balance;  /* Apply (proposed) CSS style */

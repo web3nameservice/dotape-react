@@ -99,9 +99,22 @@ const MainApp = ({ chains }) => {
         fontStack: "system",
         borderRadius: "large"
       })} >
-        <Main />
+        <MainApp2 />
       </RainbowKitProvider>
     </div>
   )
+}
+
+class MainApp2 extends React.Component {
+
+  componentDidMount() {
+    document.body.style.backgroundImage = "none";
+  }
+
+  render() {
+    return (
+      <Main />
+    )
+  }
 }
 
