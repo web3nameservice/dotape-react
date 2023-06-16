@@ -88,7 +88,7 @@ const MainApp = ({ chains }) => {
 
   useEffect(() => {
     if (darkMode) {
-      document.body.style.backgroundColor = "rgb(9 9 11)";
+      document.body.style.backgroundColor = "#000";
     } else {
       document.body.style.backgroundColor = "#F9F9F9";
     }
