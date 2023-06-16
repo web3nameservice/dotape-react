@@ -3,9 +3,7 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 const GlobalContext = createContext();
 
 function GlobalProvider({ children }) {
-    const [darkMode, setDarkMode] = useState(
-        localStorage.getItem("darkMode") === "true" ? true : false
-    );
+    const [darkMode, setDarkMode] = useState(true);
 
     async function toggleDarkMode() {
         if (localStorage.getItem("darkMode") === "true") {
