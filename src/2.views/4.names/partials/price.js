@@ -223,9 +223,9 @@ const Price = ({ name, isReserved, reservedAddress, reservedDomain, reservedLoad
                             )
                         ) : (
                             <div className="flex items-center gap-x-2 mt-8">
-                                <button className="w-full bg-main rounded-full px-4 py-3 text-white font-semibold w-fit text-sm" onClick={() => setRegisterModal(true)}>Register</button>
+                                <button className=" bg-main rounded-full px-4 py-3 text-white font-semibold w-fit text-sm" onClick={() => setRegisterModal(true)}>Register</button>
                                 {isCart ? (null) : (
-                                    <button className="w-full rounded-full px-4 py-3 text-main font-semibold w-fit text-sm" onClick={() => addToCart()}>Add to Cart</button>
+                                    <button className=" rounded-full px-4 py-3 text-main font-semibold w-fit text-sm" onClick={() => addToCart()}>Add to Cart</button>
                                 )}
                             </div>)
                     )
