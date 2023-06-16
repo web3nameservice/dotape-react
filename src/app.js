@@ -108,7 +108,7 @@ const MainApp = ({ chains }) => {
         borderRadius: "large"
       })} >
         <div className={loading ? "loading" : ""}>
-          {/* <Main /> */}
+          <Main />
         </div>
       </RainbowKitProvider>
     </div>
