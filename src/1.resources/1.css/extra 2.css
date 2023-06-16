@@ -1,0 +1,211 @@
+/* 
+* Element we use to apply the shadow.
+* You can use any element instead. Just note 
+* it requires the use of `position: relative` 
+* and some `background`.
+*/
+.box {
+    /* Required properties */
+    position: relative;
+
+    /* Use  your own styles here */
+
+    z-index: 1;
+}
+
+.box:before {
+    content: "";
+    z-index: -1;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: linear-gradient(-45deg, #ff3d00 0%, #0400ff 100%);
+    transform: translate3d(0px, 0px, 0) scale(1.15);
+    filter: blur(180px);
+    opacity: var(0.2);
+    transition: opacity 0.3s;
+    border-radius: inherit;
+}
+
+/* 
+* Prevents issues when the parent creates a 
+* stacking context. (For example, using the transform
+* property )
+*/
+.box::after {
+    content: "";
+    z-index: -1;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: inherit;
+    border-radius: inherit;
+}
+
+.typewriter p {
+    overflow: hidden;
+    /* Ensures the content is not revealed until the animation */
+    border-right: .15em solid orange;
+    /* The typwriter cursor */
+    white-space: nowrap;
+    /* Keeps the content on a single line */
+    /* Gives that scrolling effect as the typing happens */
+    /* Adjust as needed */
+    animation:
+        typing 1.5s steps(40, end),
+        blink-caret .75s step-end infinite;
+}
+
+/* The typing effect */
+@keyframes typing {
+    from {
+        width: 0
+    }
+
+    to {
+        width: 100%
+    }
+}
+
+/* The typewriter cursor effect */
+@keyframes blink-caret {
+
+    from,
+    to {
+        border-color: transparent
+    }
+
+    50% {
+        border-color: #fff;
+    }
+}
+
+.basic {
+    /* box-shadow: 0px 0px 10px 5px orange; */
+    -webkit-filter: drop-shadow(0px 0px 150px #042d86);
+    filter: drop-shadow(0px 0px 150px #042d86);
+  }
+
+
+  
+.bg {
+    /* position: absolute; */
+    width: 100vw;
+    /* background: radial-gradient(75% 35% at 50% 95%, #3830AB 20%, #201C89 90%),
+                    linear-gradient(#3830AB 0%, #100A4D 80%);
+    z-index: -1; */
+
+    &:before {
+        content: "";
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        position: absolute;
+        top: 0; 
+        left: 0;
+        bottom: 0;
+        right: 0;
+        background: radial-gradient(50vw 60vw at 50% 70%, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0) 60%), 
+                        radial-gradient(35% 15% at 50% 85%, rgba(255, 255, 255, 0.09) 0%, rgba(255, 255, 255, 0) 100%); 
+        filter: blur(50px);
+    }
+}
+
+
+
+.shockbox {
+    width: 250px;
+    height: 250px;
+    margin: 20px auto;
+    background:
+      radial-gradient(
+        transparent 21%, rgba(233,233,246, .8) 21%,
+        rgba(233,233,246, .8) 22%,transparent 28%),
+      radial-gradient(
+        transparent 36%,rgba(233,233,246, .8) 40%,
+        rgba(233,233,246, .8) 42%,transparent 50%),
+      radial-gradient(
+        transparent 60%,rgba(233,233,246, .8) 65%,
+        rgba(233,233,246, .8) 66%,transparent 70%);
+    background-size:0 0,0 0,0 0;
+    background-position:center;
+    background-repeat:no-repeat;
+    animation:change 2s linear infinite;
+  }
+  @keyframes change{
+    0% {
+      background-size:0 0,0 0,0 0;
+    }
+    25% {
+      background-size:0 0,0 0,30% 30%;
+    }
+    50% {
+      background-size:10% 10%,40% 40%,60% 60%;
+    }
+    75% {
+      background-size:100% 100%,100% 100%,100% 100%;
+    }
+    100% {
+      background-size:100% 100%,100% 100%,100% 100%;
+    }
+  }
+  
+
+:root {
+--grid-size: 60px;
+--dash-length: 5px;
+--dash-width: 1px;
+--dash-color: #262626;
+--background: #131313;
+--background-light: #fff;
+--dash-color-light: #e5e5e5;
+--fade-effect: 10%; /* Adjust this to control the extent of the fade */
+}
+
+.gridlines {
+position: relative;
+background-color: var(--background);
+background-size: calc(var(--dash-length) * 2) calc(var(--dash-length) * 2), var(--grid-size) var(--grid-size);
+background-image:
+    linear-gradient(to bottom, transparent var(--dash-length), var(--background) var(--dash-length)),
+    linear-gradient(to right, var(--dash-color) var(--dash-width), transparent var(--dash-width)),
+    linear-gradient(to right, transparent var(--dash-length), var(--background) var(--dash-length)),
+    linear-gradient(to bottom, var(--dash-color) var(--dash-width), transparent var(--dash-width));
+}
+
+.gridlines::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: radial-gradient(ellipse at center, transparent var(--fade-effect), var(--background) 100%);
+    pointer-events: none;
+}
+
+.gridlines-light {
+    position: relative;
+    background-color: var(--background-light);
+    background-size: calc(var(--dash-length) * 2) calc(var(--dash-length) * 2), var(--grid-size) var(--grid-size);
+    background-image:
+        linear-gradient(to bottom, transparent var(--dash-length), var(--background-light) var(--dash-length)),
+        linear-gradient(to right, var(--dash-color-light) var(--dash-width), transparent var(--dash-width)),
+        linear-gradient(to right, transparent var(--dash-length), var(--background-light) var(--dash-length)),
+        linear-gradient(to bottom, var(--dash-color-light) var(--dash-width), transparent var(--dash-width));
+}
+
+.gridlines-light::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: radial-gradient(ellipse at center, transparent var(--fade-effect), var(--background-light) 100%);
+    pointer-events: none;
+}
