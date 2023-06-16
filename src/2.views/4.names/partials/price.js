@@ -177,12 +177,12 @@ const Price = ({ name, isReserved, reservedAddress, reservedDomain, reservedLoad
                     </div>
                 ) : (null)}
 
-                <div className="mt-8">
+                {/* <div className="mt-8">
                     <div className="flex items-center justify-start gap-x-4">
                         <FontAwesomeIcon icon={['fas', 'info-circle']} className="text-main text-sm" />
                         <p className="text-sm text-main font-semibold">Registration is only active for presale participants</p>
                     </div>
-                </div>
+                </div> */}
 
                 {address == null ? (
                     <div className="mt-8">
@@ -222,42 +222,31 @@ const Price = ({ name, isReserved, reservedAddress, reservedDomain, reservedLoad
                                 </div>
                             )
                         ) : (
-                            presaleLoading || initLoading ? (
-                                <div className="mt-8">
-                                    <FontAwesomeIcon icon={['fas', 'circle-notch']} className="text-main text-sm animate-spin" />
-                                </div>
-                            ) : (
-                                //0 == 0 ? (
-                                totalCredits > 0 ? creditsLeft > 0 ? (
-                                    <div className="mt-8">
-                                        <div className="flex items-center justify-start gap-x-4">
-                                            <FontAwesomeIcon icon={['fas', 'info-circle']} className="text-main text-sm" />
-                                            <p className="text-sm text-main font-semibold">You have credits from the presale to register this name</p>
-                                        </div>
-                                        <button className=" bg-main rounded-full px-4 py-3 text-white font-semibold w-fit text-sm mt-8 flex items-center gap-x-2" onClick={() => setPresaleModal(true)}>
-                                            <p>Register</p>
-                                            <FontAwesomeIcon icon={['fas', 'arrow-right']} className="text-white text-sm" />
-                                        </button>
-                                    </div>
-                                ) : (
-                                    <div className="flex items-center gap-x-2 mt-8">
-                                        <div className="flex items-center justify-start gap-x-4 w-fit">
-                                            <FontAwesomeIcon icon={['fas', 'info-circle']} className="text-main text-sm" />
-                                            <p className="text-sm text-main font-semibold">You do not have enough credits from the presale</p>
-                                        </div>
-                                    </div>
-                                )
-                                    : (
-                                        null
-                                    )
-                            )
-                        )))}
-                {/* <div className="flex items-center gap-x-2 mt-8">
-                    <button className="w-full bg-main rounded-full px-4 py-3 text-white font-semibold w-fit text-sm" onClick={() => setRegisterModal(true)}>Register</button>
-                    {isCart ? (null) : (
-                        <button className="w-full rounded-full px-4 py-3 text-main font-semibold w-fit text-sm" onClick={() => addToCart()}>Add to Cart</button>
-                    )}
-                </div> */}
+                            <div className="flex items-center gap-x-2 mt-8">
+                                <button className="w-full bg-main rounded-full px-4 py-3 text-white font-semibold w-fit text-sm" onClick={() => setRegisterModal(true)}>Register</button>
+                                {isCart ? (null) : (
+                                    <button className="w-full rounded-full px-4 py-3 text-main font-semibold w-fit text-sm" onClick={() => addToCart()}>Add to Cart</button>
+                                )}
+                            </div>)
+                    )
+                )}
+
+                {address ? (presaleLoading || initLoading ? (
+                    <div className="mt-0">
+                        {null}
+                    </div>
+                ) : (
+                    !isReserved && totalCredits > 0 && creditsLeft > 0 ? (
+                        <div className="mt-8">
+                            <button className="rounded-full text-main font-semibold w-fit text-sm mt-8 flex items-center gap-x-2" onClick={() => setPresaleModal(true)}>
+                                <p>Register using credits</p>
+                                <FontAwesomeIcon icon={['fas', 'arrow-right']} className="text-main text-sm" />
+                            </button>
+                        </div>
+                    ) : (null)
+                )
+                ) : (null)}
+
 
                 <Register name={name} isOpen={registerModal} setIsOpen={setRegisterModal} costEth={costEth} duration={duration} primaryName={primaryName} creditsLeft={creditsLeft} />
                 <PresaleRegister name={name} isOpen={presaleModal} setIsOpen={setPresaleModal} costEth={costEth} duration={duration} primaryName={primaryName} creditsLeft={creditsLeft} />

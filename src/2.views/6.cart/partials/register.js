@@ -26,7 +26,7 @@ const Register = ({ isOpen, setIsOpen, costEth, cart }) => {
     const [success, setSuccess] = useState(false);
     const [tokenSelected, setTokenSelected] = useState(0);
     const [tokenCosts, setTokenCosts] = useState([0, 0, 0, 0]);
-    const [balances, setBalances] = useState([0, 0, 0]);
+    const [balances, setBalances] = useState([0, 0, 0, 0]);
     const [balanceChecked, setBalanceChecked] = useState(false);
     const { darkMode } = GlobalParams();
 
@@ -46,25 +46,15 @@ const Register = ({ isOpen, setIsOpen, costEth, cart }) => {
         ])
         resultUsd = resultUsd.reduce((a, b) => a + parseFloat(b.toString()), 0);
         resultApecoin = resultApecoin.reduce((a, b) => a + parseFloat(b.toString()), 0);
-        setTokenCosts([costEth, resultApecoin, costEth, resultUsd]);
+        setTokenCosts([parseFloat(costEth), parseFloat(resultApecoin), parseFloat(costEth), parseFloat(resultUsd)]);
         console.log(resultUsd, resultApecoin);
     }
 
     async function calculateBalances() {
-        console.log("calculating balances", address);
-        let apecoinContract = new ethers.Contract(Variables().apecoinAddr, Variables().weweAbi, signer);
-        let wethContract = new ethers.Contract(Variables().wethAddr, Variables().weweAbi, signer);
-        let usdtContract = new ethers.Contract(Variables().usdtAddr, Variables().weweAbi, signer);
-        let balances = await Promise.all([
-            apecoinContract.balanceOf(address),
-            wethContract.balanceOf(address),
-            usdtContract.balanceOf(address),
-        ])
-        let apecoinBalance = parseFloat(balances[0].toString());
-        let wethBalance = parseFloat(balances[1].toString());
-        let usdtBalance = parseFloat(balances[2].toString());
-        console.log(apecoinBalance, wethBalance, usdtBalance);
-        setBalances([balance.value, apecoinBalance, wethBalance, usdtBalance]);
+        let balances = await Promise.all([CloudContracts().apecoinContract.balanceOf(address), CloudContracts().wethContract.balanceOf(address), CloudContracts().usdtContract.balanceOf(address)])
+        let [apecoinBalance, wethBalance, usdtBalance] = await Promise.all([parseFloat(balances[0].toString()), parseFloat(balances[1].toString()), parseFloat(balances[2].toString())])
+
+        setBalances([parseFloat(balance.value.toString()), apecoinBalance, wethBalance, usdtBalance]);
         setBalanceChecked(true);
     }
 
@@ -133,7 +123,7 @@ const Register = ({ isOpen, setIsOpen, costEth, cart }) => {
                     let tx;
                     if (tokenSelected == 0) {
                         let total = tuples.reduce((a, b) => a + parseFloat(b[3]), 0);
-                        tx = await registrarContract.register(tuples, { value: total });
+                        tx = await registrarContract.register(tuples, { value: total.toString() });
                     } else {
                         console.log("erc20");
                         tx = await registrarContract.registerErc20(tuples, coins[tokenSelected].tokenAddress);
@@ -150,6 +140,7 @@ const Register = ({ isOpen, setIsOpen, costEth, cart }) => {
                 setLoading("");
                 setError("You have insufficient balance");
             }
+
         } catch (e) {
             setLoading("");
             setError("Something went wrong. Please try again.");
@@ -157,10 +148,10 @@ const Register = ({ isOpen, setIsOpen, costEth, cart }) => {
     }
 
     let coins = [
-        { name: "ETH", logo: EthIcon },
-        { name: "APE", logo: ApecoinIcon, tokenAddress: Variables().apecoinAddr },
-        { name: "WETH", logo: WethIcon, tokenAddress: Variables().wethAddr },
-        { name: "USDT", logo: UsdtIcon, tokenAddress: Variables().usdtAddr },
+        { name: "ETH", logo: EthIcon, tokenAddress: "null", decimals: 1e18 },
+        { name: "APE", logo: ApecoinIcon, tokenAddress: Variables().apecoinAddr, decimals: 1e18 },
+        { name: "WETH", logo: WethIcon, tokenAddress: Variables().wethAddr, decimals: 1e18 },
+        { name: "USDT", logo: UsdtIcon, tokenAddress: Variables().usdtAddr, decimals: 1e6 },
     ]
 
     useEffect(() => {
@@ -214,18 +205,18 @@ const Register = ({ isOpen, setIsOpen, costEth, cart }) => {
                                             </div>
                                             <div className="mt-8">
                                                 <p className="text-sm text-gray-500 dark:text-dark500">Select token</p>
-                                                <DropdownItem name="hello" subheading="Select your token" items={coins} width={"100%"} left={"0%"} selected={tokenSelected} setSelected={setTokenSelected} />
+                                                <DropdownItem name="hello" subheading="Select your token" items={coins} width={"100%"} left={"0%"} selected={tokenSelected} setSelected={setTokenSelected} balances={balances} balanceChecked={balanceChecked} />
                                             </div>
                                             <div>
-                                                <div className="flex justify-between items-center mt-8">
+                                                {/* <div className="flex justify-between items-center mt-8">
                                                     <p className="text-md text-zinc-500 dark:text-dark500">Your balance</p>
                                                     <p className="text-md text-zinc-500 dark:text-dark500">{
                                                         balances[tokenSelected] == 0 ? "-" :
                                                             tokenSelected == 3 ? (balances[tokenSelected] / 1e6).toFixed(2) :
                                                                 (balances[tokenSelected] / 1e18).toFixed(4)
                                                     } {coins[tokenSelected].name}</p>
-                                                </div>
-                                                <div className="flex justify-between items-center mt-4">
+                                                </div> */}
+                                                <div className="flex justify-between items-center mt-8">
                                                     <p className="text-md text-main font-bold">You pay</p>
                                                     <p className="text-md text-main font-bold text-end">{costEth == 0 ? "-" :
                                                         tokenSelected == 0 ?
@@ -318,20 +309,23 @@ const Register = ({ isOpen, setIsOpen, costEth, cart }) => {
 export default Register;
 
 
-const DropdownItem = ({ name, subheading, items, width, left, selected, setSelected }) => {
+const DropdownItem = ({ name, subheading, items, width, left, selected, setSelected, balances, balanceChecked }) => {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
-        <div className="dropdown w-full rounded-xl bg-white dark:bg-dark800 border-2 border-gray-200 dark:border-dark700 mt-2" >
-            <div className="flex items-center justify-between gap-x-3 px-4 py-2" onClick={() => setIsOpen(!isOpen)}>
+        <div className="dropdown w-full  rounded-xl bg-white dark:bg-dark800 border-2 border-gray-200 dark:border-dark700 mt-2 border-2 dark:border-dark700" >
+            <div className="flex items-center justify-between gap-x-3 px-4 py-3" onClick={() => setIsOpen(!isOpen)}>
                 <div className='flex items-center gap-x-3 cursor-pointer' >
                     <img src={items[selected].logo} className='w-6 h-6' />
                     <p className="font-semibold">{items[selected].name}</p>
                 </div>
-                <FontAwesomeIcon icon={['fas', "fa-angle-down"]} style={{ fontSize: "80%" }} />
+                <div className="flex items-center gap-x-2">
+                    <p className="text-sm font-semibold">Balance: {balanceChecked ? (parseFloat(balances[selected].toString()) / items[selected].decimals).toFixed(4) : "-"} {items[selected].name}</p>
+                    <FontAwesomeIcon icon={['fas', "fa-angle-down"]} className="text-sm text-dark500" />
+                </div>
             </div>
             <div id="" className="border-t border-gray-200 dark:border-dark700" style={{ display: isOpen ? "block" : "none", width: width, left: left }}>
-                <p className="text-gray-500 dark:text-dark500 px-4 py-2 text-sm font-semibold border-y border-b-gray-200 dark:border-dark700">{subheading}</p>
+                <p className="text-gray-500 px-4 py-2 text-sm font-semibold border-y border-b-gray-200 dark:border-dark700">{subheading}</p>
                 {items.map((item, index) => (
                     <div key={index} onClick={() => { setSelected(index); setIsOpen(!isOpen) }}>
                         <div className="px-4 py-3 flex items-center justify-between gap-x-3 cursor-pointer border-b border-b-gray-200 dark:border-dark700 hover:bg-gray-100">
@@ -341,12 +335,15 @@ const DropdownItem = ({ name, subheading, items, width, left, selected, setSelec
                                     <p className="font-semibold">{item.name}</p>
                                 </div>
                             </div>
-                            <div>
+                            <div className="flex items-center gap-x-3">
+
                                 {index == selected ? (
                                     <div className="w-5 h-5 bg-main rounded-full flex justify-center items-center">
                                         <FontAwesomeIcon icon={['fas', "fa-check"]} className="text-white text-xs" />
                                     </div>
-                                ) : (null)}
+                                ) : (
+                                    <p className="text-sm font-semibold">{balanceChecked ? (parseFloat(balances[index].toString()) / items[index].decimals).toFixed(4) : "-"} {items[index].name}</p>
+                                )}
                             </div>
                         </div>
                     </div>

@@ -64,16 +64,16 @@ const CartSidebar = ({ cart }) => {
                         )}
                     </div>
 
-                    <div className="mt-8">
+                    {/* <div className="mt-8">
                         <div className="flex items-center justify-start gap-x-4">
                             <FontAwesomeIcon icon={['fas', 'info-circle']} className="text-main text-sm" />
                             <p className="text-sm text-main font-semibold">Public registration is not open yet</p>
                         </div>
-                    </div>
+                    </div> */}
 
-                    {/* <div className="mt-8">
+                    <div className="mt-8">
                         {address != null && address != "" ? (
-                            <button className="bg-main text-white rounded-full px-8 py-3 flex items-center gap-x-2" onClick={() => setRegisterModal(true)}>
+                            <button className="bg-main text-white rounded-full px-4 py-3 flex items-center gap-x-2" onClick={() => setRegisterModal(true)}>
                                 <p className="text-sm font-bold">Register</p>
                                 <FontAwesomeIcon icon={['fas', 'arrow-right']} className="text-white text-sm" />
                             </button>
@@ -81,7 +81,7 @@ const CartSidebar = ({ cart }) => {
                             <ConnectWallet />
                         )}
 
-                    </div> */}
+                    </div>
                 </div>
                 <Register cart={cart} isOpen={registerModal} setIsOpen={setRegisterModal} costEth={costEth} />
             </div>

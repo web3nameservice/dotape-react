@@ -41,7 +41,7 @@ const Register = ({ isOpen, setIsOpen, name, costEth, duration, primaryName }) =
         ]);
 
         setTokenCosts([parseFloat(resultEth.toString()), parseFloat(resultApecoin.toString()), parseFloat(resultEth.toString()), parseFloat(resultUsd.toString())]);
-        if (address.toLowerCase() == teamAddress.toLowerCase()) {
+        if (address?.toLowerCase() == teamAddress?.toLowerCase()) {
             setTokenCosts([0, 0, 0, 0]);
         }
         setCostsChecked(true);
