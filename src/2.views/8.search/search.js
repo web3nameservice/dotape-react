@@ -17,7 +17,7 @@ const Search = ({ }) => {
     return (
         <div className={`h-full w-full flex flex-col justify-between bg-white dark:bg-dark900`}>
             <div className=" w-full h-full relative flex justify-center">
-                <div className="w-full lg:max-w-[1280px] px-5 md:px-10 lg:px-20 2xl:px-10 lg:rounded-xl ">
+                <div className="w-full lg:max-w-[1280px] px-5 md:px-10 lg:px-20 2xl:px-10 lg:rounded-xl dark:bg-dark900">
                     <div className="w-12/12 py-10">
                         <p className="text-4xl font-bold text-start text-black dark:text-white">Search</p>
                         <p className="text-md text-start text-gray-500 dark:text-neutral-500 mt-1">Search for a .ape name</p>

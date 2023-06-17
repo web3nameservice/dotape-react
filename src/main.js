@@ -2,8 +2,6 @@ import React, { useState, useEffect, useContext } from "react";
 import Home from "./2.views/1.home/home";
 import Header from "./2.views/0.global/header/header";
 import Footer from "./2.views/0.global/footer/footer";
-import BgImg from "./1.resources/3.files/images/stars7.webp";
-import BgVid from "./1.resources/3.files/images/bg0.mp4";
 import Presale from "./2.views/2.presale/presale";
 import Links from "./2.views/5.links/links";
 import Generator from "./2.views/3.generator/generator";
@@ -57,7 +55,7 @@ const Main = () => {
         <Sidebar sidebarOpened={sidebarOpened} setSidebarOpened={setSidebarOpened} />
       </div>
       <div className="h-screen w-full md:py-2 md:pr-2 ">
-        <div className="w-full h-full border-2 dark:border border-gray-200 dark:border-neutral-800 md:rounded-2xl overflow-hidden overflow-y-scroll flex flex-col" id="scrollableDiv">
+        <div className="w-full h-full border-2 dark:border border-gray-200 dark:border-neutral-800 md:rounded-2xl overflow-hidden overflow-y-scroll flex flex-col dark:bg-dark900" id="scrollableDiv">
           {window.location.pathname == "/" ? (
             null
           ) : (
@@ -66,19 +64,21 @@ const Main = () => {
             </div>
           )}
 
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/search" element={<Search />} />
-            <Route path="/avatars" element={<Generator />} />
-            <Route path="/name*" element={<Names />} />
-            <Route path="/cart" element={<Cart />} />
-            <Route path="/mynames" element={<MyNames />} />
-            <Route path="/address*" element={<MyNames />} />
-            <Route path="/marketplace" element={<Marketplace />} />
-            <Route path="/categories" element={<Categories />} />
-            <Route path="/category*" element={<Category />} />
-            <Route path="/admin/reserve" element={<Reserve />} />
-          </Routes>
+          <div className="">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/search" element={<Search />} />
+              <Route path="/avatars" element={<Generator />} />
+              <Route path="/name*" element={<Names />} />
+              <Route path="/cart" element={<Cart />} />
+              <Route path="/mynames" element={<MyNames />} />
+              <Route path="/address*" element={<MyNames />} />
+              <Route path="/marketplace" element={<Marketplace />} />
+              <Route path="/categories" element={<Categories />} />
+              <Route path="/category*" element={<Category />} />
+              <Route path="/admin/reserve" element={<Reserve />} />
+            </Routes>
+          </div>
         </div>
       </div>
 

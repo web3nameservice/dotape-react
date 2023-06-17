@@ -16,7 +16,7 @@ const Categories = ({ }) => {
     return (
         <div className={`h-full w-full flex flex-col justify-between bg-white dark:bg-dark900`}>
             <div className=" w-full h-full relative flex justify-center">
-                <div className="w-full lg:max-w-[1280px] px-5 md:px-10 lg:px-20 2xl:px-10 lg:rounded-xl ">
+                <div className="w-full lg:max-w-[1280px] px-5 md:px-10 lg:px-20 2xl:px-10 lg:rounded-xl">
                     <div className="w-12/12 py-10">
                         <div className="mt-0">
                             <p className="text-4xl font-bold text-start text-black dark:text-white mt-0">Explore Categories</p>

@@ -115,14 +115,3 @@ const MainApp = ({ chains }) => {
   )
 }
 
-class MainApp2 extends React.Component {
-
-  render() {
-    return (
-      <div>
-        {/* <Main /> */}
-      </div>
-    )
-  }
-}
-
