@@ -15,7 +15,7 @@ import Img8 from "../../../1.resources/3.files/images/nft/8.webp";
 import Img9 from "../../../1.resources/3.files/images/nft/9.webp";
 import Img10 from "../../../1.resources/3.files/images/nft/10.webp";
 
-import BgBlank from "../../../1.resources/3.files/images/blank331.avif";
+import BgBlank from "../../../1.resources/3.files/images/blank331.webp";
 import Ticker from "react-ticker";
 import { useEffect } from "react";
 import Footer from "../../0.global/footer/footer";

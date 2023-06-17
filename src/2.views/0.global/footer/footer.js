@@ -1,5 +1,5 @@
 import React from 'react';
-import Logo from "../../../1.resources/3.files/logo/logobg.avif";
+import Logo from "../../../1.resources/3.files/logo/logobg.webp";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Links from '../header/links';
 

@@ -2,8 +2,8 @@ import React, { useState, useContext, useEffect } from "react";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Hero, { GetMapping2, ImageBanner } from "./partials/hero";
-import Ethereum from "../../1.resources/3.files/images/eth2.avif";
-import Apecoin from "../../1.resources/3.files/images/apecoin2.avif";
+import Ethereum from "../../1.resources/3.files/images/eth2.webp";
+import Apecoin from "../../1.resources/3.files/images/apecoin2.webp";
 
 import Footer from "../0.global/footer/footer";
 import Ticker from "react-ticker";

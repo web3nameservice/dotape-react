@@ -1,12 +1,12 @@
 import React, { useState, useContext, useEffect } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import Adam from "../../../1.resources/3.files/images/adam.avif";
-import Pran from "../../../1.resources/3.files/images/pran.avif";
-import Vincent from "../../../1.resources/3.files/images/vincent.avif";
-import Patrick from "../../../1.resources/3.files/images/patrick.avif";
-import Manuel from "../../../1.resources/3.files/images/manuel.avif";
-import Andre from "../../../1.resources/3.files/images/andre.avif";
-import KongKong from "../../../1.resources/3.files/images/kongkong.avif";
+import Adam from "../../../1.resources/3.files/images/adam.webp";
+import Pran from "../../../1.resources/3.files/images/pran.webp";
+import Vincent from "../../../1.resources/3.files/images/vincent.webp";
+import Patrick from "../../../1.resources/3.files/images/patrick.webp";
+import Manuel from "../../../1.resources/3.files/images/manuel.webp";
+import Andre from "../../../1.resources/3.files/images/andre.webp";
+import KongKong from "../../../1.resources/3.files/images/kongkong.webp";
 
 const Team = ({ }) => {
 

@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useContext } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import Logo from "../../../1.resources/3.files/logo/logobg.png"
-import LogoBlack from "../../../1.resources/3.files/logo/logo_black.png"
 
-import Links from "./links";
 import { ConnectWallet } from "../wallet/connectWallet";
 import { GlobalParams } from "../../0.wrapper/darkMode.js";
 import HeaderSearch from "./search";

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useContext } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import Twitter from "../../../1.resources/3.files/images/twitter.avif";
-import Discord from "../../../1.resources/3.files/images/discord.avif";
-import Etherscan from "../../../1.resources/3.files/images/etherscan.avif";
-import Opensea from "../../../1.resources/3.files/images/opensea.avif";
+import Twitter from "../../../1.resources/3.files/images/twitter.webp";
+import Discord from "../../../1.resources/3.files/images/discord.webp";
+import Etherscan from "../../../1.resources/3.files/images/etherscan.webp";
+import Opensea from "../../../1.resources/3.files/images/opensea.webp";
 
 export const LinksJSON = {
     twitter: "https://twitter.com/DotApeLabs",

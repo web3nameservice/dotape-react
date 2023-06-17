@@ -3,7 +3,7 @@ import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useAccount } from "wagmi";
-import Logo from "../1.resources/3.files/logo/logobg.avif"
+import Logo from "../1.resources/3.files/logo/logobg.webp"
 import { GlobalParams } from "../2.views/0.wrapper/darkMode";
 import { ConnectWallet } from "../2.views/0.global/wallet/connectWallet";
 import { adminsLowerCase } from "../1.resources/2.js/0.global/0.smallfunctions/prepends";
