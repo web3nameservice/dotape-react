@@ -118,14 +118,14 @@ const Lower = ({ type, setAirdropsTotal, setReservedTotal, setTeamTotal }) => {
         div: "w-3/12 flex items-center gap-x-2",
     }
 
-    useEffect(() => {
+    async function goSearch() {
         if (search == "") {
             setSearchItems([]);
         } else {
             let newItems = names.filter((name) => name.name.toLowerCase().includes(search.toLowerCase()));
             setSearchItems(newItems);
         }
-    }, [search])
+    }
 
     return (
         <div id="about" className="w-full flex justify-center items-start pb-0 pt-8">
@@ -133,8 +133,14 @@ const Lower = ({ type, setAirdropsTotal, setReservedTotal, setTeamTotal }) => {
                 <div className="mt-0">
                     {names.length > 0 ? (
                         <div>
-                            <UpperTabs search={search} setSearch={setSearch} />
-
+                            <div className="flex justify-between items-center gap-x-4">
+                                <div className="w-full">
+                                    <UpperTabs search={search} setSearch={setSearch} goSearch={goSearch} />
+                                </div>
+                                <div className="flex-none my-4">
+                                    <button className="bg-main text-white rounded-full px-4 py-2 flex items-center gap-x-1 w-fit " onClick={() => goSearch()}>Search</button>
+                                </div>
+                            </div>
                             <div className="flex items-center w-full border-b-2 border-dark700 py-4">
                                 {headings.map((heading, index) => (
                                     <div key={index} className={css.div}>
@@ -223,16 +229,31 @@ const AllNamesMap = ({ names }) => {
 }
 
 const NamesMap = ({ name, index, setEditItemSelected, setEditReserveOpen }) => {
+    const { address } = useAccount();
     const [domain, setDomain] = useState(name?.address.toLowerCase() == teamAddress.toLowerCase() ? "team" : shortenaddress(name?.address ? name.address : ""));
-
+    const [removeLoading, setRemoveLoading] = useState(false);
+    const [removeError, setRemoveError] = useState(false);
     useEffect(() => {
-
-    }, [])
+        setDomain(name?.address.toLowerCase() == teamAddress.toLowerCase() ? "team" : shortenaddress(name?.address ? name.address : ""));
+    }, [name])
 
     let css = {
         div: "w-3/12 flex items-center gap-x-2",
         p: ""
     }
+
+    async function removeName() {
+        setRemoveLoading(true);
+        let result = await callW3Api("/admin/remove/reserve", { name: name.name, signature: localStorage.getItem("accountSignature" + address) });
+        if (result == "ok") {
+            setRemoveLoading(false);
+            window.location.reload();
+        } else {
+            setRemoveLoading(false);
+            setRemoveError(true);
+        }
+    }
+
     return (
         <div className="flex items-center w-full border-b-2 border-dark700 py-4">
             <div className={css.div}>
@@ -246,21 +267,38 @@ const NamesMap = ({ name, index, setEditItemSelected, setEditReserveOpen }) => {
             <div className={css.div}>
                 <p className={css.p}>{name.duration} years</p>
             </div>
-            <div>
+            <div className="flex items-center gap-x-10">
                 <button className="bg-main text-white rounded-full px-4 py-2 flex items-center gap-x-1 w-fit" onClick={() => { setEditItemSelected(index); setEditReserveOpen(true) }} >Edit</button>
+                {removeLoading ? (
+                    <FontAwesomeIcon icon={['fas', 'circle-notch']} className="text-main animate-spin" />
+
+                ) : (
+                    removeError ? (
+                        <FontAwesomeIcon icon={['fas', 'exclamation-triangle']} className="text-red-500 dark:text-red-500" />
+                    ) : (
+                        <div className="w-10 h-10 flex justify-center items-center bg-dark800 rounded-full" onClick={() => removeName()}>
+                            <FontAwesomeIcon icon={['fas', 'xmark']} className="text-gray-500 dark:text-dark500" />
+                        </div>
+                    )
+                )}
             </div>
         </div>
     )
 }
 
-const UpperTabs = ({ search, setSearch }) => {
+const UpperTabs = ({ search, setSearch, goSearch }) => {
 
+    function handleKeyDown(e) {
+        if (e.key === 'Enter') {
+            goSearch();
+        }
+    }
 
     return (
         <div className="my-4 flex justify-between items-center gap-x-2">
             <div className="onlyvertcenter p-2 pl-4 rounded-xl w-full bg-white dark:bg-dark800 border-2 dark:border border-gray-200 dark:border-dark700">
                 <FontAwesomeIcon icon={['fas', 'fa-search']} className="text-gray-500 dak:text-dark500" />
-                <input type="text" className="font-semibold text-sm w-full bg-transparent outline-none ml-4 py-1" placeholder="Type to search for a domain" value={search} onChange={(e) => setSearch(e.target.value)} />
+                <input type="text" className="font-semibold text-sm w-full bg-transparent outline-none ml-4 py-1" placeholder="Type to search for a domain" value={search} onChange={(e) => setSearch(e.target.value)} onKeyDown={handleKeyDown} />
             </div>
         </div >
     )

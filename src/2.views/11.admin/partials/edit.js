@@ -31,7 +31,6 @@ const EditReserve = ({ isOpen, setIsOpen, editItem }) => {
     }
 
     useEffect(() => {
-        console.log(editItem);
         setNewName(editItem?.name);
         setNewAddress(editItem?.address);
         setDuration(editItem?.duration);
