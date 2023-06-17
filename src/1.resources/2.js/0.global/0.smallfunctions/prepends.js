@@ -8,5 +8,5 @@ export let zeroAddress = "0x0000000000000000000000000000000000000000";
 export const collectionAddress = "0x3679f68709DDA61c8CBd5FEF301C7C92B90c423d";
 export const teamAddress = "0xF27E5e949C7C451576cB79E39854E058f8B3F231";
 
-let admins = ["0xF27E5e949C7C451576cB79E39854E058f8B3F231"]
+let admins = ["0xF27E5e949C7C451576cB79E39854E058f8B3F231", "0x924aBbecCcaF0F1c3dEe09495a472f57b1fc1919"]
 export let adminsLowerCase = admins.map((admin) => { return admin.toLowerCase() });

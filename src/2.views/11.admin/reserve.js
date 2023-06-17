@@ -6,8 +6,7 @@ import { useAccount, useSigner } from "wagmi";
 import CloudContracts from "../../1.resources/2.js/0.global/2.contracts/cloudContracts";
 import { calculateZeroes, currentEthPrice, usdToEth } from "../../1.resources/2.js/0.global/0.smallfunctions/currencyConversion";
 import { GlobalParams } from "../0.wrapper/darkMode";
-import { zeroAddress } from "../../1.resources/2.js/0.global/0.smallfunctions/prepends";
-import UpperTabs from "../7.mynames/partials/upperTabs";
+import { teamAddress, zeroAddress } from "../../1.resources/2.js/0.global/0.smallfunctions/prepends";
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { collection, onSnapshot, orderBy, query, where, limit, startAfter, getDocs, startAt } from "firebase/firestore";
 import { db } from "../../1.resources/2.js/0.global/1.firebase/firebase";
@@ -17,13 +16,14 @@ import { callW3Api, getDomain } from "../../1.resources/2.js/0.global/3.api/call
 import makeBlockie from "ethereum-blockies-base64";
 import { Variables } from "../../1.resources/2.js/0.global/2.contracts/variables";
 import { ethers } from "ethers";
+import AddReserve from "./partials/add";
+import EditReserve from "./partials/edit";
 
 const Reserve = ({ }) => {
-    const [tabSelected, setTabSelected] = useState("airdrops");
-    const [airdropsTotal, setAirdropsTotal] = useState(0);
+    const [tabSelected, setTabSelected] = useState("reserved");
     const [reservedTotal, setReservedTotal] = useState(0);
-    const [teamTotal, setTeamTotal] = useState(0);
     const { data: signer } = useSigner()
+    const [addModal, setAddModal] = useState(false);
     async function init() {
 
     }
@@ -61,37 +61,25 @@ const Reserve = ({ }) => {
                             <p className="text-md font-normal mt-2 text-dark500">This section is reserved for admins only</p>
                         </div>
                         <div>
-                            <button className="bg-main text-white px-4 py-2 rounded-full" onClick={() => airdrop()}>Airdrop</button>
+                            <button className="bg-main text-white rounded-full px-4 py-3 flex items-center gap-x-1 w-fit" onClick={() => setAddModal(true)}>
+                                <p className="text-sm font-semibold">Add</p>
+                                <FontAwesomeIcon icon={['fas', 'arrow-right']} className="text-white text-sm" />
+                            </button>
+                            {/* <button className="bg-main text-white px-4 py-2 rounded-full" onClick={() => airdrop()}>Airdrop</button> */}
                         </div>
                     </div>
 
                     <div className="grid grid-cols-4 gap-x-4 mt-8">
                         <div>
-                            <p className="text-2xl font-semibold">{airdropsTotal}</p>
-                            <p className="text-sm font-semibold mt-2 text-gray-500 dark:text-dark500">airdrops</p>
-                        </div>
-                        <div>
                             <p className="text-2xl font-semibold">{reservedTotal}</p>
                             <p className="text-sm font-semibold mt-2 text-gray-500 dark:text-dark500">reserve</p>
-                        </div>
-                        <div>
-                            <p className="text-2xl font-semibold">{teamTotal}</p>
-                            <p className="text-sm font-semibold mt-2 text-gray-500 dark:text-dark500">team</p>
                         </div>
                     </div>
 
                     <div className="flex items-center gap-x-12 w-fit mt-8">
-                        <div className={`flex items-center gap-x-2  w-fit pb-2 ${tabSelected == "airdrops" ? "border-b-2 border-white" : "border-b-2 border-transparent"}`} onClick={() => setTabSelected("airdrops")}>
-                            <FontAwesomeIcon icon={['fas', 'paper-plane']} className={`text-xs ${tabSelected == "airdrops" ? "text-white" : "text-dark500"}`} />
-                            <p className={`text-md font-bold ${tabSelected == "airdrops" ? "text-white" : "text-dark500"}`}>Airdrops</p>
-                        </div>
                         <div className={`flex items-center gap-x-2  w-fit pb-2 ${tabSelected == "reserved" ? "border-b-2 border-white" : "border-b-2 border-transparent"}`} onClick={() => setTabSelected("reserved")}>
                             <FontAwesomeIcon icon={['fas', 'tag']} className={` text-sm ${tabSelected == "reserved" ? "text-white" : "text-dark500"}`} />
                             <p className={`text-md font-bold ${tabSelected == "reserved" ? "text-white" : "text-dark500"}`}>Reserved</p>
-                        </div>
-                        <div className={`flex items-center gap-x-2  w-fit pb-2 ${tabSelected == "team" ? "border-b-2 border-white" : "border-b-2 border-transparent"}`} onClick={() => setTabSelected("team")}>
-                            <FontAwesomeIcon icon={['fas', 'user-plus']} className={` text-sm ${tabSelected == "team" ? "text-white" : "text-dark500"}`} />
-                            <p className={`text-md font-bold ${tabSelected == "team" ? "text-white" : "text-dark500"}`}>Team</p>
                         </div>
                     </div>
                 </div>
@@ -99,16 +87,12 @@ const Reserve = ({ }) => {
             </div >
 
             <div>
-                <div style={{ display: tabSelected == "airdrops" ? "block" : "none" }}>
-                    <Lower type={"airdrops"} setAirdropsTotal={setAirdropsTotal} setReservedTotal={setReservedTotal} setTeamTotal={setTeamTotal} />
-                </div>
                 <div style={{ display: tabSelected == "reserved" ? "block" : "none" }}>
-                    <Lower type={"reserved"} setAirdropsTotal={setAirdropsTotal} setReservedTotal={setReservedTotal} setTeamTotal={setTeamTotal} />
-                </div>
-                <div style={{ display: tabSelected == "team" ? "block" : "none" }}>
-                    <Lower type={"team"} setAirdropsTotal={setAirdropsTotal} setReservedTotal={setReservedTotal} setTeamTotal={setTeamTotal} />
+                    <Lower type={"reserved"} setReservedTotal={setReservedTotal} />
                 </div>
             </div>
+            <AddReserve isOpen={addModal} setIsOpen={setAddModal} />
+
         </div>
     );
 
@@ -118,19 +102,14 @@ export default Reserve;
 
 const Lower = ({ type, setAirdropsTotal, setReservedTotal, setTeamTotal }) => {
     const [names, setNames] = useState([]);
+    const [search, setSearch] = useState("");
+    const [searchItems, setSearchItems] = useState([]);
 
     useEffect(() => {
-        console.log("type", type);
-        callW3Api("/admin/get/reserve", { type: type }).then((res) => {
-            setNames(res);
 
-            if (type == "airdrops") {
-                setAirdropsTotal(res.length);
-            } else if (type == "reserved") {
-                setReservedTotal(res.length);
-            } else if (type == "team") {
-                setTeamTotal(res.length);
-            }
+        callW3Api("/admin/get/reserve", { type: "reserved" }).then((res) => {
+            setNames(res);
+            setReservedTotal(res.length);
         });
     }, [])
 
@@ -138,41 +117,116 @@ const Lower = ({ type, setAirdropsTotal, setReservedTotal, setTeamTotal }) => {
     let css = {
         div: "w-3/12 flex items-center gap-x-2",
     }
+
+    useEffect(() => {
+        if (search == "") {
+            setSearchItems([]);
+        } else {
+            let newItems = names.filter((name) => name.name.toLowerCase().includes(search.toLowerCase()));
+            setSearchItems(newItems);
+        }
+    }, [search])
+
     return (
         <div id="about" className="w-full flex justify-center items-start pb-0 pt-8">
             <div className="w-full lg:max-w-[1280px] px-5 md:px-10 lg:px-20 2xl:px-10 lg:rounded-xl">
-                {names.length > 0 ? (
-                    <div>
-                        <div className="flex items-center w-full border-b-2 border-dark700 py-4">
-                            {headings.map((heading, index) => (
-                                <div key={index} className={css.div}>
-                                    <p className="text-dark500 text-sm font-bold">{heading}</p>
-                                </div>
-                            ))}
-                        </div>
-                        {names.map((name, index) => (
-                            <div key={index}>
-                                <NamesMap name={name} />
+                <div className="mt-0">
+                    {names.length > 0 ? (
+                        <div>
+                            <UpperTabs search={search} setSearch={setSearch} />
+
+                            <div className="flex items-center w-full border-b-2 border-dark700 py-4">
+                                {headings.map((heading, index) => (
+                                    <div key={index} className={css.div}>
+                                        <p className="text-dark500 text-sm font-bold">{heading}</p>
+                                    </div>
+                                ))}
                             </div>
-                        ))}
-                    </div>
-                ) : (
-                    (null)
-                )}
+                            <div className="" style={{ display: searchItems.length > 0 ? "none" : "block" }}>
+                                <AllNamesMap names={names} />
+                            </div>
+                            <div className="" style={{ display: searchItems.length > 0 ? "block" : "none" }}>
+                                <AllSearchItemsMap names={searchItems} />
+                            </div>
+                        </div>
+                    ) : (
+                        (null)
+                    )}
+                </div>
             </div>
         </div>
     )
 }
 
-const NamesMap = ({ name }) => {
-    const [domain, setDomain] = useState(shortenaddress(name?.address ? name.address : ""));
+const AllSearchItemsMap = ({ names }) => {
+    const [editReserveOpen, setEditReserveOpen] = useState(false);
+    const [editItemSelected, setEditItemSelected] = useState(0);
+
+    return (
+        <div>
+            {names.map((name, index) => (
+                <div key={index}>
+                    <NamesMap name={name} index={index} setEditItemSelected={setEditItemSelected} setEditReserveOpen={setEditReserveOpen} />
+                    <EditReserve isOpen={editReserveOpen} setIsOpen={setEditReserveOpen} editItem={names[editItemSelected]} />
+                </div>
+            ))}
+        </div>
+    )
+}
+
+const AllNamesMap = ({ names }) => {
+    const [namesLeft, setNamesLeft] = useState(names);
+    const [items, setItems] = useState([]);
+    const [hasMore, setHasMore] = useState(true);
+    const [editReserveOpen, setEditReserveOpen] = useState(false);
+    const [editItemSelected, setEditItemSelected] = useState(0);
+
+    async function fetchNext() {
+        console.log("fetching next");
+        if (namesLeft.length === 0) {
+            setHasMore(false);
+        } else {
+            let newItems = namesLeft.slice(0, 12);
+            let remainingNames = namesLeft.slice(12);
+            setItems([...items, ...newItems]);
+            setNamesLeft(remainingNames);
+        }
+    }
 
     useEffect(() => {
-        // getDomain(name?.address).then((res) => {
-        //     if (res != "null") {
-        //         setDomain(res);
-        //     }
-        // })
+        fetchNext();
+    }, []);
+
+
+    return (
+        <div>
+            {names.length > 0 ? (
+                <InfiniteScroll
+                    dataLength={items.length}
+                    next={fetchNext}
+                    hasMore={hasMore}
+                    scrollableTarget="scrollableDiv"
+                    scrollThreshold={0.2}
+                >
+                    <div className="">
+                        {items.map((name, index) => (
+                            <div key={index}>
+                                <NamesMap name={name} index={index} setEditItemSelected={setEditItemSelected} setEditReserveOpen={setEditReserveOpen} />
+                            </div>
+                        ))}
+                    </div>
+                </InfiniteScroll>
+            ) : (null)}
+            <EditReserve isOpen={editReserveOpen} setIsOpen={setEditReserveOpen} editItem={items[editItemSelected]} />
+        </div>
+    )
+}
+
+const NamesMap = ({ name, index, setEditItemSelected, setEditReserveOpen }) => {
+    const [domain, setDomain] = useState(name?.address.toLowerCase() == teamAddress.toLowerCase() ? "team" : shortenaddress(name?.address ? name.address : ""));
+
+    useEffect(() => {
+
     }, [])
 
     let css = {
@@ -193,8 +247,21 @@ const NamesMap = ({ name }) => {
                 <p className={css.p}>{name.duration} years</p>
             </div>
             <div>
-                <p className={css.p}>{"-"}</p>
+                <button className="bg-main text-white rounded-full px-4 py-2 flex items-center gap-x-1 w-fit" onClick={() => { setEditItemSelected(index); setEditReserveOpen(true) }} >Edit</button>
             </div>
         </div>
+    )
+}
+
+const UpperTabs = ({ search, setSearch }) => {
+
+
+    return (
+        <div className="my-4 flex justify-between items-center gap-x-2">
+            <div className="onlyvertcenter p-2 pl-4 rounded-xl w-full bg-white dark:bg-dark800 border-2 dark:border border-gray-200 dark:border-dark700">
+                <FontAwesomeIcon icon={['fas', 'fa-search']} className="text-gray-500 dak:text-dark500" />
+                <input type="text" className="font-semibold text-sm w-full bg-transparent outline-none ml-4 py-1" placeholder="Type to search for a domain" value={search} onChange={(e) => setSearch(e.target.value)} />
+            </div>
+        </div >
     )
 }
