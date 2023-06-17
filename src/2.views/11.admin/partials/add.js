@@ -21,6 +21,7 @@ const AddReserve = ({ isOpen, setIsOpen }) => {
     const [addToTeam, setAddToTeam] = useState(false);
 
     function changeDuration(param) {
+        setError("");
         if (param == "plus") {
             setDuration(duration + 1);
         } else {
@@ -31,6 +32,7 @@ const AddReserve = ({ isOpen, setIsOpen }) => {
     }
 
     async function changeNewName(e) {
+        setError("");
         let value = e.target.value;
 
         if (!e.target.value.includes(".") && !e.target.value.includes(" ")) {
@@ -39,6 +41,7 @@ const AddReserve = ({ isOpen, setIsOpen }) => {
     }
 
     async function changeNewAddress(e) {
+        setError("");
         let value = e.target.value;
         setNewAddress(value);
     }
@@ -56,6 +59,9 @@ const AddReserve = ({ isOpen, setIsOpen }) => {
             if (value == "ok") {
                 setLoading("")
                 setSuccess(true);
+            } else if (value == "name-exists") {
+                setLoading("")
+                setError("Name already exists")
             } else {
                 setLoading("")
                 setError("Something went wrong. Please try again later.")

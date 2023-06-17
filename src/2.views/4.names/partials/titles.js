@@ -23,7 +23,7 @@ const Titles = ({ name, owner, tokenId, isLoading }) => {
 
 
     return (
-        <div className="">
+        <div className="flex items-start justify-between">
             <div>
                 <p className="font-semibold">DOT APE</p>
                 <p className="text-4xl md:text-6xl font-bold mt-2 truncate">{name}.ape</p>
@@ -40,7 +40,14 @@ const Titles = ({ name, owner, tokenId, isLoading }) => {
                     ) : (null)
                 ) : (null)}
             </div>
-
+            <div className="flex items-center gap-x-4">
+                <div className="w-10 h-10 bg-dark700 rounded-2xl flex justify-center items-center border border-dark600">
+                    <FontAwesomeIcon icon={['fas', 'fa-paper-plane']} className="text-dark400 text-md" />
+                </div>
+                <div className="w-10 h-10 bg-dark700 rounded-2xl flex justify-center items-center border border-dark600">
+                    <FontAwesomeIcon icon={['fas', 'fa-rotate']} className="text-dark400 text-md" />
+                </div>
+            </div>
         </div>
     );
 
