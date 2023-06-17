@@ -20,6 +20,20 @@ const MyNamesUpper = ({ names, userAddress, domain }) => {
     const { address } = useAccount();
     const { darkMode } = GlobalParams();
     const [primaryVisible, setPrimaryVisible] = useState(false);
+    const [clipboardText, setClipboardText] = useState("");
+
+    async function copyToClipboard(text) {
+        if (navigator.clipboard) {
+            await navigator.clipboard.writeText(text);
+            setClipboardText("copied");
+            //wait 2 seconds and then reset
+            setTimeout(() => {
+                setClipboardText("");
+            }, 2000);
+        } else {
+            console.log("clipboard not supported");
+        }
+    }
 
     return (
         <div id="about" className="w-full flex justify-center items-start pb-0 pt-8 ">
@@ -30,7 +44,7 @@ const MyNamesUpper = ({ names, userAddress, domain }) => {
                             <div className="flex justify-center items-center w-24 h-24 bg-zinc-400 rounded-2xl" >
                                 <img src={makeBlockie(userAddress ? userAddress : "0x0000000000000000000000000000000000000000")} className="w-24 h-24 rounded-2xl" />
                             </div>
-                            <div className="mt-4">
+                            <div className="mt-4 cursor-pointer" onClick={() => copyToClipboard(userAddress)}>
                                 {domain != "" && domain != "null" ? (
                                     <p className="text-3xl font-bold">{domain}</p>
                                 ) : (
@@ -41,7 +55,11 @@ const MyNamesUpper = ({ names, userAddress, domain }) => {
                                         <FontAwesomeIcon icon={["fab", "fa-ethereum"]} className="text-white" size="xs" />
                                     </div>
                                     <p className="text-xs font-semibold text-gray-500 dark:text-dark500">{shortenaddress(userAddress != null ? userAddress : "")}</p>
-                                    <FontAwesomeIcon icon={['fas', 'fa-copy']} className="text-gray-500 dark:text-dark500" size="xs" />
+                                    {clipboardText != "" ? (
+                                        <FontAwesomeIcon icon={['fas', 'fa-check']} className="text-green-500 dark:text-dark500" size="xs" />
+                                    ) : (
+                                        <FontAwesomeIcon icon={['fas', 'fa-copy']} className="text-gray-500 dark:text-dark500" size="xs" />
+                                    )}
                                 </div>
                             </div>
                         </div>

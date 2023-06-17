@@ -18,8 +18,8 @@ const MarketplaceLower = ({ names, setNames, supply }) => {
     const { darkMode } = GlobalParams();
 
     async function getNames(supply) {
-        let totalSupply = supply;
-        //let totalSupply = await CloudContracts().apeErc721Contract.totalSupply();
+        //let totalSupply = supply;
+        let totalSupply = await CloudContracts().apeErc721Contract.totalSupply();
         let tokenIds = []
         for (let i = totalSupply; i >= 1; i--) {
             if (i == 1) {

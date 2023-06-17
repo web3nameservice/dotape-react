@@ -29,12 +29,15 @@ body {
 }
 
 .balance-text {
-    text-wrap: balance;  /* Apply (proposed) CSS style */
+    text-wrap: balance !important;  /* Apply (proposed) CSS style */
   }
   
+button {
+    cursor: pointer !important;
+}
 
 a {
-    cursor: pointer;
+    cursor: pointer !important;
 }
 
 a:hover {

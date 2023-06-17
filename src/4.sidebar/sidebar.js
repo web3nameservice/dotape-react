@@ -118,7 +118,7 @@ const LinksMapping = ({ links, css, sidebarOpened }) => {
 
     let mapping = links.map((link, index) => {
         return (
-            <div className={`flex items-center gap-x-3 py-3 ${sidebarOpened ? "justify-start" : "justify-center"}`} key={index} onClick={() => window.location = link.link}>
+            <div className={`flex items-center gap-x-3 py-3 cursor-pointer ${sidebarOpened ? "justify-start" : "justify-center"}`} key={index} onClick={() => window.location = link.link}>
                 <div className="w-[20px] flex items-center justify-center">
                     <FontAwesomeIcon icon={link.icon} className={css(link.link)} />
                 </div>

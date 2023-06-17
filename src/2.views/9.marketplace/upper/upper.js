@@ -13,7 +13,20 @@ import Logo from "../../../1.resources/3.files/logo/logobg.png";
 
 const MarketplaceUpper = ({ names, owners }) => {
     const { darkMode } = GlobalParams();
+    const [clipboardText, setClipboardText] = useState("");
 
+    async function copyToClipboard(text) {
+        if (navigator.clipboard) {
+            await navigator.clipboard.writeText(text);
+            setClipboardText("copied");
+            //wait 2 seconds and then reset
+            setTimeout(() => {
+                setClipboardText("");
+            }, 2000);
+        } else {
+            console.log("clipboard not supported");
+        }
+    }
 
     return (
         <div id="about" className="flex justify-center items-start pb-0 pt-8 ">
@@ -23,14 +36,18 @@ const MarketplaceUpper = ({ names, owners }) => {
                         <div className="flex justify-center items-center w-24 h-24 bg-zinc-400 rounded-2xl" >
                             <img src={Logo} className="w-24 h-24 rounded-2xl" />
                         </div>
-                        <div className="mt-4">
+                        <div className="mt-4 cursor-pointer" onClick={() => copyToClipboard(collectionAddress)}>
                             <p className="text-3xl font-bold">Dot Ape</p>
                             <div className="flex items-center gap-x-2 rounded-full px-3 py-2 bg-gray-100 dark:bg-dark800 w-fit mt-2 cursor-pointer">
                                 <div className="bg-[#5E78DE] w-5 h-5 flex justify-center items-center rounded-full">
                                     <FontAwesomeIcon icon={["fab", "fa-ethereum"]} className="text-white" size="xs" />
                                 </div>
                                 <p className="text-xs font-semibold text-gray-500 dark:text-dark500">{shortenaddress(collectionAddress)}</p>
-                                <FontAwesomeIcon icon={['fas', 'fa-copy']} className="text-gray-500 dark:text-dark500" size="xs" />
+                                {clipboardText != "" ? (
+                                    <FontAwesomeIcon icon={['fas', 'fa-check']} className="text-green-500 dark:text-dark500" size="xs" />
+                                ) : (
+                                    <FontAwesomeIcon icon={['fas', 'fa-copy']} className="text-gray-500 dark:text-dark500" size="xs" />
+                                )}
                             </div>
                         </div>
                     </div>
