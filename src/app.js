@@ -87,31 +87,31 @@ const myDarkTheme = merge(darkTheme({
 
 const MainApp = ({ chains }) => {
   const { darkMode } = GlobalParams();
-  const [loading, setLoading] = useState(window.location.pathname == "/" ? true : false);
+  // const [loading, setLoading] = useState(window.location.pathname == "/" ? true : false);
 
-  useEffect(() => {
-    if (darkMode) {
-      document.body.style.backgroundColor = "#000";
-    } else {
-      document.body.style.backgroundColor = "#F9F9F9";
-    }
-  }, [darkMode])
+  // useEffect(() => {
+  //   if (darkMode) {
+  //     document.body.style.backgroundColor = "#000";
+  //   } else {
+  //     document.body.style.backgroundColor = "#F9F9F9";
+  //   }
+  // }, [darkMode])
 
-  useEffect(() => {
-    setLoading(false);
-  }, [])
+  // useEffect(() => {
+  //   setLoading(false);
+  // }, [])
 
   return (
-    <div className={darkMode ? "dark" : "dark"}>
+    <div className={"dark"}>
       <RainbowKitProvider chains={chains} theme={darkMode ? myDarkTheme : lightTheme({
         fontStack: "system",
         borderRadius: "large"
       })} >
-        <div className={loading ? "loading" : ""}>
+        <div className="">
           <Main />
         </div>
-      </RainbowKitProvider>
-    </div>
+      </RainbowKitProvider >
+    </div >
   )
 }
 

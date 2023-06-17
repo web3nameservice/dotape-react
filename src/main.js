@@ -16,6 +16,7 @@ import Marketplace from "./2.views/9.marketplace/marketplace";
 import Category from "./2.views/10.categories/category";
 import Categories from "./2.views/10.categories/categories";
 import Reserve from "./2.views/11.admin/reserve";
+import { Route, Routes } from "react-router-dom";
 
 const Main = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -65,20 +66,19 @@ const Main = () => {
             </div>
           )}
 
-          <div className="flex flex-col flex-1 w-full">
-            {window.location.pathname == "/" ? <Home /> : null}
-            {window.location.pathname == "/search" ? <Search /> : null}
-            {window.location.pathname == "/presale" ? <Presale /> : null}
-            {window.location.pathname == "/avatars" ? <Generator /> : null}
-            {window.location.pathname.includes("/name") ? <Names /> : null}
-            {window.location.pathname == "/cart" ? <Cart /> : null}
-            {window.location.pathname == "/mynames" ? <MyNames /> : null}
-            {window.location.pathname.includes("/address/") ? <MyNames /> : null}
-            {window.location.pathname == "/marketplace" ? <Marketplace /> : null}
-            {window.location.pathname == "/categories" ? <Categories /> : null}
-            {window.location.pathname.includes("/category/") ? <Category /> : null}
-            {window.location.pathname.includes("/admin/reserve") ? <Reserve /> : null}
-          </div>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/search" element={<Search />} />
+            <Route path="/avatars" element={<Generator />} />
+            <Route path="/name*" element={<Names />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/mynames" element={<MyNames />} />
+            <Route path="/address*" element={<MyNames />} />
+            <Route path="/marketplace" element={<Marketplace />} />
+            <Route path="/categories" element={<Categories />} />
+            <Route path="/category*" element={<Category />} />
+            <Route path="/admin/reserve" element={<Reserve />} />
+          </Routes>
         </div>
       </div>
 

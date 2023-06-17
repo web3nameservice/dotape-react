@@ -6,6 +6,7 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 import { far } from '@fortawesome/free-regular-svg-icons'
 import { fab } from '@fortawesome/free-brands-svg-icons'
+import { BrowserRouter } from "react-router-dom";
 
 if (process.env.NODE_ENV === 'production') {
   console.log = () => { }
@@ -17,7 +18,9 @@ if (process.env.NODE_ENV === 'production') {
 library.add(fas, fab, far);
 ReactDOM.render(
   <React.Fragment>
-    <App />
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </React.Fragment>,
   document.getElementById("root")
 );
