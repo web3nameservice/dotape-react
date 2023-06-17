@@ -61,8 +61,15 @@ const Main = ({ }) => {
     const [supply, setSupply] = useState(0);
 
     async function init() {
+        console.time("getNames");
         let url = "https://api.opensea.io/api/v1/collection/dot-ape-domains/stats"
-        let stats = (await (await fetch(url)).json()).stats;
+        let stats = (await (await fetch("https://api.opensea.io/api/v1/collection/dot-ape-domains/stats", {
+            headers: {
+                Accept: "application/json",
+                "X-Api-Key": "a4fe8c6e08874716ab2db84cab28fb44"
+            }
+        })).json()).stats;
+        console.timeEnd("getNames");
         console.log(stats);
         let supplyResult = parseFloat(stats.total_supply);
         setSupply(supplyResult);
@@ -76,7 +83,7 @@ const Main = ({ }) => {
     return (
         <div>
             <MarketplaceUpper names={names} owners={owners} />
-            <MarketplaceLower names={names} setNames={setNames} />
+            <MarketplaceLower names={names} setNames={setNames} supply={supply} />
         </div>
     )
 }

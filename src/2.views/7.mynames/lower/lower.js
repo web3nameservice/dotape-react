@@ -20,7 +20,9 @@ const MyNamesLower = ({ names, setNames, userAddress }) => {
     const { darkMode } = GlobalParams();
     const [namesLoading, setNamesLoading] = useState(true);
     async function init(userAddress) {
-        let result = await CloudContracts().apeResolverContract.getAllTokensOfOwner(userAddress);
+        console.time("get all tokens");
+        let result = await CloudContracts().apeResolverContract.getAllTokenIdsOfOwner(userAddress);
+        console.timeEnd("get all tokens");
         console.log(result);
         setNames(result);
         setNamesLoading(false);
@@ -115,40 +117,54 @@ const Names = ({ userAddress, names, setNames }) => {
                 >
                     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 md:gap-10 mt-8 w-full ">
                         {names.map((name, index) => (
-                            <a key={index} className="w-full " href={"/name/" + name.name.substring(0, name.name.indexOf("."))}>
+                            <div key={index} className="w-full " >
                                 <NamesMap name={name} />
-                            </a>
+                            </div>
                         ))}
                     </div>
                 </InfiniteScroll>
             ) : (
                 null
-            )}
-        </div>
+            )
+            }
+        </div >
     )
 }
 
 const NamesMap = ({ name }) => {
     const [imageLoaded, setImageLoaded] = useState(false);
+    const [metadata, setMetadata] = useState(null);
+    const [alink, setAlink] = useState(null);
+
+    async function init() {
+        let metadata = await (await fetch(process.env.REACT_APP_API_URL + "/metadata/db?tokenid=" + name)).json();
+        setMetadata(metadata);
+        setAlink("/name/" + metadata?.name?.substring(0, metadata?.name?.indexOf(".")));
+    }
+    useEffect(() => {
+        init();
+    }, [])
 
     return (
-        <div className="bg-white dark:bg-dark800 border-2 dark:border border-gray-200 dark:border-dark700 rounded-2xl w-full" >
-            <div className="flex justify-center items-center px-2 pt-2 w-full">
-                <img src={process.env.REACT_APP_API_URL + "/metadata/images?tokenid=" + name.tokenId + "&size=400"} className="rounded-xl" style={{ display: imageLoaded ? "block" : "none" }} onLoad={() => setImageLoaded(true)} />
-                <div className="animate-pulse rounded-xl w-full aspect-square bg-dark700" style={{ display: imageLoaded ? "none" : "block" }}></div>
-            </div>
-            <div className="w-full mt-4 px-3 pb-3">
-                <div className="flex justify-between items-center gap-x-4">
-                    <p className="text-md text-main text-gray-500 dark:text-dark500">Name</p>
-                    <p className="text-md font-semibold truncate">{name.name}</p>
+        <a href={alink} className="w-full">
+            <div className="bg-white dark:bg-dark800 border-2 dark:border border-gray-200 dark:border-dark700 rounded-2xl w-full" >
+                <div className="flex justify-center items-center px-2 pt-2 w-full">
+                    <img src={metadata?.image} className="rounded-xl" style={{ display: imageLoaded ? "block" : "none" }} onLoad={() => setImageLoaded(true)} />
+                    <div className="animate-pulse rounded-xl w-full aspect-square bg-dark700" style={{ display: imageLoaded ? "none" : "block" }}></div>
                 </div>
-                <div className="flex justify-between items-center mt-2 gap-x-4">
-                    <p className="text-md text-main text-gray-500 dark:text-dark500">Expiration</p>
-                    <p className="text-md font-semibold text-gray-500 dark:text-dark500 truncate">-</p>
+                <div className="w-full mt-4 px-3 pb-3">
+                    <div className="flex justify-between items-center gap-x-4">
+                        <p className="text-md text-main text-gray-500 dark:text-dark500">Name</p>
+                        <p className="text-md font-semibold truncate">{metadata != null ? metadata.name : "-"}</p>
+                    </div>
+                    <div className="flex justify-between items-center mt-2 gap-x-4">
+                        <p className="text-md text-main text-gray-500 dark:text-dark500 truncate">Expiration</p>
+                        <p className="text-md font-semibold text-gray-500 dark:text-dark500 truncate">-</p>
+                    </div>
+                </div>
+                <div className="pb-10 border-t-2 dark:border-t border-gray-200  dark:border-dark700">
                 </div>
             </div>
-            <div className="pb-10 border-t-2 dark:border-t border-gray-200  dark:border-dark700">
-            </div>
-        </div>
+        </a>
     )
 }

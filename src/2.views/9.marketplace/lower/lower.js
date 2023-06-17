@@ -14,11 +14,12 @@ import UpperTabs from "../../7.mynames/partials/upperTabs";
 import InfiniteScroll from 'react-infinite-scroll-component';
 import CloudContracts from "../../../1.resources/2.js/0.global/2.contracts/cloudContracts";
 
-const MarketplaceLower = ({ names, setNames }) => {
+const MarketplaceLower = ({ names, setNames, supply }) => {
     const { darkMode } = GlobalParams();
 
-    async function getNames() {
-        let totalSupply = await CloudContracts().apeErc721Contract.totalSupply();
+    async function getNames(supply) {
+        let totalSupply = supply;
+        //let totalSupply = await CloudContracts().apeErc721Contract.totalSupply();
         let tokenIds = []
         for (let i = totalSupply; i >= 1; i--) {
             if (i == 1) {
@@ -31,8 +32,11 @@ const MarketplaceLower = ({ names, setNames }) => {
     }
 
     useEffect(() => {
-        getNames();
-    }, [])
+        console.log(supply);
+        if (supply > 0) {
+            getNames(supply);
+        }
+    }, [supply])
 
     return (
         <div id="about" className="w-full flex justify-center items-start pb-10 pt-4 bg-white dark:bg-zinc-900 min-h-screen border-t-2 border-zinc-200 dark:border-zinc-800">
@@ -109,7 +113,7 @@ const NamesMap = ({ name }) => {
     const [alink, setAlink] = useState(null);
 
     async function init() {
-        let metadata = await (await fetch(process.env.REACT_APP_API_URL + "/metadata/tokenid=" + name)).json();
+        let metadata = await (await fetch(process.env.REACT_APP_API_URL + "/metadata/db?tokenid=" + name)).json();
         setMetadata(metadata);
         setAlink("/name/" + metadata?.name?.substring(0, metadata?.name?.indexOf(".")));
     }
@@ -120,7 +124,7 @@ const NamesMap = ({ name }) => {
         <a href={alink} className="w-full">
             <div className="bg-white dark:bg-dark800 border-2 dark:border border-gray-200 dark:border-dark700 rounded-2xl w-full" >
                 <div className="flex justify-center items-center px-2 pt-2 w-full">
-                    <img src={process.env.REACT_APP_API_URL + "/metadata/images?tokenid=" + name + "&size=400"} className="rounded-xl" style={{ display: imageLoaded ? "block" : "none" }} onLoad={() => setImageLoaded(true)} />
+                    <img src={metadata?.image} className="rounded-xl" style={{ display: imageLoaded ? "block" : "none" }} onLoad={() => setImageLoaded(true)} />
                     <div className="animate-pulse rounded-xl w-full aspect-square bg-dark700" style={{ display: imageLoaded ? "none" : "block" }}></div>
                 </div>
                 <div className="w-full mt-4 px-3 pb-3">

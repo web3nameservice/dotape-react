@@ -98,7 +98,7 @@ const Names = ({ }) => {
                         </div>
                     </div>
                     <div className="w-full lg:w-8/12">
-                        <div className="bg-white dark:bg-dark800 border-2 dark:border border-zinc-200 dark:border-dark700 rounded-2xl px-10 py-10">
+                        <div className="bg-white dark:bg-dark800 border-2 dark:border border-zinc-200 dark:border-dark700 rounded-2xl px-5 md:px-10 py-10">
                             <Titles name={name} owner={owner} tokenId={tokenId} isLoading={isLoading} />
                             <div className="mt-8 block lg:hidden">
                                 <Image name={name} tokenId={tokenId} />

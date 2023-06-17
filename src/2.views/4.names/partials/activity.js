@@ -37,7 +37,7 @@ const Activity = ({ tokenId }) => {
 
     let css = {
         "header": "text-sm font-semibold text-zinc-500 dark:text-dark500",
-        div: "w-1/5 flex items-center justify-start gap-x-2"
+        div: "w-1/5 flex items-center justify-start gap-x-2 truncate"
     }
     let titles = ["Type", "From", "To", "Price", "Time"]
     return (
@@ -45,40 +45,42 @@ const Activity = ({ tokenId }) => {
             <p className="text-md font-semibold">Activity</p>
             <p className="text-sm mt-2 text-zinc-500 dark:text-dark500">{tokenId == 0 ? "Latest activity will appear once the name is registered" : "Latest activity on the Blockchain"}</p>
             {activity.length > 0 ? (
-                <div className="">
-                    <div className="pl-4 py-4 flex item-center justify-between border-b-2 border-zinc-200 dark:border-dark700">
-                        {titles.map((item, index) => (
-                            <div key={index} className={css.div} >
-                                <p className={css.header}>{item}</p>
+                <div className="overflow-x-scroll">
+                    <div className="min-w-[700px] md:w-full">
+                        <div className="pl-4 py-4 flex item-center justify-between border-b-2 border-zinc-200 dark:border-dark700">
+                            {titles.map((item, index) => (
+                                <div key={index} className={css.div} >
+                                    <p className={css.header}>{item}</p>
+                                </div>
+                            ))}
+                        </div>
+
+                        {activity.map((item, index) => (
+                            <div className="pl-4 py-4 flex item-center justify-between border-b-2 border-zinc-200 dark:border-dark700" key={index}>
+                                <div className={css.div}>
+                                    {item.from_address == "0x0000000000000000000000000000000000000000" ? (
+                                        <FontAwesomeIcon icon={['fas', 'fa-bolt-lightning']} className="text-zinc-500 dark:text-dark500" />
+                                    ) : (
+                                        <FontAwesomeIcon icon={['fas', 'right-left']} className="text-zinc-500 dark:text-dark500" />
+                                    )}
+                                    <p className="text-zinc-500 dark:text-dark500">{item.from_address == "0x0000000000000000000000000000000000000000" ? "Mint" : "Transfer"}</p>
+                                </div>
+                                <div className={css.div}>
+                                    <GetDomain address={item.from_address} />
+                                </div>
+                                <div className={css.div}>
+                                    <GetDomain address={item.to_address} />
+                                </div>
+                                <div className={css.div}>
+                                    <p>{(item.value / 1e18).toFixed(4)} ETH</p>
+                                </div>
+                                <div className={css.div}>
+                                    <a href={"https://etherscan.io/tx/" + item.transaction_hash} target="_blank" className="text-main">{timeToString(new Date(item.block_timestamp).getTime())}</a>
+                                    <FontAwesomeIcon icon={['fas', 'chevron-right']} className="text-main text-sm" />
+                                </div>
                             </div>
                         ))}
                     </div>
-
-                    {activity.map((item, index) => (
-                        <div className="pl-4 py-4 flex item-center justify-between border-b-2 border-zinc-200 dark:border-dark700" key={index}>
-                            <div className={css.div}>
-                                {item.from_address == "0x0000000000000000000000000000000000000000" ? (
-                                    <FontAwesomeIcon icon={['fas', 'fa-bolt-lightning']} className="text-zinc-500 dark:text-dark500" />
-                                ) : (
-                                    <FontAwesomeIcon icon={['fas', 'right-left']} className="text-zinc-500 dark:text-dark500" />
-                                )}
-                                <p className="text-zinc-500 dark:text-dark500">{item.from_address == "0x0000000000000000000000000000000000000000" ? "Mint" : "Transfer"}</p>
-                            </div>
-                            <div className={css.div}>
-                                <GetDomain address={item.from_address} />
-                            </div>
-                            <div className={css.div}>
-                                <GetDomain address={item.to_address} />
-                            </div>
-                            <div className={css.div}>
-                                <p>{(item.value / 1e18).toFixed(4)} ETH</p>
-                            </div>
-                            <div className={css.div}>
-                                <a href={"https://etherscan.io/tx/" + item.transaction_hash} target="_blank" className="text-main">{timeToString(new Date(item.block_timestamp).getTime())}</a>
-                                <FontAwesomeIcon icon={['fas', 'chevron-right']} className="text-main text-sm" />
-                            </div>
-                        </div>
-                    ))}
                 </div>
             ) : (null)}
         </div>
@@ -100,8 +102,8 @@ const GetDomain = ({ address }) => {
     }, [address])
 
     return (
-        <div>
-            <a href={"/address/" + address} className="text-main">{domain}</a>
+        <div className="truncate text-main">
+            <a href={"/address/" + address} className="text-main truncate">{domain}</a>
         </div>
     )
 }

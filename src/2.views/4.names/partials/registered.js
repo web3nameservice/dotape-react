@@ -45,7 +45,7 @@ const Registered = ({ tokenId, owner, setOwner, name }) => {
                     </div>
                     <div>
                         <p className="text-sm font-normal text-dark500">Expiration</p>
-                        <p className="text-lg font-semibold mt-2">{timeToString(expiration * 1000)}</p>
+                        <p className="text-lg font-semibold mt-2">{expiration == "" ? "-" : timeToString(expiration * 1000)}</p>
                     </div>
                 </div>
                 {owner?.toLowerCase() == address?.toLowerCase() ? (

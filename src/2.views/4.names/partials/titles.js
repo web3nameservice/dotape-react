@@ -26,7 +26,7 @@ const Titles = ({ name, owner, tokenId, isLoading }) => {
         <div className="">
             <div>
                 <p className="font-semibold">DOT APE</p>
-                <p className="text-6xl font-bold mt-2">{name}.ape</p>
+                <p className="text-4xl md:text-6xl font-bold mt-2 truncate">{name}.ape</p>
                 {!isLoading ? (
                     tokenId != 0 ? (
                         <div className="flex items-center gap-x-2 mt-4">
