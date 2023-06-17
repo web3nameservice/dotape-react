@@ -7,6 +7,8 @@ import { shortenaddress } from "../../../1.resources/2.js/0.global/0.smallfuncti
 import { timeToString } from "../../../1.resources/2.js/0.global/0.smallfunctions/time";
 import Extend from "./modal/extend";
 
+const collectionAddress = "0x3679f68709DDA61c8CBd5FEF301C7C92B90c423d";
+
 const Registered = ({ tokenId, owner, setOwner, name }) => {
     let { address } = useAccount();
     let [expiration, setExpiration] = useState("");
@@ -47,14 +49,15 @@ const Registered = ({ tokenId, owner, setOwner, name }) => {
                     </div>
                 </div>
                 {owner?.toLowerCase() == address?.toLowerCase() ? (
-                    <button className="bg-main text-white rounded-full px-4 py-3 mt-8 flex items-center gap-x-1" onClick={() => setExtendModal(true)}>
+                    <button className="bg-main text-white rounded-full px-4 py-3 mt-8 flex items-center gap-x-1 w-fit" onClick={() => setExtendModal(true)}>
                         <p className="text-sm font-semibold">Extend</p>
                         <FontAwesomeIcon icon={['fas', 'arrow-right']} className="text-white text-sm" />
                     </button>
-                ) : (<button className="bg-main text-white rounded-full px-5 py-3 mt-8 flex items-center gap-x-2">
-                    <p className="text-sm font-semibold">View on Opensea</p>
-                    <FontAwesomeIcon icon={['fas', 'arrow-right']} className="text-white text-sm" />
-                </button>)}
+                ) : (
+                    <a className="bg-main text-white rounded-full px-5 py-3 mt-8 flex items-center gap-x-2 w-fit" href={"https://opensea.io/assets/ethereum/" + collectionAddress + "/" + tokenId} target="_blank">
+                        <p className="text-sm font-semibold">View on Opensea</p>
+                        <FontAwesomeIcon icon={['fas', 'arrow-right']} className="text-white text-sm" />
+                    </a>)}
 
                 <Extend tokenId={tokenId} isOpen={extendModal} setIsOpen={setExtendModal} name={name} />
             </div>

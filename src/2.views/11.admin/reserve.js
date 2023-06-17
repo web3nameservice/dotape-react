@@ -15,14 +15,15 @@ import { timeToString } from "../../1.resources/2.js/0.global/0.smallfunctions/t
 import { shortenaddress } from "../../1.resources/2.js/0.global/0.smallfunctions/global";
 import { callW3Api, getDomain } from "../../1.resources/2.js/0.global/3.api/callW3Api";
 import makeBlockie from "ethereum-blockies-base64";
-
+import { Variables } from "../../1.resources/2.js/0.global/2.contracts/variables";
+import { ethers } from "ethers";
 
 const Reserve = ({ }) => {
     const [tabSelected, setTabSelected] = useState("airdrops");
     const [airdropsTotal, setAirdropsTotal] = useState(0);
     const [reservedTotal, setReservedTotal] = useState(0);
     const [teamTotal, setTeamTotal] = useState(0);
-
+    const { data: signer } = useSigner()
     async function init() {
 
     }
@@ -31,12 +32,38 @@ const Reserve = ({ }) => {
         init();
     }, [])
 
+    async function airdrop() {
+        let result = await callW3Api("/admin/get/reserve", { type: "airdrops" });
+
+        console.log(result);
+
+        let tuple = []
+        for (let i = 2; i < result.length; i++) {
+            if (result[i].name.length > 2) {
+                let duration = result[i].duration == 1000 ? 10 : result[i].duration;
+                tuple.push([result[i].name, result[i].address, duration]);
+            }
+        }
+        console.log(tuple);
+
+        let registrarContract = new ethers.Contract(Variables().apeRegistrarAddr, Variables().apeRegistrarAbi, signer);
+        let tx = await registrarContract.registerTeam(tuple);
+
+    }
+
     return (
         <div className="bg-white dark:bg-zinc-900 text-black dark:text-white h-full flex flex-col justify-start">
             <div id="about" className="w-full flex justify-center items-start pb-0 pt-8 border-b-2 border-dark700">
                 <div className="w-full lg:max-w-[1280px] px-5 md:px-10 lg:px-20 2xl:px-10 lg:rounded-xl ">
-                    <p className="text-3xl font-bold">Admin Panel</p>
-                    <p className="text-md font-normal mt-2 text-dark500">This section is reserved for admins only</p>
+                    <div className="flex justify-between items-center w-full">
+                        <div>
+                            <p className="text-3xl font-bold">Admin Panel</p>
+                            <p className="text-md font-normal mt-2 text-dark500">This section is reserved for admins only</p>
+                        </div>
+                        <div>
+                            <button className="bg-main text-white px-4 py-2 rounded-full" onClick={() => airdrop()}>Airdrop</button>
+                        </div>
+                    </div>
 
                     <div className="grid grid-cols-4 gap-x-4 mt-8">
                         <div>
