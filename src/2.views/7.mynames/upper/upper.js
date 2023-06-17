@@ -3,13 +3,12 @@ import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { shortenaddress } from "../../../1.resources/2.js/0.global/0.smallfunctions/global";
-import OpenseaLogo from "../../../1.resources/3.files/images/opensea_gray.png";
-import EtherscanLogo from "../../../1.resources/3.files/images/etherscan_gray.png";
-import OpenseaDarkLogo from "../../../1.resources/3.files/images/opensea_darkgray.png";
-import EtherscanDarkLogo from "../../../1.resources/3.files/images/etherscan_darkgray.png";
+import OpenseaLogo from "../../../1.resources/3.files/images/opensea_gray.avif";
+import EtherscanLogo from "../../../1.resources/3.files/images/etherscan_gray.avif";
+import OpenseaDarkLogo from "../../../1.resources/3.files/images/opensea_darkgray.avif";
+import EtherscanDarkLogo from "../../../1.resources/3.files/images/etherscan_darkgray.avif";
 import { collectionAddress } from "../../../1.resources/2.js/0.global/0.smallfunctions/prepends";
 import { GlobalParams } from "../../0.wrapper/darkMode";
-import Logo from "../../../1.resources/3.files/logo/logobg.png";
 import makeBlockie from "ethereum-blockies-base64";
 import { useAccount } from "wagmi";
 import { callW3Api } from "../../../1.resources/2.js/0.global/3.api/callW3Api";

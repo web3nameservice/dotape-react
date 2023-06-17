@@ -92,7 +92,7 @@ const Names = ({ names, setNames }) => {
                     hasMore={hasMore}
                     scrollableTarget="scrollableDiv"
                     loader={<NamesSkeleton />}
-                    scrollThreshold={0.2}
+                    scrollThreshold={0.7}
                 >
                     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 md:gap-10 mt-8 w-full ">
                         {items.map((name, index) => (

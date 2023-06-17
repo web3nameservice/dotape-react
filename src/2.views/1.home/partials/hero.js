@@ -3,29 +3,19 @@ import BgImage from "../../../1.resources/3.files/images/4.png";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Header from "../../0.global/header/header";
-import Img0 from "../../../1.resources/3.files/images/nft/0.png";
-import Img1 from "../../../1.resources/3.files/images/nft/1.png";
-import Img2 from "../../../1.resources/3.files/images/nft/2.png";
-import Img3 from "../../../1.resources/3.files/images/nft/3.png";
-import Img4 from "../../../1.resources/3.files/images/nft/4.png";
-import Img5 from "../../../1.resources/3.files/images/nft/5.png";
-import Img6 from "../../../1.resources/3.files/images/nft/6.png";
-import Img7 from "../../../1.resources/3.files/images/nft/7.png";
-import Img8 from "../../../1.resources/3.files/images/nft/8.png";
-import Img9 from "../../../1.resources/3.files/images/nft/9.png";
-import Img10 from "../../../1.resources/3.files/images/nft/10.png";
-import Img11 from "../../../1.resources/3.files/images/nft/11.png";
-import Img12 from "../../../1.resources/3.files/images/nft/12.png";
-import Img13 from "../../../1.resources/3.files/images/nft/13.png";
-import Img14 from "../../../1.resources/3.files/images/nft/14.png";
-import Img15 from "../../../1.resources/3.files/images/nft/15.png";
-import Img16 from "../../../1.resources/3.files/images/nft/16.png";
-import Img17 from "../../../1.resources/3.files/images/nft/17.png";
-import Img18 from "../../../1.resources/3.files/images/nft/18.png";
-import Img19 from "../../../1.resources/3.files/images/nft/19.png";
-import Img20 from "../../../1.resources/3.files/images/nft/20.png";
-import BgImg from "../../../1.resources/3.files/images/stars7.webp";
-import BgBlank from "../../../1.resources/3.files/images/blank33.png";
+import Img0 from "../../../1.resources/3.files/images/nft/0.webp";
+import Img1 from "../../../1.resources/3.files/images/nft/1.webp";
+import Img2 from "../../../1.resources/3.files/images/nft/2.webp";
+import Img3 from "../../../1.resources/3.files/images/nft/3.webp";
+import Img4 from "../../../1.resources/3.files/images/nft/4.webp";
+import Img5 from "../../../1.resources/3.files/images/nft/5.webp";
+import Img6 from "../../../1.resources/3.files/images/nft/6.webp";
+import Img7 from "../../../1.resources/3.files/images/nft/7.webp";
+import Img8 from "../../../1.resources/3.files/images/nft/8.webp";
+import Img9 from "../../../1.resources/3.files/images/nft/9.webp";
+import Img10 from "../../../1.resources/3.files/images/nft/10.webp";
+
+import BgBlank from "../../../1.resources/3.files/images/blank331.avif";
 import Ticker from "react-ticker";
 import { useEffect } from "react";
 import Footer from "../../0.global/footer/footer";
@@ -97,17 +87,7 @@ export const ImageBanner = ({ }) => {
         { "index": "7", "image": Img7 },
         { "index": "8", "image": Img8 },
         { "index": "9", "image": Img9 },
-        { "index": "10", "image": Img10 },
-        { "index": "11", "image": Img11 },
-        { "index": "12", "image": Img12 },
-        { "index": "13", "image": Img13 },
-        { "index": "14", "image": Img14 },
-        { "index": "15", "image": Img15 },
-        { "index": "16", "image": Img16 },
-        { "index": "17", "image": Img17 },
-        { "index": "18", "image": Img18 },
-        { "index": "19", "image": Img19 },
-        { "index": "20", "image": Img20 }
+        { "index": "10", "image": Img10 }
     ]
 
     const phrases = [

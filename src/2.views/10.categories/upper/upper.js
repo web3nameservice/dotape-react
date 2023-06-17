@@ -10,7 +10,7 @@ import EtherscanDarkLogo from "../../../1.resources/3.files/images/etherscan_dar
 import { collectionAddress } from "../../../1.resources/2.js/0.global/0.smallfunctions/prepends";
 import { GlobalParams } from "../../0.wrapper/darkMode";
 
-const CategoryUpper = ({ names, owners, category }) => {
+const CategoryUpper = ({ total, owners, category }) => {
     const { darkMode } = GlobalParams();
 
     return (
@@ -55,7 +55,7 @@ const CategoryUpper = ({ names, owners, category }) => {
 
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-6 mt-8">
                     <div>
-                        <p className="text-2xl font-semibold">{names.length}</p>
+                        <p className="text-2xl font-semibold">{total}</p>
                         <p className="text-sm font-semibold mt-2 text-gray-500 dark:text-dark500">total names</p>
                     </div>
                     <div>

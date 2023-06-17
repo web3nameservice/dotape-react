@@ -1,5 +1,5 @@
 import React from 'react';
-import Logo from "../../../1.resources/3.files/logo/logo_white2.png";
+import Logo from "../../../1.resources/3.files/logo/logobg.avif";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Links from '../header/links';
 
@@ -12,7 +12,7 @@ const Footer = () => {
                 <div className='md:flex justify-between items-center md:items-start'>
                     <div className='hidden md:block flex-col items-center md:items-start '>
                         <a href="/" className="flex items-center gap-x-2">
-                            <img src={Logo} className="w-12 h-12 md:w-10 md:h-10" />
+                            <img src={Logo} className="w-12 h-12 md:w-10 md:h-10 rounded-lg" />
                             {/* <p className="text-2xl text-white ">.APE</p> */}
                         </a>
                         <p className='text-white text-xs mt-4'>© DOT APE Labs, 2023</p>

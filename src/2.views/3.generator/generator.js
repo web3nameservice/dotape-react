@@ -1,23 +1,10 @@
 import React, { useState, useContext, useEffect } from "react";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import BgImg from "../../1.resources/3.files/images/bg2.png";
-import Footer from "../0.global/footer/footer";
 import { useAccount } from "wagmi";
 import { ConnectWallet } from "../0.global/wallet/connectWallet";
-import { callW3Api, getDomain, getWnsDomain } from "../../1.resources/2.js/0.global/3.api/callW3Api";
-import { shortenaddress } from "../../1.resources/2.js/0.global/0.smallfunctions/global";
-import CloudContracts from "../../1.resources/2.js/0.global/2.contracts/cloudContracts";
-import { calculateZeroes } from "../../1.resources/2.js/0.global/0.smallfunctions/currencyConversion";
-import { getCloudProvider } from "../../1.resources/2.js/0.global/2.contracts/cloudProvider";
-import { timeToString } from "../../1.resources/2.js/0.global/0.smallfunctions/time";
-import Header from "../0.global/header/header";
 import AdamApe from "../../1.resources/3.files/images/nft/adam.webp";
-import PranApe from "../../1.resources/3.files/images/nft/pran.webp";
-import AdamdyorApe from "../../1.resources/3.files/images/nft/adamdyor.webp";
-import VincentApe from "../../1.resources/3.files/images/nft/vincent.webp";
 import EmptyImg from "../../1.resources/3.files/images/empty_nft.png";
-import LoginModal from "../0.global/wallet/loginSignature";
 import { LoginParams } from "../0.wrapper/login";
 
 const Generator = ({ walletConnected, setWalletConnected }) => {
@@ -196,22 +183,3 @@ const Generator = ({ walletConnected, setWalletConnected }) => {
 }
 
 export default Generator;
-
-const Banner = () => {
-    const phrases = [
-        { name: 'adam', token: '8562', image: AdamApe },
-        { name: 'pran', token: '1547', image: PranApe },
-        { name: 'halo', token: '1950', image: AdamdyorApe },
-        { name: 'vincent', token: '3956', image: VincentApe },
-    ]
-
-    return (
-        <div className="grid grid-cols-4 gap-x-8">
-            {phrases.slice(0, 4).map((phrase, index) => (
-                <div key={index} className="flex justify-center items-center">
-                    <img src={phrase.image} className="w-full rounded-xl" />
-                </div>
-            ))}
-        </div>
-    )
-}

@@ -7,9 +7,9 @@ import UpperTabs from "../../7.mynames/partials/upperTabs";
 import CloudContracts from "../../../1.resources/2.js/0.global/2.contracts/cloudContracts";
 import { currentEthPrice } from "../../../1.resources/2.js/0.global/0.smallfunctions/currencyConversion";
 import { zeroAddress } from "../../../1.resources/2.js/0.global/0.smallfunctions/prepends";
+import { callW3Api } from "../../../1.resources/2.js/0.global/3.api/callW3Api";
 
-const CategoryLower = ({ names, setNames }) => {
-
+const CategoryLower = ({ total, setTotal, category }) => {
 
 
     return (
@@ -20,12 +20,7 @@ const CategoryLower = ({ names, setNames }) => {
 
                     <div className="mt-0 ">
                         <UpperTabs />
-                        {names.length > 0 ? (
-                            <Names names={names} setNames={setNames} />
-                        ) : (
-                            <NamesSkeleton />
-                        )}
-
+                        <Names total={total} setTotal={setTotal} category={category} />
                     </div>
                 </div>
 
@@ -38,35 +33,41 @@ const CategoryLower = ({ names, setNames }) => {
 export default CategoryLower;
 
 
-const Names = ({ names, setNames }) => {
-    const [namesLeft, setNamesLeft] = useState(names);
+const Names = ({ total, setTotal, category }) => {
     const [items, setItems] = useState([]);
     const [hasMore, setHasMore] = useState(true);
     const [ethPrice, setEthPrice] = useState(0);
+
     async function fetchNext() {
         console.log("fetching next");
-        if (namesLeft.length === 0) {
-            setHasMore(false);
-        } else {
-            let newItems = namesLeft.slice(0, 12);
-            let remainingNames = namesLeft.slice(12);
-            let isRegistered = await CloudContracts().apeResolverContract.resolveNameBatch(newItems);
 
-            newItems = newItems.map((name, index) => {
+        let result = await callW3Api("/category/get", { type: category, limit: 12, skip: items.length });
+        if (result.names.length == 0) {
+            setHasMore(false);
+            return;
+        } else {
+            let isRegistered = await CloudContracts().apeResolverContract.resolveNameBatch(result.names);
+
+            let newItems = result.names.map((name, index) => {
                 return {
                     name: name,
                     owner: isRegistered[index]
                 }
             })
+            setTotal(result.total);
             setItems(prevItems => [...prevItems, ...newItems]);
-            setNamesLeft(remainingNames);
         }
+
+        // setItems(prevItems => [...prevItems, ...newItems]);
+
         console.log("fetched");
     }
 
     useEffect(() => {
-        fetchNext();
-    }, []);
+        if (category != "") {
+            fetchNext();
+        }
+    }, [category]);
 
     useEffect(() => {
         currentEthPrice().then(price => {
@@ -81,7 +82,7 @@ const Names = ({ names, setNames }) => {
                 hasMore={hasMore}
                 scrollableTarget="scrollableDiv"
                 loader={<NamesSkeleton />}
-                scrollThreshold={0.2}
+                scrollThreshold={0.7}
             >
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 md:gap-10 mt-8 w-full h-full">
                     {items.map((name, index) => (
