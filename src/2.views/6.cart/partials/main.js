@@ -26,8 +26,8 @@ const CartMain = ({ cart, setCart }) => {
             </div>
 
 
-            <div className="mt-8 bg-white dark:bg-zinc-800 border-2 border-zinc-200 dark:border-zinc-700 rounded-2xl">
-                <div className="px-8 py-4">
+            <div className="mt-8">
+                <div className="">
                     {cart.map((item, index) => (
                         <div key={index} className="py-6">
                             <CartItem item={item} removeFromCart={removeFromCart} setCart={setCart} />
@@ -84,15 +84,15 @@ const CartItem = ({ item, removeFromCart, setCart }) => {
                 <a href={"/name/" + item.name} className="w-4/12">
                     <p className="text-md font-bold">{item.name}.ape</p>
                 </a>
-                <div className="flex items-center justify-between bg-zinc-200 dark:bg-zinc-700 px-4 py-3 rounded-full w-4/12">
+                <div className="hidden md:flex items-center justify-between bg-zinc-200 dark:bg-zinc-700 px-4 py-3 rounded-full w-4/12">
 
-                    <div className={`w-5 h-5 flex items-center justify-center rounded-full ${item.duration > 1 ? "bg-main" : "bg-zinc-400 dark:bg-zinc-600"}`} onClick={() => changeDuration("minus")}>
+                    <div className={`w-5 h-5 flex flex-none items-center justify-center rounded-full ${item.duration > 1 ? "bg-main" : "bg-zinc-400 dark:bg-zinc-600"}`} onClick={() => changeDuration("minus")}>
                         <FontAwesomeIcon icon={['fas', 'minus']} className="text-white text-sm" />
                     </div>
                     <div className="px-4">
-                        <p className="text-sm text-zinc-500 dark:text-zinc-400">{item.duration} year</p>
+                        <p className="text-sm text-zinc-500 dark:text-zinc-400 text-center">{item.duration} year</p>
                     </div>
-                    <div className="w-5 h-5 flex items-center justify-center bg-main rounded-full" onClick={() => changeDuration("plus")}>
+                    <div className="w-5 h-5 flex flex-none items-center justify-center bg-main rounded-full" onClick={() => changeDuration("plus")}>
                         <FontAwesomeIcon icon={['fas', 'plus']} className="text-white text-sm" />
                     </div>
                 </div>

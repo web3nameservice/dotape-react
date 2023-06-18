@@ -16,7 +16,7 @@ const Header = ({ }) => {
     const [mobileSidebar, setMobileSidebar] = useState(false);
 
     return (
-        <div style={{}} className={`flex justify-center py-0 md:py-3 border-none md:border-b-2 dark:border-b border-zinc-200 dark:border-dark700 w-full bg-transparent md:dark:bg-dark900 z-50`}>
+        <div style={{}} className={`flex justify-center py-0 md:py-3 border-none md:border-b-2 dark:border-b border-zinc-200 dark:border-dark700 w-full ${window.location.pathname == "/" ? "bg-transparent md:dark:bg-dark900" : "dark:bg-dark900"} z-50`}>
             <div className="w-full lg:max-w-[1280px] px-5 md:px-10 lg:px-20 2xl:px-10 lg:rounded-xl ">
                 <div className="flex justify-between items-center md:px-0 gap-x-4 w-full" style={{ zIndex: 1000000 }}>
                     <div className="flex-none block md:hidden py-3 md:py-0 ">
