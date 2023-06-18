@@ -106,7 +106,7 @@ const Price = ({ name, isReserved, reservedAddress, reservedDomain, reservedLoad
 
     return (
         <div className="my-8">
-            <div className="border-2 border-0 md:dark:border border-zinc-200 dark:border-dark700 bg-zinc-100 dark:bg-dark800 rounded-2xl px-0 md:px-8 py-8 pb-10">
+            <div className="border-0 md:dark:border border-zinc-200 dark:border-dark700 bg-zinc-100 dark:bg-dark800 rounded-2xl px-0 md:px-8 py-8 pb-10">
 
                 <p className="text-2xl font-bold">Register</p>
 
