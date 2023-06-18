@@ -50,8 +50,8 @@ const Mappings = ({ tokenId, owner, name }) => {
                     <div className="w-10 h-10 flex justify-center items-center bg-dark500 dark:bg-zinc-600 rounded-full flex-none">
                         <FontAwesomeIcon icon={['fas', 'user']} className="text-white text-sm" />
                     </div>
-                    <div className="w-full px-4">
-                        <p className="text-sm text-start">{avatar != "" ? avatar : "Avatar not set"}</p>
+                    <div className="w-full px-4 truncate">
+                        <p className="text-sm text-start truncate">{avatar != "" ? avatar : "Avatar not set"}</p>
                     </div>
                 </div>
             </div>
@@ -65,8 +65,8 @@ const Mappings = ({ tokenId, owner, name }) => {
                     <div className="w-10 h-10 flex justify-center items-center bg-dark500 dark:bg-zinc-600 rounded-full flex-none">
                         <FontAwesomeIcon icon={['fas', 'globe']} className="text-white text-sm" />
                     </div>
-                    <div className="w-full px-4">
-                        <p className="text-sm text-start">{website != "" ? website : "Website not set"}</p>
+                    <div className="w-full px-4 truncate">
+                        <p className="text-sm text-start truncate">{website != "" ? website : "Website not set"}</p>
                     </div>
                 </div>
             </div>
@@ -81,8 +81,8 @@ const Mappings = ({ tokenId, owner, name }) => {
                             <div className="w-10 h-10 flex justify-center items-center">
                                 <img src={coinsJson[key]} className="w-8 h-8 rounded-full" />
                             </div>
-                            <div className="w-full">
-                                <p className="text-sm text-center">{index == 0 ? (records[index] == "" ? shortenaddress(owner) : shortenaddress(records[index])) : (records[index] == "" ? "Not Set" : shortenaddress(records[index]))}</p>
+                            <div className="w-full truncate">
+                                <p className="text-sm text-center truncate">{index == 0 ? (records[index] == "" ? shortenaddress(owner) : shortenaddress(records[index])) : (records[index] == "" ? "Not Set" : shortenaddress(records[index]))}</p>
                             </div>
                         </div>
                     )) : null}

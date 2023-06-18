@@ -212,7 +212,7 @@ const AllNamesMap = ({ names }) => {
                     next={fetchNext}
                     hasMore={hasMore}
                     scrollableTarget="scrollableDiv"
-                    scrollThreshold={0.2}
+                    scrollThreshold={0.8}
                 >
                     <div className="">
                         {items.map((name, index) => (

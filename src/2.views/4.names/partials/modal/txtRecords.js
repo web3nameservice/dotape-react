@@ -101,9 +101,9 @@ const TxtRecords = ({ isOpen, setIsOpen, tokenId, records, avatar, website, owne
                 {/* Full-screen container to center the panel */}
                 <div className="fixed inset-0 flex items-center justify-center p-4">
                     {/* The actual dialog panel  */}
-                    <Dialog.Panel className="mx-auto flex justify-center items-center rounded-3xl ">
+                    <Dialog.Panel className="mx-auto flex justify-center items-center rounded-3xl">
                         <div className={darkMode ? "dark" : ""}>
-                            <div className="md:w-[767px] max-h-[90vh] py-10 md:py-4 px-10 md:px-10  bg-white dark:bg-dark800 rounded-3xl text-black dark:text-white border-2 dark:border-dark700 overflow-y-scroll">
+                            <div className="md:max-w-[767px] max-h-[90vh] py-10 md:py-4 px-10 md:px-10  bg-white dark:bg-dark800 rounded-3xl text-black dark:text-white border-2 dark:border-dark700 overflow-y-scroll">
 
 
                                 <div className="mt-4">
@@ -114,7 +114,7 @@ const TxtRecords = ({ isOpen, setIsOpen, tokenId, records, avatar, website, owne
                                 <div className="mt-8">
                                     <div>
                                         <p className="font-bold">Avatar</p>
-                                        <div className="mt-4 flex items-center gap-x-8">
+                                        <div className="mt-4 md:flex items-center gap-x-8">
                                             <div>
                                                 {hash == "" ? (
                                                     <div className="flex items-center justify-center w-40 h-40 rounded-2xl bg-zinc-500" onClick={() => document.getElementById("fileUpload").click()} >
@@ -128,9 +128,9 @@ const TxtRecords = ({ isOpen, setIsOpen, tokenId, records, avatar, website, owne
                                                     <img src={process.env.REACT_APP_API_URL + "/metadata/generateimageavatar=" + name + ".ape&" + hash} className="w-40 h-40 rounded-2xl" onLoad={() => setHashLoading(false)} />
                                                 )}
                                             </div>
-                                            <div>
+                                            <div className="mt-6 md:mt-0 ">
                                                 <p className="text-sm font-semibold">Avatar URL</p>
-                                                <p className="text-sm mt-2 text-zinc-500 dark:text-zinc-400">{hash == "" ? "No avatar set" : hash}</p>
+                                                <p className="text-sm mt-2 text-zinc-500 dark:text-zinc-400 break-all">{hash == "" ? "No avatar set" : hash}</p>
                                                 <div className="mt-4 flex gap-x-6">
                                                     {hash == "" ? (
                                                         <p onClick={() => document.getElementById("fileUpload").click()} className="text-sm font-bold text-main">Upload</p>
@@ -139,7 +139,7 @@ const TxtRecords = ({ isOpen, setIsOpen, tokenId, records, avatar, website, owne
                                                     )}
                                                 </div>
                                                 <div style={{ opacity: 0 }}>
-                                                    <input id="fileUpload" type="file" name="myImage" onChange={(e) => uploadAvatar(e)} />
+                                                    <input id="fileUpload" type="file" name="myImage" className="w-full" onChange={(e) => uploadAvatar(e)} />
                                                 </div>
                                             </div>
                                         </div>

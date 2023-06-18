@@ -10,3 +10,4 @@ export const teamAddress = "0xF27E5e949C7C451576cB79E39854E058f8B3F231";
 
 let admins = ["0xF27E5e949C7C451576cB79E39854E058f8B3F231", "0x924aBbecCcaF0F1c3dEe09495a472f57b1fc1919", "0xAFEA6b17D7ba977497968E49734405bDf003e03E"]
 export let adminsLowerCase = admins.map((admin) => { return admin.toLowerCase() });
+

@@ -21,7 +21,7 @@ const PrimaryName = ({ isOpen, setIsOpen, names }) => {
     const { darkMode } = GlobalParams();
     const [currentName, setCurrentName] = useState("");
     const [selectedName, setSelectedName] = useState(null);
-
+    const [items, setItems] = useState([]);
 
     async function init() {
         let primary = await CloudContracts().apeResolverContract.resolveAddress(address);
@@ -158,11 +158,11 @@ const DropdownItem = ({ items, width, left, selected, setSelected }) => {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
-        <div className="dropdown w-full  rounded-xl bg-white dark:bg-dark800 border-2 border-gray-200 dark:border-dark700 mt-2 border-2 dark:border-dark700" >
+        <div className="dropdown w-full rounded-xl bg-white dark:bg-dark800 border-2 border-gray-200 dark:border-dark700 mt-2 border-2 dark:border-dark700" >
             <div className="flex items-center justify-between gap-x-3 px-4 py-3" onClick={() => setIsOpen(!isOpen)}>
                 <div className='flex items-center gap-x-3 cursor-pointer' >
                     {/* <img src={items[selected].logo} className='w-6 h-6' /> */}
-                    <p className="font-semibold">{items[selected]?.name}</p>
+                    <p className="font-semibold text-white">{items[selected]?.name}</p>
                 </div>
                 <div className="flex items-center gap-x-2">
                     <FontAwesomeIcon icon={['fas', "fa-angle-down"]} className="text-sm text-dark500" />
@@ -172,11 +172,11 @@ const DropdownItem = ({ items, width, left, selected, setSelected }) => {
                 <p className="text-gray-500 px-4 py-2 text-sm font-semibold border-y border-b-gray-200 dark:border-dark700">Select primary name</p>
                 {items.map((item, index) => (
                     <div key={index} onClick={() => { setSelected(index); setIsOpen(!isOpen) }}>
-                        <div className="px-4 py-3 flex items-center justify-between gap-x-3 cursor-pointer border-b border-b-gray-200 dark:border-dark700 hover:bg-gray-100">
+                        <div className="px-4 py-3 flex items-center justify-between gap-x-3 cursor-pointer border-b border-b-gray-200 dark:border-dark700 hover:bg-dark700">
                             <div className="flex items-center gap-x-3">
                                 {/* <img src={item.logo} className='w-6 h-6' /> */}
                                 <div >
-                                    <p className="font-semibold">{item.name}</p>
+                                    <p className="font-semibold text-white">{item.name}</p>
                                 </div>
                             </div>
                             <div className="flex items-center gap-x-3">

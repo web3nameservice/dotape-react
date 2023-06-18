@@ -166,7 +166,7 @@ const Register = ({ isOpen, setIsOpen, name, costEth, duration, primaryName }) =
                     {/* The actual dialog panel  */}
                     <Dialog.Panel className="mx-auto flex justify-center items-center rounded-3xl overflow-y-scroll">
                         <div className={darkMode ? "dark" : ""}>
-                            <div className="md:w-[500px] max-h-[90vh] py-10 md:py-6 px-10 md:px-10 bg-white dark:bg-dark800 rounded-3xl text-black dark:text-white border-2 dark:border-dark700">
+                            <div className="md:w-[500px] max-h-[90vh] py-10 md:py-6 px-5 md:px-10 md:px-10 bg-white dark:bg-dark800 rounded-3xl text-black dark:text-white border-2 dark:border-dark700">
 
 
                                 <div className="mt-4">
@@ -289,7 +289,7 @@ const DropdownItem = ({ name, subheading, items, width, left, selected, setSelec
                 <p className="text-gray-500 px-4 py-2 text-sm font-semibold border-y border-b-gray-200 dark:border-dark700">{subheading}</p>
                 {items.map((item, index) => (
                     <div key={index} onClick={() => { setSelected(index); setIsOpen(!isOpen) }}>
-                        <div className="px-4 py-3 flex items-center justify-between gap-x-3 cursor-pointer border-b border-b-gray-200 dark:border-dark700 hover:bg-gray-100">
+                        <div className="px-4 py-3 flex items-center justify-between gap-x-3 cursor-pointer border-b border-b-gray-200 dark:border-dark700 hover:bg-dark700">
                             <div className="flex items-center gap-x-3">
                                 <img src={item.logo} className='w-6 h-6' />
                                 <div >

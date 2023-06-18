@@ -21,7 +21,7 @@ const MyNamesLower = ({ names, setNames, userAddress }) => {
     const [namesLoading, setNamesLoading] = useState(true);
     async function init(userAddress) {
         console.time("get all tokens");
-        let result = await CloudContracts().apeResolverContract.getAllTokenIdsOfOwner(userAddress);
+        let result = await CloudContracts().apeResolverContract.getAllTokensOfOwner(userAddress);
         console.timeEnd("get all tokens");
         console.log(result);
         setNames(result);
@@ -137,7 +137,7 @@ const NamesMap = ({ name }) => {
     const [alink, setAlink] = useState(null);
 
     async function init() {
-        let metadata = await (await fetch(process.env.REACT_APP_API_URL + "/metadata/db?tokenid=" + name)).json();
+        let metadata = await (await fetch(process.env.REACT_APP_API_URL + "/metadata/db?tokenid=" + name.tokenId)).json();
         setMetadata(metadata);
         setAlink("/name/" + metadata?.name?.substring(0, metadata?.name?.indexOf(".")));
     }

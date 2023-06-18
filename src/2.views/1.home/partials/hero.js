@@ -33,6 +33,9 @@ class Hero extends React.Component {
         return (
             <div className="" >
                 <div className="w-full flex flex-col overflow-x-hidden" style={{ backgroundImage: `url(${BgBlank})`, backgroundPosition: "center center", backgroundSize: "cover", height: window.innerHeight }}>
+                    <div className="block md:hidden">
+                        <Header />
+                    </div>
                     <div className="grow flex items-center justify-center w-full h-full" >
 
                         <div className="flex flex-col justify-center items-center mt-0 ">
