@@ -6,6 +6,7 @@ import { callW3Api, getDomain } from "../../../1.resources/2.js/0.global/3.api/c
 import { shortenaddress } from "../../../1.resources/2.js/0.global/0.smallfunctions/global";
 import { timeToString } from "../../../1.resources/2.js/0.global/0.smallfunctions/time";
 import { VscVerifiedFilled } from "react-icons/vsc";
+import { zeroAddress } from "../../../1.resources/2.js/0.global/0.smallfunctions/prepends";
 
 const Activity = ({ tokenId }) => {
     let { address } = useAccount();
@@ -47,10 +48,10 @@ const Activity = ({ tokenId }) => {
             <p className="text-sm mt-2 text-zinc-500 dark:text-dark500">{tokenId == 0 ? "Latest activity will appear once the name is registered" : "Latest activity on the Blockchain"}</p>
             {activity.length > 0 ? (
                 <div className="overflow-x-scroll">
-                    <div className="min-w-[700px] md:w-full">
+                    <div className="min-w-[800px] md:w-full">
                         <div className="pl-4 py-4 flex item-center justify-between border-b-2 border-zinc-200 dark:border-dark700">
                             {titles.map((item, index) => (
-                                <div key={index} className={css.div} >
+                                <div key={index} className={index == 0 ? "w-[100px]" : css.div} >
                                     <p className={css.header}>{item}</p>
                                 </div>
                             ))}
@@ -58,7 +59,7 @@ const Activity = ({ tokenId }) => {
 
                         {activity.map((item, index) => (
                             <div className="pl-4 py-4 flex item-center justify-between border-b-2 border-zinc-200 dark:border-dark700" key={index}>
-                                <div className={css.div}>
+                                <div className={"flex items-center gap-x-2 w-[100px]"}>
                                     {item.from_address == "0x0000000000000000000000000000000000000000" ? (
                                         <FontAwesomeIcon icon={['fas', 'fa-bolt-lightning']} className="text-zinc-500 dark:text-dark500" />
                                     ) : (
@@ -96,11 +97,13 @@ const GetDomain = ({ address }) => {
     const [profile, setProfile] = useState(null);
 
     useState(() => {
-        getDomain(address).then((result) => {
-            if (result != "null") {
-                setDomain(result);
-            }
-        })
+        if (address != null && address != "" && address != "null" && address != zeroAddress) {
+            getDomain(address).then((result) => {
+                if (result != "null") {
+                    setDomain(result);
+                }
+            })
+        }
     }, [address])
 
     async function getProfile(address) {
@@ -110,7 +113,7 @@ const GetDomain = ({ address }) => {
     }
 
     useEffect(() => {
-        if (address != null && address != "" && address != "null") {
+        if (address != null && address != "" && address != "null" && address != zeroAddress) {
             getProfile(address);
         }
     }, [address])
@@ -118,7 +121,7 @@ const GetDomain = ({ address }) => {
     return (
         <div className="text-main flex items-center gap-x-2">
             <a href={"/address/" + address} className="text-main truncate">{domain}</a>
-            {profile?.verified != null ? (profile?.verified != "null" ? (
+            {profile?.verified != null && address != zeroAddress ? (profile?.verified != "null" ? (
                 <VscVerifiedFilled className={`${profile?.verified == "1" ? "text-main" : "text-main"} text-md`} />
             ) : (null)) : (null)}
         </div>

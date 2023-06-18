@@ -11,7 +11,7 @@ import { collectionAddress } from "../../../1.resources/2.js/0.global/0.smallfun
 import { GlobalParams } from "../../0.wrapper/darkMode";
 import Logo from "../../../1.resources/3.files/logo/logobg.webp";
 
-const MarketplaceUpper = ({ names, owners }) => {
+const MarketplaceUpper = ({ names, owners, tabSelected, setTabSelected }) => {
     const { darkMode } = GlobalParams();
     const [clipboardText, setClipboardText] = useState("");
 
@@ -93,9 +93,15 @@ const MarketplaceUpper = ({ names, owners }) => {
 
                 </div>
 
-                <div className="flex items-center gap-x-2 border-b-2 border-black dark:border-white w-fit mt-8 pb-2">
-                    <FontAwesomeIcon icon={['fas', 'box']} className="text-black dark:text-white text-md" />
-                    <p className="text-md font-bold text-black dark:text-white">Items</p>
+                <div className="flex items-center gap-x-12 w-fit mt-8">
+                    <div className={`flex items-center gap-x-2  w-fit pb-2 ${tabSelected == "items" ? "border-b-2 border-white" : "border-b-2 border-transparent"}`} onClick={() => setTabSelected("items")}>
+                        <FontAwesomeIcon icon={['fas', 'box']} className={` text-sm ${tabSelected == "items" ? "text-white" : "text-dark500"}`} />
+                        <p className={`text-md font-bold ${tabSelected == "items" ? "text-white" : "text-dark500"}`}>Items</p>
+                    </div>
+                    <div className={`flex items-center gap-x-2  w-fit pb-2 ${tabSelected == "activity" ? "border-b-2 border-white" : "border-b-2 border-transparent"}`} onClick={() => setTabSelected("activity")}>
+                        <FontAwesomeIcon icon={['fas', 'chart-line']} className={` text-sm ${tabSelected == "activity" ? "text-white" : "text-dark500"}`} />
+                        <p className={`text-md font-bold ${tabSelected == "activity" ? "text-white" : "text-dark500"}`}>Activity</p>
+                    </div>
                 </div>
 
             </div>

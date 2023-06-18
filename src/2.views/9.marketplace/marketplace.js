@@ -34,6 +34,7 @@ const Main = ({ }) => {
     let { address } = useAccount();
     const [owners, setOwners] = useState(0);
     const [supply, setSupply] = useState(0);
+    const [tabSelected, setTabSelected] = useState("items");
 
     async function init() {
         console.time("getNames");
@@ -57,8 +58,8 @@ const Main = ({ }) => {
 
     return (
         <div>
-            <MarketplaceUpper names={names} owners={owners} />
-            <MarketplaceLower names={names} setNames={setNames} supply={supply} />
+            <MarketplaceUpper names={names} owners={owners} tabSelected={tabSelected} setTabSelected={setTabSelected} />
+            <MarketplaceLower names={names} setNames={setNames} supply={supply} tabSelected={tabSelected} />
         </div>
     )
 }

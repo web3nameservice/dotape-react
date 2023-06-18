@@ -3,87 +3,59 @@ import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { shortenaddress } from "../../../1.resources/2.js/0.global/0.smallfunctions/global";
+import OpenseaLogo from "../../../1.resources/3.files/images/opensea_gray.png";
+import EtherscanLogo from "../../../1.resources/3.files/images/etherscan_gray.png";
+import OpenseaDarkLogo from "../../../1.resources/3.files/images/opensea_darkgray.png";
+import EtherscanDarkLogo from "../../../1.resources/3.files/images/etherscan_darkgray.png";
+import { collectionAddress, zeroAddress } from "../../../1.resources/2.js/0.global/0.smallfunctions/prepends";
 import { GlobalParams } from "../../0.wrapper/darkMode";
 import Logo from "../../../1.resources/3.files/logo/logobg.png";
 import UpperTabs from "../../7.mynames/partials/upperTabs";
 import InfiniteScroll from 'react-infinite-scroll-component';
 import CloudContracts from "../../../1.resources/2.js/0.global/2.contracts/cloudContracts";
-import { BlockiesGif } from "../../0.global/wallet/connectDialog";
-import { useAccount, useSigner } from "wagmi";
-import { NamesSkeleton } from "../../9.marketplace/partials/names";
+import { timeToString } from "../../../1.resources/2.js/0.global/0.smallfunctions/time";
+import { callW3Api, getDomain } from "../../../1.resources/2.js/0.global/3.api/callW3Api";
+import { VscVerifiedFilled } from "react-icons/vsc";
 
-const MyNamesLower = ({ names, setNames, userAddress }) => {
-    const { address } = useAccount();
-    const { darkMode } = GlobalParams();
-    const [namesLoading, setNamesLoading] = useState(true);
-    async function init(userAddress) {
-        console.time("get all tokens");
-        let result = await CloudContracts().apeResolverContract.getAllTokensOfOwner(userAddress);
-        console.timeEnd("get all tokens");
-        console.log(result);
-        setNames(result);
-        setNamesLoading(false);
+
+const NamesDiv = ({ names, setNames, supply }) => {
+
+    async function getNames(supply) {
+        let totalSupply = supply;
+        //let totalSupply = await CloudContracts().apeErc721Contract.totalSupply();
+        let tokenIds = []
+        for (let i = totalSupply; i >= 1; i--) {
+            if (i == 1) {
+                break;
+            }
+            tokenIds.push(i);
+        }
+        console.log(tokenIds);
+        setNames(tokenIds);
     }
 
     useEffect(() => {
-        console.log(userAddress);
-        if (userAddress != "" && userAddress != "null" && userAddress != null) {
-            init(userAddress);
+        if (supply > 0) {
+            getNames(supply);
         }
-    }, [userAddress])
+    }, [supply])
 
     return (
-        <div id="about" className="w-full flex justify-center items-start pb-10 pt-4 bg-white dark:bg-zinc-900 min-h-screen border-t-2 border-zinc-200 dark:border-zinc-800">
-
-            <div className="w-full lg:max-w-[1280px] px-5 md:px-10 lg:px-20 2xl:px-10 lg:rounded-xl ">
-
-                <div className="mt-0 ">
-
-                    {namesLoading ? (
-                        <div>
-                            <UpperTabs />
-                            <NamesSkeleton />
-                        </div>
-                    ) : (
-                        names.length > 0 ? (
-                            <div>
-                                <UpperTabs />
-                                <Names userAddress={userAddress} names={names} setNames={setNames} />
-                            </div>
-                        ) : (
-                            <div className="flex justify-start items-start w-full h-full">
-                                <div className="flex flex-col justify-center items-center bg-gray-100 dark:bg-dark800 w-full py-16 px-16 md:px-20 mt-6 rounded-2xl" style={{}}>
-                                    <div className="block md:flex items-center gap-x-10">
-                                        <BlockiesGif />
-                                        <div>
-                                            <p className="text-2xl font-bold mt-8 md:mt-0">Oops, no names found!</p>
-                                            <p className="text-md text-dark500 mt-2">{address?.toLowerCase() == userAddress?.toLowerCase() ? "Try registering a name for your collection" : "User has no names in their collection"}</p>
-                                            {address?.toLowerCase() == userAddress?.toLowerCase() ? (
-                                                <div className="text-main font-semibold flex items-center gap-x-2 mt-6 md:mt-3" onClick={() => window.location = "/search"}>
-                                                    <p>Search</p>
-                                                    <FontAwesomeIcon icon={['fas', 'arrow-right']} className="text-main" />
-                                                </div>
-                                            ) : (null)}
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        )
-                    )
-                    }
-                </div>
-            </div>
-
+        <div>
+            <UpperTabs />
+            {names.length > 0 ? (
+                <Names names={names} setNames={setNames} />
+            ) : (
+                <NamesSkeleton />
+            )}
         </div>
-    );
-
+    )
 }
 
-export default MyNamesLower;
+export default NamesDiv;
 
 
-const Names = ({ userAddress, names, setNames }) => {
+const Names = ({ names, setNames }) => {
     const [namesLeft, setNamesLeft] = useState(names);
     const [items, setItems] = useState([]);
     const [hasMore, setHasMore] = useState(true);
@@ -113,21 +85,18 @@ const Names = ({ userAddress, names, setNames }) => {
                     hasMore={hasMore}
                     scrollableTarget="scrollableDiv"
                     loader={<NamesSkeleton />}
-                    scrollThreshold={0.2}
+                    scrollThreshold={0.7}
                 >
                     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 md:gap-10 mt-8 w-full ">
-                        {names.map((name, index) => (
+                        {items.map((name, index) => (
                             <div key={index} className="w-full " >
                                 <NamesMap name={name} />
                             </div>
                         ))}
                     </div>
                 </InfiniteScroll>
-            ) : (
-                null
-            )
-            }
-        </div >
+            ) : (null)}
+        </div>
     )
 }
 
@@ -137,14 +106,13 @@ const NamesMap = ({ name }) => {
     const [alink, setAlink] = useState(null);
 
     async function init() {
-        let metadata = await (await fetch(process.env.REACT_APP_API_URL + "/metadata/db?tokenid=" + name.tokenId)).json();
+        let metadata = await (await fetch(process.env.REACT_APP_API_URL + "/metadata/db?tokenid=" + name)).json();
         setMetadata(metadata);
         setAlink("/name/" + metadata?.name?.substring(0, metadata?.name?.indexOf(".")));
     }
     useEffect(() => {
         init();
     }, [])
-
     return (
         <a href={alink} className="w-full">
             <div className="bg-white dark:bg-dark800 border-2 dark:border border-gray-200 dark:border-dark700 rounded-2xl w-full" >
@@ -166,5 +134,35 @@ const NamesMap = ({ name }) => {
                 </div>
             </div>
         </a>
+    )
+}
+
+export const NamesSkeleton = ({ }) => {
+    const [tokens, setTokens] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]);
+
+    return (
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 md:gap-10 mt-8 w-full ">
+            {tokens.map((name, index) => (
+                <div key={index} className="w-full " >
+                    <div className="bg-white dark:bg-dark800 border-2 dark:border border-gray-200 dark:border-dark700 rounded-2xl w-full" >
+                        <div className="flex justify-center items-center px-2 pt-2 w-full">
+                            <div className="animate-pulse rounded-xl w-full aspect-square bg-dark700" style={{}}></div>
+                        </div>
+                        <div className="w-full mt-4 px-3 pb-3">
+                            <div className="flex justify-between items-center">
+                                <p className="text-md text-main text-gray-500 dark:text-dark500">Name</p>
+                                <p className="text-md font-semibold ">{"-"}</p>
+                            </div>
+                            <div className="flex justify-between items-center mt-2">
+                                <p className="text-md text-main text-gray-500 dark:text-dark500">Expiration</p>
+                                <p className="text-md font-semibold text-gray-500 dark:text-dark500">-</p>
+                            </div>
+                        </div>
+                        <div className="pb-10 border-t-2 dark:border-t border-gray-200  dark:border-dark700">
+                        </div>
+                    </div>
+                </div>
+            ))}
+        </div>
     )
 }

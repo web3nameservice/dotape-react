@@ -20,7 +20,7 @@ export async function callW3Api(urlpath, body) {
         data: body
     });
 
-    console.log(response.data);
+    // console.log(response.data);
     return response.data.value;
 }
 
