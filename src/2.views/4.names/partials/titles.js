@@ -5,17 +5,18 @@ import { useAccount } from "wagmi";
 import { shortenaddress } from "../../../1.resources/2.js/0.global/0.smallfunctions/global";
 import makeBlockie from "ethereum-blockies-base64";
 import { collectionAddress, zeroAddress } from "../../../1.resources/2.js/0.global/0.smallfunctions/prepends";
-import { getDomain } from "../../../1.resources/2.js/0.global/3.api/callW3Api";
+import { callW3Api, getDomain } from "../../../1.resources/2.js/0.global/3.api/callW3Api";
 import Snackbar from "../../0.global/snackbar/snackbar";
 import { Tooltip } from "@material-tailwind/react";
 import Transfer from "./modal/transfer";
+import { VscVerifiedFilled } from "react-icons/vsc";
 
 const Titles = ({ name, owner, tokenId, isLoading }) => {
     let { address } = useAccount();
     const [domain, setDomain] = useState(shortenaddress(owner != "" ? owner : ""));
     const [metadataSnackbar, setMetadataSnackbar] = useState(false);
     const [transferModal, setTransferModal] = useState(false);
-
+    const [profile, setProfile] = useState(null);
     useEffect(() => {
         console.log("owner", owner);
         setDomain(shortenaddress(owner != "" ? owner : ""));
@@ -31,6 +32,18 @@ const Titles = ({ name, owner, tokenId, isLoading }) => {
         fetch(process.env.REACT_APP_API_URL + "/metadata/db?tokenid=" + tokenId + "&refresh=true");
     }
 
+    async function getProfile(address) {
+        let result = await callW3Api("/profile/get", { address: address });
+        console.log(result);
+        setProfile(result);
+    }
+
+    useEffect(() => {
+        if (owner != "" && owner != null && owner != "null") {
+            getProfile(owner);
+        }
+    }, [owner])
+
     return (
         <div>
             <div className="flex items-start justify-between">
@@ -43,8 +56,12 @@ const Titles = ({ name, owner, tokenId, isLoading }) => {
                                 <p className="text-sm">Owner: </p>
                                 <a href={"/address/" + owner} className="flex items-center gap-x-2 bg-dark800 px-4 py-2 rounded-full border border-dark700">
                                     <img src={makeBlockie(owner != "" ? owner : zeroAddress)} className="w-5 h-5 rounded-full" />
-                                    <p className="text-main text-sm">{domain}</p>
-                                    {/* <FontAwesomeIcon icon={['fas', 'chevron-right']} className="text-main text-sm" /> */}
+                                    <div className="flex items-center gap-x-1">
+                                        <p className="text-main text-sm font-semibold">{domain}</p>
+                                        {profile?.verified != null ? (profile?.verified != "null" ? (
+                                            <VscVerifiedFilled className={`${profile?.verified == "1" ? "text-amber-400" : "text-main"} text-md`} />
+                                        ) : (null)) : (null)}
+                                    </div>
                                 </a>
                             </div>
                         ) : (null)

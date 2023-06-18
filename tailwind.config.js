@@ -18,7 +18,8 @@ module.exports = {
         dark600: "rgb(82 82 91)",
         dark500: "rgb(113 113 122)",
         dark400: "rgb(161 161 170)",
-        blueInfoBg: "#1E2042"
+        blueInfoBg: "#1E2042",
+        blueBg: "#1E2042",
       }
     },
   },

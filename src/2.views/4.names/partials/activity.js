@@ -2,9 +2,10 @@ import React, { useState, useContext, useEffect } from "react";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useAccount } from "wagmi";
-import { getDomain } from "../../../1.resources/2.js/0.global/3.api/callW3Api";
+import { callW3Api, getDomain } from "../../../1.resources/2.js/0.global/3.api/callW3Api";
 import { shortenaddress } from "../../../1.resources/2.js/0.global/0.smallfunctions/global";
 import { timeToString } from "../../../1.resources/2.js/0.global/0.smallfunctions/time";
+import { VscVerifiedFilled } from "react-icons/vsc";
 
 const Activity = ({ tokenId }) => {
     let { address } = useAccount();
@@ -92,6 +93,7 @@ export default Activity;
 
 const GetDomain = ({ address }) => {
     const [domain, setDomain] = useState(shortenaddress(address));
+    const [profile, setProfile] = useState(null);
 
     useState(() => {
         getDomain(address).then((result) => {
@@ -101,9 +103,24 @@ const GetDomain = ({ address }) => {
         })
     }, [address])
 
+    async function getProfile(address) {
+        let result = await callW3Api("/profile/get", { address: address });
+        console.log(result);
+        setProfile(result);
+    }
+
+    useEffect(() => {
+        if (address != null && address != "" && address != "null") {
+            getProfile(address);
+        }
+    }, [address])
+
     return (
-        <div className="truncate text-main">
+        <div className="text-main flex items-center gap-x-2">
             <a href={"/address/" + address} className="text-main truncate">{domain}</a>
+            {profile?.verified != null ? (profile?.verified != "null" ? (
+                <VscVerifiedFilled className={`${profile?.verified == "1" ? "text-amber-400" : "text-main"} text-md`} />
+            ) : (null)) : (null)}
         </div>
     )
 }
