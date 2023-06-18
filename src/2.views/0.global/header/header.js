@@ -25,8 +25,8 @@ const Header = ({ }) => {
                         </div>
                     </div>
 
-                    {window.location.pathname != "/search" ? (
-                        <div className="w-full hidden md:block">
+                    {window.location.pathname != "/search" && window.location.pathname != "/" ? (
+                        <div className="w-full block">
                             <HeaderSearch />
                         </div>
                     ) : (<div />)}
