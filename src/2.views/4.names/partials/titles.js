@@ -59,7 +59,7 @@ const Titles = ({ name, owner, tokenId, isLoading }) => {
                                     <div className="flex items-center gap-x-1">
                                         <p className="text-main text-sm font-semibold">{domain}</p>
                                         {profile?.verified != null ? (profile?.verified != "null" ? (
-                                            <VscVerifiedFilled className={`${profile?.verified == "1" ? "text-amber-400" : "text-main"} text-md`} />
+                                            <VscVerifiedFilled className={`${profile?.verified == "1" ? "text-main" : "text-main"} text-md`} />
                                         ) : (null)) : (null)}
                                     </div>
                                 </a>

@@ -119,7 +119,7 @@ const GetDomain = ({ address }) => {
         <div className="text-main flex items-center gap-x-2">
             <a href={"/address/" + address} className="text-main truncate">{domain}</a>
             {profile?.verified != null ? (profile?.verified != "null" ? (
-                <VscVerifiedFilled className={`${profile?.verified == "1" ? "text-amber-400" : "text-main"} text-md`} />
+                <VscVerifiedFilled className={`${profile?.verified == "1" ? "text-main" : "text-main"} text-md`} />
             ) : (null)) : (null)}
         </div>
     )

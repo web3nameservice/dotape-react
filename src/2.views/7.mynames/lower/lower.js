@@ -3,11 +3,6 @@ import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { shortenaddress } from "../../../1.resources/2.js/0.global/0.smallfunctions/global";
-import OpenseaLogo from "../../../1.resources/3.files/images/opensea_gray.png";
-import EtherscanLogo from "../../../1.resources/3.files/images/etherscan_gray.png";
-import OpenseaDarkLogo from "../../../1.resources/3.files/images/opensea_darkgray.png";
-import EtherscanDarkLogo from "../../../1.resources/3.files/images/etherscan_darkgray.png";
-import { collectionAddress } from "../../../1.resources/2.js/0.global/0.smallfunctions/prepends";
 import { GlobalParams } from "../../0.wrapper/darkMode";
 import Logo from "../../../1.resources/3.files/logo/logobg.png";
 import UpperTabs from "../../7.mynames/partials/upperTabs";
@@ -15,8 +10,10 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import { NamesSkeleton } from "../../9.marketplace/lower/lower";
 import CloudContracts from "../../../1.resources/2.js/0.global/2.contracts/cloudContracts";
 import { BlockiesGif } from "../../0.global/wallet/connectDialog";
+import { useAccount, useSigner } from "wagmi";
 
 const MyNamesLower = ({ names, setNames, userAddress }) => {
+    const { address } = useAccount();
     const { darkMode } = GlobalParams();
     const [namesLoading, setNamesLoading] = useState(true);
     async function init(userAddress) {
@@ -60,11 +57,14 @@ const MyNamesLower = ({ names, setNames, userAddress }) => {
                                         <BlockiesGif />
                                         <div>
                                             <p className="text-2xl font-bold mt-8 md:mt-0">Oops, no names found!</p>
-                                            <p className="text-md text-dark500 mt-2">Try registering a name for your collection</p>
-                                            <div className="text-main font-semibold flex items-center gap-x-2 mt-6 md:mt-3" onClick={() => window.location = "/search"}>
-                                                <p>Search</p>
-                                                <FontAwesomeIcon icon={['fas', 'arrow-right']} className="text-main" />
-                                            </div>
+                                            <p className="text-md text-dark500 mt-2">{address?.toLowerCase() == userAddress?.toLowerCase() ? "Try registering a name for your collection" : "User has no names in their collection"}</p>
+                                            {address?.toLowerCase() == userAddress?.toLowerCase() ? (
+                                                <div className="text-main font-semibold flex items-center gap-x-2 mt-6 md:mt-3" onClick={() => window.location = "/search"}>
+                                                    <p>Search</p>
+                                                    <FontAwesomeIcon icon={['fas', 'arrow-right']} className="text-main" />
+                                                </div>
+                                            ) : (null)}
+
                                         </div>
                                     </div>
                                 </div>

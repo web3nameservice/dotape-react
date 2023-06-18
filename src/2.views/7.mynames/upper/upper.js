@@ -77,7 +77,7 @@ const MyNamesUpper = ({ names, userAddress, domain }) => {
                                         <p className="text-3xl font-bold">{shortenaddress(userAddress != null ? userAddress : "")}</p>
                                     )}
                                     {verified != null ? (
-                                        <VscVerifiedFilled className={`${verified != null ? verified == 1 ? "text-amber-400" : "text-main" : ""} text-2xl`} />
+                                        <VscVerifiedFilled className={`${verified != null ? verified == 1 ? "text-main" : "text-main" : ""} text-2xl`} />
                                     ) : (null)}
                                 </div>
                                 <div className="flex items-center gap-x-2 rounded-full px-3 py-2 bg-gray-100 dark:bg-dark800 w-fit mt-2 cursor-pointer">
