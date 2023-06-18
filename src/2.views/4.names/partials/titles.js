@@ -7,7 +7,7 @@ import makeBlockie from "ethereum-blockies-base64";
 import { collectionAddress, zeroAddress } from "../../../1.resources/2.js/0.global/0.smallfunctions/prepends";
 import { callW3Api, getDomain } from "../../../1.resources/2.js/0.global/3.api/callW3Api";
 import Snackbar from "../../0.global/snackbar/snackbar";
-import { Tooltip } from "@material-tailwind/react";
+// import { Tooltip } from "@material-tailwind/react";
 import Transfer from "./modal/transfer";
 import { VscVerifiedFilled } from "react-icons/vsc";
 
@@ -73,11 +73,11 @@ const Titles = ({ name, owner, tokenId, isLoading }) => {
                             <FontAwesomeIcon icon={['fas', 'fa-paper-plane']} className="text-neutral-400 text-md" />
                         </div>
                     </Tooltip> */}
-                    <Tooltip content={"Refresh metadata"} placement="top" className="bg-dark700 py-2 truncate px-4 rounded-2xl font-semibold" >
-                        <div className="w-10 h-10 bg-dark700 rounded-2xl flex justify-center items-center border-0 border-dark700" onClick={() => refreshMetadata()}>
-                            <FontAwesomeIcon icon={['fas', 'fa-rotate']} className="text-neutral-400 text-md" />
-                        </div>
-                    </Tooltip>
+                    {/* <Tooltip content={"Refresh metadata"} placement="top" className="bg-dark700 py-2 truncate px-4 rounded-2xl font-semibold" > */}
+                    <div className="w-10 h-10 bg-dark700 rounded-2xl flex justify-center items-center border-0 border-dark700" onClick={() => refreshMetadata()}>
+                        <FontAwesomeIcon icon={['fas', 'fa-rotate']} className="text-neutral-400 text-md" />
+                    </div>
+                    {/* </Tooltip> */}
 
                 </div>
             </div>
