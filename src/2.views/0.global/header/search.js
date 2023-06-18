@@ -50,19 +50,20 @@ const HeaderSearchFunc = ({ }) => {
 
     async function searchAccount(value) {
         setSearchAddresses([]);
-
-        if (value.substring(0, 2) == "0x") {
-            let result = isValidChecksum(value);
-            if (result != "null") {
-                setSearchAddresses([{ resolver: "0x", address: result }]);
-                setSearchActive(true);
-            }
-        } else {
-            let result = await (await fetch(process.env.REACT_APP_API_URL + "/resolve/name?name=" + value + ".ape")).json();
-            console.log(result);
-            if (result.value.length > 0) {
-                setSearchAddresses(result.value);
-                setSearchActive(true);
+        if (value.length > 2) {
+            if (value.substring(0, 2) == "0x") {
+                let result = isValidChecksum(value);
+                if (result != "null") {
+                    setSearchAddresses([{ resolver: "0x", address: result }]);
+                    setSearchActive(true);
+                }
+            } else {
+                let result = await (await fetch(process.env.REACT_APP_API_URL + "/resolve/name?name=" + value + ".ape")).json();
+                console.log(result);
+                if (result.value.length > 0) {
+                    setSearchAddresses(result.value);
+                    setSearchActive(true);
+                }
             }
         }
     }
