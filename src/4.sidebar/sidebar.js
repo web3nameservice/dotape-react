@@ -22,6 +22,7 @@ const Sidebar = ({ sidebarOpened, setSidebarOpened }) => {
     let links2 = [
         { name: "My names", link: "/mynames", icon: ['fas', 'fa-user'] },
         { name: "Cart", link: "/cart", icon: ['fas', 'fa-shopping-bag'] },
+
     ]
 
     let links3 = [
@@ -31,6 +32,10 @@ const Sidebar = ({ sidebarOpened, setSidebarOpened }) => {
 
     let links4 = [
         { name: "Reserve", link: "/admin/reserve", icon: ['fas', 'fa-lock'] },
+    ]
+
+    let links5 = [
+        { name: "Docs", link: "https://docs.dotape.io/", icon: ['fas', 'fa-book'] },
     ]
 
 
@@ -65,6 +70,13 @@ const Sidebar = ({ sidebarOpened, setSidebarOpened }) => {
                             <p className="text-xs font-semibold text-neutral-400">ACCOUNT</p>
                         ) : (null)}
                         <LinksMapping links={links2} css={css} sidebarOpened={sidebarOpened} />
+                    </div>
+
+                    <div className="mt-8">
+                        {sidebarOpened ? (
+                            <p className="text-xs font-semibold text-neutral-400">ABOUT</p>
+                        ) : (null)}
+                        <LinksMapping links={links5} css={css} sidebarOpened={sidebarOpened} />
                     </div>
 
                     {adminsLowerCase.includes(address?.toLowerCase()) ? (

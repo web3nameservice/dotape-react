@@ -8,6 +8,7 @@ import Apecoin from "../../1.resources/3.files/images/apecoin2.webp";
 import Footer from "../0.global/footer/footer";
 import Ticker from "react-ticker";
 import Team from "./partials/team";
+import Faq from "./partials/faq";
 
 
 const Home = ({ walletConnected, setWalletConnected }) => {
@@ -76,7 +77,7 @@ const Home = ({ walletConnected, setWalletConnected }) => {
                                     </div>
 
                                     <div className="px-0">
-                                        <div className="my-20 md:my-40 bg-dark900 py-20 px-5 md:px-20 rounded-2xl">
+                                        <div className="my-20 md:my-40 bg-dark900 py-20 px-5 md:px-20">
                                             <p className="text-6xl text-center font-bold uppercase">Pricing for all</p>
                                             <div className="grid grid-cols-2 gap-x-5 md:gap-x-20 gap-y-10 md:gap-y-20 mt-20">
                                                 <div className="bg-dark800 rounded-xl px-5 lg:px-20 py-16 lg:py-16 flex flex-col justify-center">
@@ -105,7 +106,9 @@ const Home = ({ walletConnected, setWalletConnected }) => {
 
                                     </div>
                                 </div>
-
+                                <div className="" >
+                                    <Faq />
+                                </div>
                                 <div className="mt-0 bg-black text-white px-5 md:px-0 pt-10 pb-20">
                                     <Team />
                                 </div>
