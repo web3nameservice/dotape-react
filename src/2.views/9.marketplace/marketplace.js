@@ -39,17 +39,17 @@ const Main = ({ }) => {
     async function init() {
         console.time("getNames");
         let url = "https://api.opensea.io/api/v1/collection/dot-ape-domains/stats"
-        let stats = (await (await fetch("https://api.opensea.io/api/v1/collection/dot-ape-domains/stats", {
-            headers: {
-                Accept: "application/json",
-                "X-Api-Key": "a4fe8c6e08874716ab2db84cab28fb44"
-            }
-        })).json()).stats;
-        console.timeEnd("getNames");
-        console.log(stats);
-        let supplyResult = parseFloat(stats.total_supply);
-        setSupply(supplyResult);
-        setOwners(stats.num_owners.toLocaleString('en-US'));
+        // let stats = (await (await fetch("https://api.opensea.io/api/v1/collection/dot-ape-domains/stats", {
+        //     headers: {
+        //         Accept: "application/json",
+        //         "X-Api-Key": "a4fe8c6e08874716ab2db84cab28fb44"
+        //     }
+        // })).json()).stats;
+        // console.timeEnd("getNames");
+        // console.log(stats);
+        // let supplyResult = parseFloat(stats.total_supply);
+        // setSupply(supplyResult);
+        // setOwners(stats.num_owners.toLocaleString('en-US'));
     }
 
     useEffect(() => {

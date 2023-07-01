@@ -21,8 +21,9 @@ import { VscVerifiedFilled } from "react-icons/vsc";
 const NamesDiv = ({ names, setNames, supply }) => {
 
     async function getNames(supply) {
-        let totalSupply = supply;
-        //let totalSupply = await CloudContracts().apeErc721Contract.totalSupply();
+        //let totalSupply = supply;
+        let totalSupply = await CloudContracts().apeErc721Contract.totalSupply();
+        console.log(totalSupply)
         let tokenIds = []
         for (let i = totalSupply; i >= 1; i--) {
             if (i == 1) {
@@ -34,11 +35,15 @@ const NamesDiv = ({ names, setNames, supply }) => {
         setNames(tokenIds);
     }
 
+    // useEffect(() => {
+    //     if (supply > 0) {
+    //         getNames(supply);
+    //     }
+    // }, [supply])
+
     useEffect(() => {
-        if (supply > 0) {
             getNames(supply);
-        }
-    }, [supply])
+    }, [])
 
     return (
         <div>
