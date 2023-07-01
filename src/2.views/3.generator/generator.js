@@ -3,14 +3,14 @@ import React, { useState, useContext, useEffect } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useAccount } from "wagmi";
 import { ConnectWallet } from "../0.global/wallet/connectWallet";
-import AdamApe from "../../1.resources/3.files/images/nft/adam.webp";
+import AdamApe from "../../1.resources/3.files/images/nft/pran.webp";
 import EmptyImg from "../../1.resources/3.files/images/empty_nft.png";
 import { LoginParams } from "../0.wrapper/login";
 
 const Generator = ({ walletConnected, setWalletConnected }) => {
     let { address } = useAccount();
-    const defaultTokenId = 8562;
-    const defaultName = "adam";
+    const defaultTokenId = 1547;
+    const defaultName = "pran";
     const [tokenId, setTokenId] = useState(defaultTokenId);
     const [name, setName] = useState(defaultName);
     const [image, setImage] = useState(AdamApe);
@@ -54,13 +54,14 @@ const Generator = ({ walletConnected, setWalletConnected }) => {
 
     async function generate() {
         if (name != "" && tokenId != "" && name.length >= 3) {
-            let signature = localStorage.getItem("accountSignature");
+            let signature = localStorage.getItem("accountSignature"+address);
+            console.log(address, signature)
             if (signature == null || signature == "" || signature == undefined || signature == "null") {
                 setLoginModalOpen(true);
             } else {
                 setImgLoading(true);
                 setImgError(false);
-                let signature = localStorage.getItem("accountSignature");
+                let signature = localStorage.getItem("accountSignature"+address);
                 let link;
                 if (versionSelected == 1) {
                     link = process.env.REACT_APP_API_URL + `/generator/bg-name-color?collection=${collection}&tokenid=${tokenId}&name=${name}&signature=${signature}`
